@@ -36,7 +36,14 @@
       <artifactId>junit-jupiter-engine</artifactId>
       <version>${junit.version}</version>
       <scope>test</scope>
-    </dependency>  </dependencies>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.13.2</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
 
   <build>
     <plugins>
@@ -58,7 +65,7 @@
             <!-- Default configuration for running with: mvn clean javafx:run -->
             <id>default-cli</id>
             <configuration>
-              <mainClass>com.astrallinear.astrallinear/com.astrallinear.astrallinear.HelloApplication</mainClass>
+              <mainClass>com.astrallinear.astrallinear/com.astrallinear.astrallinear.Main</mainClass>
               <launcher>app</launcher>
               <jlinkZipName>app</jlinkZipName>
               <jlinkImageName>app</jlinkImageName>
