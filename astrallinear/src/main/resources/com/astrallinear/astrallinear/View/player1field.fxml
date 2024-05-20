@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.astrallinear.astrallinear.Player1FieldController">
+   <children>
+      <Label layoutX="46.0" layoutY="63.0" text="Pemain 1:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="898.0" layoutY="63.0" text="Pemain 2:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="Player1Gold" layoutX="167.0" layoutY="63.0" text="Gold Pemain 1">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="330.0" layoutY="63.0" text="gold">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="Player2Gold" layoutX="1018.0" layoutY="63.0" text="Gold Pemain 2">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="1179.0" layoutY="63.0" text="gold">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="616.0" layoutY="14.0" text="Turn">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="turnCount" layoutX="579.0" layoutY="63.0" text="jumlah turn">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Button fx:id="NextButton" layoutX="1163.0" layoutY="14.0" mnemonicParsing="false" onAction="#OnNextButtonClick" text="Next">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Button fx:id="MyFieldButton" layoutX="192.0" layoutY="643.0" mnemonicParsing="false" onAction="#OnMyFieldButtonClick" text="Ladangku">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Button fx:id="EnemyFieldButton" layoutX="339.0" layoutY="643.0" mnemonicParsing="false" onAction="#OnEnemyFieldButtonClick" text="Ladang Lawan">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Button fx:id="ShopButton" layoutX="530.0" layoutY="643.0" mnemonicParsing="false" onAction="#OnShopButtonClick" text="Toko">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Button fx:id="SaveButton" layoutX="624.0" layoutY="643.0" mnemonicParsing="false" onAction="#OnSaveStateButtonClick" text="Save State">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Button fx:id="LoadButton" layoutX="778.0" layoutY="643.0" mnemonicParsing="false" onAction="#OnLoadStateButtonClick" text="Load State">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Button fx:id="PluginButton" layoutX="932.0" layoutY="643.0" mnemonicParsing="false" onAction="#OnLoadPluginButtonClick" text="Load Plugin">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Label layoutX="46.0" layoutY="98.0" text="Giliran:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="CurrentPlayerLabel" layoutX="127.0" layoutY="98.0" text="Giliran Pemain">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="46.0" layoutY="14.0" text="Ladang Pemain 1">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
