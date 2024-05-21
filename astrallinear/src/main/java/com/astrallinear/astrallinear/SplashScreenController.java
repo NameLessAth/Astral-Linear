@@ -19,7 +19,7 @@ public class SplashScreenController {
     private Parent root;
     @FXML
     protected void OnPlayButtonClick(ActionEvent e) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("view/player1field.fxml"));
+        root = FXMLLoader.load(getClass().getResource("View/player1field.fxml"));
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

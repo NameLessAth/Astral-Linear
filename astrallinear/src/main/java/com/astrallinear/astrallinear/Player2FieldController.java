@@ -58,7 +58,7 @@ public class Player2FieldController {
         //tanpa mengubah giliran
 
         //tombol next di scene ladang musuh akan di disable setelah menekan tombol ini
-        root = FXMLLoader.load(getClass().getResource("view/player1field.fxml"));
+        root = FXMLLoader.load(getClass().getResource("View/player1field.fxml"));
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -68,7 +68,7 @@ public class Player2FieldController {
     @FXML
     void OnLoadPluginButtonClick(ActionEvent e) throws IOException {
         System.out.println("Load Plugin");
-        root = FXMLLoader.load(getClass().getResource("view/loadplugin.fxml"));
+        root = FXMLLoader.load(getClass().getResource("View/loadplugin.fxml"));
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -78,7 +78,7 @@ public class Player2FieldController {
     @FXML
     void OnLoadStateButtonClick(ActionEvent e) throws IOException {
         System.out.println("Load State");
-        root = FXMLLoader.load(getClass().getResource("view/loadstate.fxml"));
+        root = FXMLLoader.load(getClass().getResource("View/loadstate.fxml"));
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -100,7 +100,7 @@ public class Player2FieldController {
 
     @FXML
     void OnNextButtonClick(ActionEvent e) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("view/player1field.fxml"));
+        root = FXMLLoader.load(getClass().getResource("View/player1field.fxml"));
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -110,7 +110,7 @@ public class Player2FieldController {
     @FXML
     void OnSaveStateButtonClick(ActionEvent e) throws IOException {
         System.out.println("Save State");
-        root = FXMLLoader.load(getClass().getResource("view/savestate.fxml"));
+        root = FXMLLoader.load(getClass().getResource("View/savestate.fxml"));
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -120,7 +120,7 @@ public class Player2FieldController {
     @FXML
     void OnShopButtonClick(ActionEvent e) throws IOException {
         System.out.println("Shop");
-        root = FXMLLoader.load(getClass().getResource("view/shop.fxml"));
+        root = FXMLLoader.load(getClass().getResource("View/shop.fxml"));
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

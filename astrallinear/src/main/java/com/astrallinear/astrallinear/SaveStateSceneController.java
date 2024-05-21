@@ -35,7 +35,7 @@ public class SaveStateSceneController {
     @FXML
     void BackToGame(ActionEvent e) throws IOException {
         //kembali ke ladang pemaiin yang sekarang bermain
-        root = FXMLLoader.load(getClass().getResource("view/player1field.fxml"));
+        root = FXMLLoader.load(getClass().getResource("View/player1field.fxml"));
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
