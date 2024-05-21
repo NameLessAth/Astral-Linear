@@ -1,4 +1,4 @@
-package com.astrallinear.astrallinear.deck;
+package com.astrallinear.astrallinear.Deck;
 
 import java.util.HashMap;
 import java.util.Queue;
@@ -8,7 +8,7 @@ public class ActiveDeck {
     private HashMap <Integer, Kartu> content;
     private InactiveDeck iDeck;
 
-    public ActiveDeck(){
+    public ActiveDeck() throws Exception{
         iDeck = new InactiveDeck();
         content  = new HashMap<>();
         for(int i = 0; i < 6; i++)
@@ -35,9 +35,8 @@ public class ActiveDeck {
         return count;
     }
 
-    public void takeShuffle(){
-        int nEmptySlot = this.countEmptySlot();
-        Queue<Kartu> newCards = iDeck.takeCards(nEmptySlot);
+    public void takeShuffle()throws Exception{
+        Queue<Kartu> newCards = iDeck.takeCards(this.countEmptySlot());
 
         for(int i = 0; i < 6; i++){
             if(newCards.isEmpty())
