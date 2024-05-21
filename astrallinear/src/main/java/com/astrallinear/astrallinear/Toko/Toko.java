@@ -2,10 +2,19 @@ package com.astrallinear.astrallinear.Toko;
 
 import java.util.HashMap;
 
+
+
 public class Toko {
+    Toko toko = null;
     HashMap<String, Integer> isiToko;
 
-    public Toko(){
+    public Toko getToko(){
+        if(toko == null)
+            toko = new Toko();
+        return toko;
+    }
+
+    private Toko(){
         isiToko = new HashMap<String, Integer>();
     }
 
