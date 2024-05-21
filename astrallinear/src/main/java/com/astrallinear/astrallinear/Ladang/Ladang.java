@@ -30,6 +30,10 @@ public class Ladang {
     /*
      * Cell operation functions/procedures
      */
+    public void spawn(KartuMakhluk makhluk, Integer row, Integer col) throws FilledCellException{
+        if (isFilled[row][col]) throw new FilledCellException(row, col);
+        MakhlukMatrix[row][col] = makhluk;
+    }
 
     public KartuMakhluk get(Integer row, Integer col) throws EmptyCellException {
         if (isFilled[row][col]) {
