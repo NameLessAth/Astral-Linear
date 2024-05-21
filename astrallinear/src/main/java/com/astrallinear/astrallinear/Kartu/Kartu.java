@@ -9,3 +9,9 @@ public abstract class Kartu {
         return nama;
     }
 }
+
+class NamaKartuTidakAdaException extends Exception {
+    public NamaKartuTidakAdaException(String s) {
+        super(s);
+    }
+}
