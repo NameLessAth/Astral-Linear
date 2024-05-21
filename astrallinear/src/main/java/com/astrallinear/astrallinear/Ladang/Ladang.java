@@ -4,6 +4,7 @@ import java.util.*;
 import com.astrallinear.astrallinear.Kartu.KartuMakhluk;
 import com.astrallinear.astrallinear.Kartu.KartuProduk;
 import com.astrallinear.astrallinear.Kartu.KartuTanaman;
+import com.astrallinear.astrallinear.Kartu.KartuHewan;
 
 
 public class Ladang {
@@ -82,6 +83,19 @@ public class Ladang {
             }
         }
     }
+    
+    /*
+     * Give food at a certain magical index
+     */
+    public void give_food_at(KartuProduk product, Integer row, Integer col) throws Exception {
+        if (!isFilled[row][col]) throw new EmptyCellException(row, col);
+        if (MakhlukMatrix[row][col] instanceof KartuHewan) {
+            ((KartuHewan) MakhlukMatrix[row][col]).beriMakan(product);
+        }
+        else {
+            throw new NyobaNgasihMakanKeTanamanException(row, col);
+        }
+    }
 
     /*
      * Harvest at a certain magical index
@@ -92,7 +106,6 @@ public class Ladang {
         isFilled[row][col] = false;
         return ret;
     }
-    
 
     /**
      * EFEK KARTU ITEM
@@ -144,6 +157,11 @@ class AlreadyProtectedCellException extends Exception {
 }
 class AlreadyTrappedCellException extends Exception {
     public AlreadyTrappedCellException (Integer row, Integer col) {
+        super("Row: " + Integer.toString(row) + '\n' + "Col: " + Integer.toString(col));
+    }
+}
+class NyobaNgasihMakanKeTanamanException extends Exception {
+    public NyobaNgasihMakanKeTanamanException (Integer row, Integer col) {
         super("Row: " + Integer.toString(row) + '\n' + "Col: " + Integer.toString(col));
     }
 }
