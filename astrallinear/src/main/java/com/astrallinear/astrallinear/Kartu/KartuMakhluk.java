@@ -16,6 +16,8 @@ public abstract class KartuMakhluk extends Kartu {
         }
     }
 
+    public KartuProduk instant_harvest_panen() { return drop ; }
+
     public abstract boolean isSiapPanen();
     public abstract void accelerate();
     public abstract void delay();

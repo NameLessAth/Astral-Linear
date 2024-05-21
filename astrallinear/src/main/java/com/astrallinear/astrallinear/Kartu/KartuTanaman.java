@@ -27,6 +27,10 @@ public class KartuTanaman extends KartuMakhluk {
         umur = 0;
     }
 
+    public void age() {
+        ++umur;
+    }
+
     public void accelerate() {
         this.umur += 2;
     }
