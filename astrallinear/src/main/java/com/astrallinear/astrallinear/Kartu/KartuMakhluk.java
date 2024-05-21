@@ -17,6 +17,8 @@ public abstract class KartuMakhluk extends Kartu {
     }
 
     public abstract boolean isSiapPanen();
+    public abstract void accelerate();
+    public abstract void delay();
 }
 
 class BelumSiapPanenException extends Exception {
