@@ -1,7 +1,11 @@
 package com.astrallinear.astrallinear.Kartu;
 
+import javafx.scene.effect.Effect;
+
 public class KartuItem extends Kartu {
-    public KartuItem(String s) {
+    private String power;
+    public KartuItem(String s, String power) {
         super(s);
+        this.power = power;
     }
 }

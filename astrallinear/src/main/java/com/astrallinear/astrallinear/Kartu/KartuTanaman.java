@@ -1,6 +1,5 @@
 package com.astrallinear.astrallinear.Kartu;
 import java.util.*;
-import java.util.Map.Entry;
 
 
 public class KartuTanaman extends KartuMakhluk {
@@ -26,6 +25,13 @@ public class KartuTanaman extends KartuMakhluk {
         Integer turn = tanaman_turn_map.get(nama);
         this.turnUntukHarvest = turn;
         umur = 0;
+    }
+
+    public void accelerate() {
+        this.umur += 2;
+    }
+    public void delay() {
+        this.umur = (this.umur - 2 > 0 ? this.umur - 2 : 0);
     }
 
     public boolean isSiapPanen() {

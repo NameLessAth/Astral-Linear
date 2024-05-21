@@ -77,6 +77,14 @@ public class KartuHewan extends KartuMakhluk {
 
     }
 
+    public void accelerate() {
+        this.berat += 8;
+    }
+
+    public void delay() {
+        this.berat = (this.berat - 5 > 0 ? this.berat - 5 : 0);
+    }
+
     public String getJenis() {
         return jenis;
     }
