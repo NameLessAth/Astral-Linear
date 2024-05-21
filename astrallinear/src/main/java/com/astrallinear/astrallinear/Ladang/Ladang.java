@@ -107,15 +107,15 @@ public class Ladang {
         return ret;
     }
 
-    /**
-     * EFEK KARTU ITEM
+    /*
+     *   EFEK KARTU ITEM
      */
 
     public void kartu_destroy(Integer row, Integer col) throws EmptyCellException {
         if (!isFilled[row][col]) throw new EmptyCellException(row, col);
         isFilled[row][col] = false;
     }
-    public void kartu_trao(Integer row, Integer col) throws AlreadyTrappedCellException,EmptyCellException {
+    public void kartu_trap(Integer row, Integer col) throws AlreadyTrappedCellException,EmptyCellException {
         if (isTrapped[row][col]) throw new AlreadyTrappedCellException(row, col);
         if (!isFilled[row][col]) throw new EmptyCellException(row, col);
         isTrapped[row][col] = true;
