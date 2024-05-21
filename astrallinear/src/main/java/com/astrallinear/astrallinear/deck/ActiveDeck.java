@@ -1,4 +1,4 @@
-package com.astrallinear.astrallinear.deck;
+package com.astrallinear.astrallinear.Deck;
 
 import java.util.HashMap;
 import java.util.Queue;

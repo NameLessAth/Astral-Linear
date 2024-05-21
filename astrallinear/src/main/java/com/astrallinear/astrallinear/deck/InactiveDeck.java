@@ -1,4 +1,4 @@
-package com.astrallinear.astrallinear.deck;
+package com.astrallinear.astrallinear.Deck;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Queue;
@@ -52,7 +52,7 @@ public class InactiveDeck {
             nTaken = n;
             
         this.cardLeft -= nTaken;
-        
+
         if(nTaken == 0) return res;
 
         res.add(new KartuTanaman(tanamanAcak.get(random.nextInt(3))));
