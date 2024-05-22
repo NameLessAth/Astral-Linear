@@ -40,7 +40,11 @@ public class Deck {
     }
 
     public void takeShuffle()throws Exception{
-        Queue<Kartu> newCards = inactiveDeck.takeCards(this.countEmptySlot());
+        Integer takenCard = this.countEmptySlot();
+        if(takenCard > 4){
+            takenCard = 4;
+        }
+        Queue<Kartu> newCards = inactiveDeck.takeCards(takenCard);
 
         for(int i = 0; i < 6; i++){
             if(newCards.isEmpty())
@@ -51,7 +55,7 @@ public class Deck {
         }
     }
 
-    public int getRemainingInactiveDeck(){
+    public Integer getRemainingInactiveDeck(){
         return inactiveDeck.getCardLeft();
     }
 

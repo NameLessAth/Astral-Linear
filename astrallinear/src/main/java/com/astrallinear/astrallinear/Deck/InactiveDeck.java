@@ -7,13 +7,16 @@ import java.util.Random;
 import com.astrallinear.astrallinear.Kartu.*;
 
 public class InactiveDeck {
-    private int cardLeft;
+    private Integer cardLeft;
     private ArrayList<String> hewanAcak;
     private ArrayList<String> tanamanAcak;
     private ArrayList<String> itemAcak;
 
     public InactiveDeck() throws Exception{
         cardLeft = 40;
+        hewanAcak = new ArrayList<>();
+        tanamanAcak = new ArrayList<>();
+        itemAcak = new ArrayList<>();
         hewanAcak.add("sapi");
         hewanAcak.add("domba");
         hewanAcak.add("kuda");
@@ -37,11 +40,14 @@ public class InactiveDeck {
 
     }
 
-    public int getCardLeft(){
+    public Integer getCardLeft(){
         return cardLeft;
     }
 
     public Queue <Kartu> takeCards(int n)throws Exception{
+        if(cardLeft == 0){
+            throw new EmptyInactiveDeckException();
+        }
         Queue <Kartu> res = new ArrayDeque<Kartu>();
         int nTaken;
         Random random = new Random();
@@ -70,5 +76,11 @@ public class InactiveDeck {
 
     public void cancelTakeCards(int n){
         this.cardLeft += n;
+    }
+}
+
+class EmptyInactiveDeckException extends Exception{
+    public EmptyInactiveDeckException(){
+        super("Inactive deck sudah tidak memiliki kartu lagi");
     }
 }
