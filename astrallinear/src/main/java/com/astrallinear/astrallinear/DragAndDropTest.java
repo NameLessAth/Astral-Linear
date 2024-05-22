@@ -60,12 +60,16 @@ public class DragAndDropTest extends Application {
     @FXML
     void handleDragDetectIMG(MouseEvent event) {
         ImageView IMGSource = (ImageView) event.getSource();
-        Dragboard db = IMGSource.startDragAndDrop(TransferMode.ANY);
-        System.out.println(IMGSource.getImage().getUrl());
-        ClipboardContent cb = new ClipboardContent();
-        cb.putImage(IMGSource.getImage());
-        db.setContent(cb);
+        Image curImg = IMGSource.getImage();
 
+        if(curImg != null && !curImg.getUrl().endsWith("Placeholder/EmptyCell.png")) {
+            Dragboard db = IMGSource.startDragAndDrop(TransferMode.ANY);
+            ClipboardContent cb = new ClipboardContent();
+            cb.putImage(IMGSource.getImage());
+            db.setContent(cb);
+        } else {
+            System.out.println("SEL KOSONG!");
+        }
         event.consume();
     }
 
@@ -73,11 +77,16 @@ public class DragAndDropTest extends Application {
     void handleDragDoneIMG(DragEvent event) {
         if (event.getTransferMode() != null) {
             ImageView IMGSource = (ImageView) event.getSource();
-            Image img = new Image(Main.class.getResourceAsStream("Hewan/horse.png"));
+            Image img = new Image(Main.class.getResourceAsStream("Placeholder/EmptyCell.png"));
             IMGSource.setImage(img);
         }
     }
-
+    @FXML
+    void handleDeckDragDone(DragEvent event) {
+        ImageView IMGSource = (ImageView) event.getSource();
+        Image img = new Image(Main.class.getResourceAsStream("Placeholder/EmptyCell.png"));
+        IMGSource.setImage(img);
+    }
     @FXML
     void handleIMGDragOver(DragEvent event) {
         if (event.getDragboard().hasImage()) {

@@ -9,11 +9,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.*;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert.AlertType;
 import java.io.IOException;
+import javafx.scene.layout.AnchorPane;
 
-public class Player1FieldController {
+public class Player1FieldController{
 
     @FXML
     private Label CurrentPlayerLabel;
@@ -53,6 +58,14 @@ public class Player1FieldController {
     private Stage stage;
     @FXML
     private Parent root;
+    @FXML
+    private GridPane LadangGridPane;
+    @FXML
+    private GridPane DeckGridPane;
+    @FXML
+    private AnchorPane DeckIndicatorPane;
+    @FXML
+    private Label CardLeftLabel;
     @FXML
     void OnEnemyFieldButtonClick(ActionEvent e) throws IOException{
         //tanpa mengubah giliran
@@ -127,5 +140,44 @@ public class Player1FieldController {
         stage.setScene(scene);
         stage.show();
     }
+    @FXML
+    void handleDragDetectIMG(MouseEvent event) {
+        ImageView IMGSource = (ImageView) event.getSource();
+        Dragboard db = IMGSource.startDragAndDrop(TransferMode.ANY);
+        System.out.println(IMGSource.getImage().getUrl());
+        ClipboardContent cb = new ClipboardContent();
+        cb.putImage(IMGSource.getImage());
+        db.setContent(cb);
 
+        event.consume();
+    }
+
+    @FXML
+    void handleDragDoneIMG(DragEvent event) {
+        if (event.getTransferMode() != null) {
+            ImageView IMGSource = (ImageView) event.getSource();
+            Image img = new Image(Main.class.getResourceAsStream("Placeholder/EmptyCell.png"));
+            IMGSource.setImage(img);
+        }
+    }
+
+    @FXML
+    void handleIMGDragOver(DragEvent event) {
+        if (event.getDragboard().hasImage()) {
+            event.acceptTransferModes(TransferMode.ANY);
+        }
+        event.consume();
+    }
+
+    @FXML
+    void handleIMGDrop(DragEvent event) {
+        ImageView target = (ImageView) event.getSource();
+        if (event.getDragboard().hasImage()) {
+            target.setImage(event.getDragboard().getImage());
+            event.setDropCompleted(true);
+        } else {
+            event.setDropCompleted(false);
+        }
+        event.consume();
+    }
 }
