@@ -71,25 +71,33 @@ public class DragAndDropTest extends Application {
 
     @FXML
     void handleDragDoneIMG(DragEvent event) {
-        ImageView IMGSource = (ImageView) event.getSource();
-        Image img = new Image(Main.class.getResourceAsStream("Hewan/horse.png"));
-        IMGSource.setImage(img);
-
+        if (event.getTransferMode() != null) {
+            ImageView IMGSource = (ImageView) event.getSource();
+            Image img = new Image(Main.class.getResourceAsStream("Hewan/horse.png"));
+            IMGSource.setImage(img);
+        }
     }
 
     @FXML
     void handleIMGDragOver(DragEvent event) {
-        if(event.getDragboard().hasImage()) {
+        if (event.getDragboard().hasImage()) {
             event.acceptTransferModes(TransferMode.ANY);
         }
-
+        event.consume();
     }
 
     @FXML
     void handleIMGDrop(DragEvent event) {
-        Image img = event.getDragboard().getImage();
         ImageView target = (ImageView) event.getSource();
-        target.setImage(img);
+        ImageView source = (ImageView) event.getGestureSource();
+        if (event.getDragboard().hasImage() && target != source) {
+            Image img = event.getDragboard().getImage();
+            target.setImage(img);
+            event.setDropCompleted(true);
+        } else {
+            event.setDropCompleted(false);
+        }
+        event.consume();
     }
 
     @Override
