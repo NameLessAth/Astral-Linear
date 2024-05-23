@@ -16,6 +16,10 @@ public class Toko {
         return toko;
     }
 
+    public void resetToko (){
+        isiToko = new HashMap<String, Integer>();
+    }
+
     private Toko(){
         isiToko = new HashMap<String, Integer>();
     }
