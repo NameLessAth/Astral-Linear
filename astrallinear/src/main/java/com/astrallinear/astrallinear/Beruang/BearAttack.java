@@ -1,7 +1,9 @@
 package com.astrallinear.astrallinear.Beruang;
 import java.util.Random;
 
+import com.astrallinear.astrallinear.Kartu.KartuHewan;
 import com.astrallinear.astrallinear.Ladang.Ladang;
+import com.astrallinear.astrallinear.Pemain.Pemain;
 
 public class BearAttack {
     public boolean readyAtt = false;
@@ -31,13 +33,14 @@ public class BearAttack {
         
         this.attackedHeight = a;
         this.attackedWidth = b;
-        
-        System.out.println("BERUANG SIAP MENYERANG DALAM 5 DETIK");
-        tpr.tpc.ready(); 
+
+        Integer durasi = rd.nextInt(30000)+30000;
+        System.out.println("BERUANG SIAP MENYERANG DALAM " + durasi/1000 + " DETIK");
+        tpr.tpc.ready(durasi); 
         long timeNow = System.currentTimeMillis(); 
         notify();
-        while(!interrupted && System.currentTimeMillis() - timeNow < 5000){
-            try{wait(5000);}
+        while(!interrupted && System.currentTimeMillis() - timeNow < durasi){
+            try{wait(durasi);}
             catch (InterruptedException e){}
         } tpr.tpc.Interrupt();
         readyAtt = false;
@@ -50,7 +53,7 @@ public class BearAttack {
         notify();
     }
 
-    synchronized Ladang attackLadang(Ladang ladangDiserang) throws Exception{
+    synchronized void attackLadang(Ladang ladangDiserang, Pemain pemainDiserang) throws Exception{
         Random rd = new Random();
         readyAtt = true;
         notify();
@@ -62,44 +65,39 @@ public class BearAttack {
         Integer startPointHeight = rd.nextInt(4-this.attackedHeight);
         Integer startPointWidth = rd.nextInt(5-this.attackedWidth);
 
+        boolean kenaTrap = false;
+
+        Integer lastI = 0, lastJ = 0;
+
         for (int i = startPointHeight; i < startPointHeight+this.attackedHeight; i++){
             for (int j = startPointWidth; j < startPointWidth+this.attackedWidth; j++){
-                if (ladangDiserang.is_trapped(i, j)) throw new BearKenaTrap("Beruang Terkena Trap");
-            }
-        } 
-        for (int i = startPointHeight; i < startPointHeight+this.attackedHeight; i++){
-            for (int j = startPointWidth; j < startPointWidth+this.attackedWidth; j++){
-                if (ladangDiserang.is_filled(i, j)){
-                    if (!ladangDiserang.is_protected(i, j)){
-                        try{
-                            ladangDiserang.pop(i, j);
-                        } catch (Exception e){}
-                    }
+                if (ladangDiserang.is_trapped(i, j)){
+                    kenaTrap = true;
+                    lastI = i; lastJ = j;
+                    // buat trap nya jadi false
                 }
             }
-        } return ladangDiserang;
-    }
-}
-
-class BearAttackRun extends Thread{
-    BearAttack brt;
-    TimerProcRun tpr;
-
-    public BearAttackRun(TimerProcRun tpr){
-        this.brt = new BearAttack();
-        this.tpr = tpr;
-    }
-
-    @Override
-    public void run(){
-        while (true) {
-            this.brt.Attack(this.tpr);    
-        }  
-    } 
-}
-
-class BearKenaTrap extends Exception{
-    public BearKenaTrap(String message){
-        super(message);
+        } 
+        if (kenaTrap){
+            System.out.println("Beruang berhasil ditangkap");
+            try {
+                pemainDiserang.addActiveCard(new KartuHewan("beruang"));
+            } catch (Exception e) {
+                ladangDiserang.kartu_destroy(lastI, lastJ);
+                ladangDiserang.spawn_at(new KartuHewan("beruang"), lastI, lastJ);
+            }
+        } else{
+            for (int i = startPointHeight; i < startPointHeight+this.attackedHeight; i++){
+                for (int j = startPointWidth; j < startPointWidth+this.attackedWidth; j++){
+                    if (ladangDiserang.is_filled(i, j)){
+                        if (!ladangDiserang.is_protected(i, j)){
+                            try{
+                                ladangDiserang.kartu_destroy(i, j);
+                            } catch (Exception e){}
+                        }
+                    }
+                }
+            } 
+        }
     }
 }
