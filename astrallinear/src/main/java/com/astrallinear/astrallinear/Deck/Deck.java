@@ -5,35 +5,33 @@ import java.util.Queue;
 import com.astrallinear.astrallinear.Kartu.*;
 
 public class Deck {
-    private HashMap <Integer, Kartu> activeDeck;
+    private Kartu[] activeDeck;
     private InactiveDeck inactiveDeck;
 
     public Deck() throws Exception{
         inactiveDeck = new InactiveDeck();
-        activeDeck  = new HashMap<>();
-        for(int i = 0; i < 6; i++)
-            activeDeck.put(i, null);
+        activeDeck  = new Kartu[6];
     }
 
     public Kartu getActiveCard(int i) throws Exception{
-        if(activeDeck.get(i) != null)
-            return activeDeck.get(i);
+        if(activeDeck[i] != null)
+            return activeDeck[i];
         else
             throw new EmptyDeckSlotException();
     }
 
     public void deleteActiveCard(Integer i) throws Exception{
-        if(activeDeck.get(i) == null)
+        if(activeDeck[i] == null)
             throw new EmptyDeckSlotException();
         else{
-            activeDeck.replace(i, null);
+            activeDeck[i] = null;
         }
     }
 
     public int countEmptySlot(){
         int count = 0;
         for(int i = 0; i < 6; i++){
-            if(activeDeck.get(i) == null)
+            if(activeDeck[i] == null)
                 count++;
         }
         return count;
@@ -49,8 +47,8 @@ public class Deck {
         for(int i = 0; i < 6; i++){
             if(newCards.isEmpty())
                 break;
-            if(activeDeck.get(i) == null){
-                activeDeck.replace(i, newCards.remove());
+            if(activeDeck[i] == null){
+                activeDeck[i] = newCards.remove();
             }
         }
     }
@@ -62,8 +60,8 @@ public class Deck {
     public void addKartu(Kartu k) throws Exception{
         if(!(countEmptySlot() == 0)){
             for(int i = 0; i < 6; i++){
-                if(activeDeck.get(i) == null){
-                    activeDeck.put(i, k);
+                if(activeDeck[i] == null){
+                    activeDeck[i] = k;
                     break;
                 }
             }
@@ -74,8 +72,8 @@ public class Deck {
     }
 
     public void addKartu(Kartu k, Integer index) throws Exception{
-        if(activeDeck.get(index) == null){
-            activeDeck.put(index, k);
+        if(activeDeck[index] == null){
+            activeDeck[index] = k;
         }
         else{
             throw new FilledDeckSlotException();
