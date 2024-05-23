@@ -27,6 +27,14 @@ public class KartuTanaman extends KartuMakhluk {
         umur = 0;
     }
 
+    public Integer getUmur(){
+        return this.umur;
+    }
+
+    public void setUmur(Integer age){
+        this.umur = age;
+    }
+
     public void age() {
         ++umur;
     }

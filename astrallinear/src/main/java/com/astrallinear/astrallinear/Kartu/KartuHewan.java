@@ -92,6 +92,10 @@ public class KartuHewan extends KartuMakhluk {
     public Integer getBerat() {
         return berat;
     }
+     
+    public void setBerat(Integer bobot){
+        this.berat = bobot;
+    }
 }
 
 class SalahJenisMakananException extends Exception {

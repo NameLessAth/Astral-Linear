@@ -34,11 +34,10 @@ public class BearAttack {
         this.attackedHeight = a;
         this.attackedWidth = b;
 
-        Integer durasi = rd.nextInt(30000)+30000;
+        Integer durasi = (rd.nextInt(30)+30)*1000;
         System.out.println("BERUANG SIAP MENYERANG DALAM " + durasi/1000 + " DETIK");
         tpr.tpc.ready(durasi); 
         long timeNow = System.currentTimeMillis(); 
-        notify();
         while(!interrupted && System.currentTimeMillis() - timeNow < durasi){
             try{wait(durasi);}
             catch (InterruptedException e){}
