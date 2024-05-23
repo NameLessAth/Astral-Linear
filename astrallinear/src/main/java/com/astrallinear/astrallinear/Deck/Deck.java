@@ -57,6 +57,10 @@ public class Deck {
         return inactiveDeck.getCardLeft();
     }
 
+    public void setRemainingInactiveDeck(Integer i){
+        inactiveDeck.setCardLeft(i);
+    }
+
     public void addKartu(Kartu k) throws Exception{
         if(!(countEmptySlot() == 0)){
             for(int i = 0; i < 6; i++){

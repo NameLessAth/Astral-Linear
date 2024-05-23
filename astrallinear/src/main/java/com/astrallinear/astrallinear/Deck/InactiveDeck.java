@@ -44,6 +44,10 @@ public class InactiveDeck {
         return cardLeft;
     }
 
+    public void setCardLeft(Integer n){
+        this.cardLeft = n;
+    }
+
     public Queue <Kartu> takeCards(int n)throws Exception{
         if(cardLeft == 0){
             throw new EmptyInactiveDeckException();
