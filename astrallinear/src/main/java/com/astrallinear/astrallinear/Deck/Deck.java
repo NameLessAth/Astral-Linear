@@ -11,6 +11,7 @@ public class Deck {
     public Deck() throws Exception{
         inactiveDeck = new InactiveDeck();
         activeDeck  = new Kartu[6];
+        // for (int i = 0; i < 6; i++) activeDeck[i] = null;
     }
 
     public void moveCard(int source, int target) throws Exception{
@@ -93,6 +94,10 @@ public class Deck {
         else{
             throw new FilledDeckSlotException();
         }
+    }
+
+    public boolean isEmpty(Integer index) {
+        return activeDeck[index] == null;
     }
 }
 

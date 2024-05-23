@@ -1,6 +1,7 @@
 package com.astrallinear.astrallinear.GameManager;
 
 import com.astrallinear.astrallinear.Pemain.Pemain;
+import com.astrallinear.astrallinear.Ladang.Ladang;
 
 import java.util.ArrayList;
 
@@ -66,5 +67,13 @@ public class GameManager {
 
     public Pemain getPlayer(Integer index){
         return PlayerList.get(index);
+    }
+    
+    public Ladang getLadangPemain1() {
+        return PlayerList.get(0).getLadang();
+    }
+
+    public Ladang getLadangPemain2() {
+        return PlayerList.get(1).getLadang();
     }
 }

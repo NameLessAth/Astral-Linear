@@ -83,6 +83,34 @@ public class Player1FieldController{
         }
     }
 
+    // Method to set visibility based on indices
+    private void set_grid_cell_not_visible(GridPane gridPane, int targetRow, int targetColumn) {
+        for (Node node : gridPane.getChildren()) {
+            Integer row = GridPane.getRowIndex(node);
+            Integer column = GridPane.getColumnIndex(node);
+            
+            // Check for nulls because they can be unspecified
+            if (row == null) row = 0;
+            if (column == null) column = 0;
+
+            if (row == targetRow && column == targetColumn) {
+                node.setVisible(false);
+                node.setManaged(false);
+            }
+        }
+    }
+
+    // @FXML
+    // private void initialize() {
+    //     Integer r = LadangGridPane.getRowCount();
+    //     Integer c = LadangGridPane.getColumnCount();
+    //     for (int i = 0; i < r; i++) {
+    //         for (int j = 0; j < c; j++) {
+    //             set_grid_cell_not_visible(LadangGridPane, i, j);
+    //         }
+    //     }
+    // }
+
     @FXML
     void OnEnemyFieldButtonClick(ActionEvent e) throws IOException{
         //tanpa mengubah giliran

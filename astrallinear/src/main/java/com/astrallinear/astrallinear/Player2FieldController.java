@@ -2,7 +2,7 @@ package com.astrallinear.astrallinear;
 
 import com.astrallinear.astrallinear.GameManager.GameManager;
 import com.astrallinear.astrallinear.Pemain.Pemain;
-import com.astrallinear.astrallinear.Kartu.Kartu;
+import com.astrallinear.astrallinear.Kartu.*;
 import com.astrallinear.astrallinear.Deck.Deck;
 import com.astrallinear.astrallinear.Ladang.Ladang;
 import com.astrallinear.astrallinear.Beruang.BearAttack;
@@ -82,6 +82,35 @@ public class Player2FieldController{
             throw new RuntimeException(e);
         }
     }
+
+    // // Method to set visibility based on indices
+    // private void set_grid_cell_not_visible(GridPane gridPane, int targetRow, int targetColumn) {
+    //     for (Node node : gridPane.getChildren()) {
+    //         Integer row = GridPane.getRowIndex(node);
+    //         Integer column = GridPane.getColumnIndex(node);
+            
+    //         // Check for nulls because they can be unspecified
+    //         if (row == null) row = 0;
+    //         if (column == null) column = 0;
+
+    //         if (row == targetRow && column == targetColumn) {
+    //             node.setVisible(false);
+    //             node.setManaged(false);
+    //         }
+    //     }
+    // }
+
+    // @FXML
+    // private void initialize() {
+    //     Integer r = LadangGridPane.getRowCount();
+    //     Integer c = LadangGridPane.getColumnCount();
+    //     for (int i = 0; i < r; i++) {
+    //         for (int j = 0; j < c; j++) {
+    //             set_grid_cell_not_visible(LadangGridPane, i, j);
+    //         }
+    //     }
+    // }
+    
 
     @FXML
     void OnEnemyFieldButtonClick(ActionEvent e) throws IOException{
@@ -187,6 +216,7 @@ public class Player2FieldController{
     }
     @FXML
     void handleDragDetectIMG(MouseEvent event) {
+
         ImageView IMGSource = (ImageView) event.getSource();
         GridPane sourceGridPane = (GridPane) IMGSource.getParent();
         String sourceGridPaneName = "";
@@ -199,22 +229,78 @@ public class Player2FieldController{
         if(gameManager.getCurrentPlayer() == 1 && sourceGridPaneName.equals("LadangGridPane")){
             return;
         } //larang player musuh untuk menggeser kartu yang ada di ladang
+    
         if (!isPlaceholderImage(IMGSource)) {
-            Dragboard db = IMGSource.startDragAndDrop(TransferMode.ANY);
-            ClipboardContent cb = new ClipboardContent();
-            cb.putImage(IMGSource.getImage());
-            db.setContent(cb);
+            Integer r = GridPane.getRowIndex(IMGSource) ;
+            Integer c = GridPane.getColumnIndex(IMGSource) ;
+            r = (r == null ? 0 : r);
+            c = (c == null ? 0 : c);
+
+            boolean empty = false;
+            if ((GridPane) IMGSource.getParent() == LadangGridPane) {
+                empty = !gameManager.getLadangPemain2().is_filled(r, c);
+            } else {
+                empty = gameManager.getPlayer(1).getDeck().isEmpty(c);
+                System.out.println(c);
+                System.out.println(empty);
+            }
+
+            if (!empty) {
+                Dragboard db = IMGSource.startDragAndDrop(TransferMode.ANY);
+                ClipboardContent cb = new ClipboardContent();
+                cb.putImage(IMGSource.getImage());
+                db.setContent(cb);
+            }
         }
-        event.consume();
+
+        // event.consume();
     }
 
     @FXML
     void handleDragDoneIMG(DragEvent event) {
+        // if (event.getTransferMode() != null) {
+
+        //     ImageView IMGSource = (ImageView) event.getGestureSource();
+        //     ImageView IMGTarget = (ImageView) event.getGestureTarget();
+            
+        //     System.out.println((Object)IMGTarget);
+        //     // System.out.println((Object)IMGTarget);
+
+        //     // if (IMGSource == IMGTarget) {
+        //     //     event.consume();
+        //     //     updateDraggableStatus(IMGSource);
+        //     //     System.out.println("same");
+        //     //     return;
+        //     // }
+
+        //     Image img = new Image(getClass().getResourceAsStream(PLACEHOLDER_IMAGE_URL));
+        //     IMGSource.setImage(img);
+        //     updateDraggableStatus(IMGSource);
+
+        // }
+        // event.consume();
+    }
+
+    void custom(DragEvent event) {
         if (event.getTransferMode() != null) {
-            ImageView IMGSource = (ImageView) event.getSource();
-            Image img = new Image(getClass().getResource(PLACEHOLDER_IMAGE_URL).toString());
+
+            ImageView IMGSource = (ImageView) event.getGestureSource();
+            ImageView IMGTarget = (ImageView) event.getGestureTarget();
+            
+            System.out.println((Object)IMGTarget);
+            System.out.println((Object)IMGTarget);
+
+            if (IMGSource == IMGTarget) {
+                event.consume();
+                updateDraggableStatus(IMGSource);
+                System.out.println("same");
+                return;
+            }
+
+            Image img = new Image(getClass().getResourceAsStream(PLACEHOLDER_IMAGE_URL));
             IMGSource.setImage(img);
             updateDraggableStatus(IMGSource);
+
         }
         event.consume();
     }
@@ -229,51 +315,77 @@ public class Player2FieldController{
 
     @FXML
     void handleIMGDrop(DragEvent event) {
-        ImageView target = (ImageView) event.getSource();
+        ImageView target = (ImageView) event.getGestureTarget();
         ImageView source = (ImageView) event.getGestureSource();
         if (event.getDragboard().hasImage() && target != source) {
-            if(isPlaceholderImage(target)) {
-                target.setImage(event.getDragboard().getImage());
-                event.setDropCompleted(true);
-                updateDraggableStatus(target);
-                //Debug Koordinat
 
-                //cari koordinat source
-                Integer sourceRow = GridPane.getRowIndex(source);
-                Integer sourceColumn = GridPane.getColumnIndex(source);
-                //cari koordinat target
-                Integer targetRow = GridPane.getRowIndex(target);
-                Integer targetColumn = GridPane.getColumnIndex(target);
-                //handle nilai null
-                sourceRow = (sourceRow == null) ? 0 : sourceRow;
-                sourceColumn = (sourceColumn == null) ? 0 : sourceColumn;
-                targetRow = (targetRow == null) ? 0 : targetRow;
-                targetColumn = (targetColumn == null) ? 0 : targetColumn;
+            //Debug Koordinat
 
-                //dapetin parent dari imageviewnya dari gridpane yang mana
-                GridPane sourceGridPane = (GridPane) source.getParent();
-                GridPane targetGridPane = (GridPane) target.getParent();
+            //cari koordinat source
+            Integer sourceRow = GridPane.getRowIndex(source);
+            Integer sourceColumn = GridPane.getColumnIndex(source);
+            //cari koordinat target
+            Integer targetRow = GridPane.getRowIndex(target);
+            Integer targetColumn = GridPane.getColumnIndex(target);
+            //handle nilai null
+            sourceRow = (sourceRow == null) ? 0 : sourceRow;
+            sourceColumn = (sourceColumn == null) ? 0 : sourceColumn;
+            targetRow = (targetRow == null) ? 0 : targetRow;
+            targetColumn = (targetColumn == null) ? 0 : targetColumn;
 
-                String sourceGridPaneName = "";
-                String targetGridPaneName = "";
+            //dapetin parent dari imageviewnya dari gridpane yang mana
+            GridPane sourceGridPane = (GridPane) source.getParent();
+            GridPane targetGridPane = (GridPane) target.getParent();
 
-                if (sourceGridPane == LadangGridPane) {
-                    sourceGridPaneName = "LadangGridPane";
-                } else if (sourceGridPane == DeckGridPane) {
-                    sourceGridPaneName = "DeckGridPane";
-                }
+            String sourceGridPaneName = "";
+            String targetGridPaneName = "";
 
-                if (targetGridPane == LadangGridPane) {
-                    targetGridPaneName = "LadangGridPane";
-                } else if (targetGridPane == DeckGridPane) {
-                    targetGridPaneName = "DeckGridPane";
-                }
-                System.out.println("ImageView asal - baris: " + sourceRow + ", kolom: " + sourceColumn + " GridPane: " + sourceGridPaneName);
-                System.out.println("ImageView tujuan - baris: " + targetRow + ", kolom: " + targetColumn + " GridPane: " + targetGridPaneName);
+            if (sourceGridPane == LadangGridPane) {
+                sourceGridPaneName = "LadangGridPane";
+            } else if (sourceGridPane == DeckGridPane) {
+                sourceGridPaneName = "DeckGridPane";
             }
+
+            if (targetGridPane == LadangGridPane) {
+                targetGridPaneName = "LadangGridPane";
+            } else if (targetGridPane == DeckGridPane) {
+                targetGridPaneName = "DeckGridPane";
+            }
+            System.out.println("ImageView asal - baris: " + sourceRow + ", kolom: " + sourceColumn + " GridPane: " + sourceGridPaneName);
+            System.out.println("ImageView tujuan - baris: " + targetRow + ", kolom: " + targetColumn + " GridPane: " + targetGridPaneName);
+
+            System.out.println("ImageView asal - baris: " + sourceRow + ", kolom: " + sourceColumn + " GridPane: " + sourceGridPaneName);
+            System.out.println("ImageView tujuan - baris: " + targetRow + ", kolom: " + targetColumn + " GridPane: " + targetGridPaneName);
+            boolean fromDeck = sourceGridPane == DeckGridPane;
+            
+            // logic
+            Deck deck = gameManager.getPlayer(1).getDeck();
+            Ladang ladang = gameManager.getLadangPemain2();
+
+            try {
+                if (!fromDeck) {
+                    ladang.move(sourceRow, sourceColumn, targetRow, targetColumn);
+                }
+                if (fromDeck) {
+                    KartuMakhluk obj = (KartuMakhluk) deck.getActiveCard(sourceColumn);
+                    ladang.spawn_at(obj, targetRow, targetColumn);
+                    deck.deleteActiveCard(sourceColumn);
+                }
+                
+            } catch (Exception e) {
+                event.setDropCompleted(true);
+                event.consume();
+                return;   
+            }
+
+            target.setImage(event.getDragboard().getImage());
+            event.setDropCompleted(true);
+            updateDraggableStatus(target);
+
         } else {
             event.setDropCompleted(false);
         }
+        custom(event);
         event.consume();
     }
 
@@ -299,6 +411,12 @@ public class Player2FieldController{
     }
     @FXML
     public void initialize() {
+        try {
+            gameManager.getPlayer(1).getDeck().addKartu(new KartuHewan("domba"), 5);
+            gameManager.getPlayer(1).getDeck().addKartu(new KartuHewan("hiu_darat"), 3);
+
+        }catch (Exception e){}
+
         System.out.println("Giliran Pemain: "+gameManager.getCurrentPlayer());
         CurrentPlayerLabel.setText("Pemain: "+gameManager.getCurrentPlayer());
         System.out.println("Turn Ke- "+gameManager.getCurrentTurn());
