@@ -21,6 +21,10 @@ public class Pemain {
         this.gulden -= n;
     }
 
+    public Deck getDeck(){
+        return this.deck;
+    }
+
     public void increaseGulden(int n){
         this.gulden += n;
     }
