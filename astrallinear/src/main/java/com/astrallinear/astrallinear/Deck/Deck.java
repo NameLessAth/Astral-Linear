@@ -13,6 +13,17 @@ public class Deck {
         activeDeck  = new Kartu[6];
     }
 
+    public void moveCard(int source, int target) throws Exception{
+        if(activeDeck[source] == null){
+            throw new EmptyDeckSlotException();
+        }
+        if(activeDeck[target] != null){
+            throw new FilledDeckSlotException();
+        }
+        activeDeck[target] = activeDeck [source];
+        activeDeck[source] = null;
+    }
+
     public Kartu getActiveCard(int i) throws Exception{
         if(activeDeck[i] != null)
             return activeDeck[i];
