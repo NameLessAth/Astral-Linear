@@ -218,6 +218,11 @@ public class Player2FieldController{
     void handleDragDetectIMG(MouseEvent event) {
 
         ImageView IMGSource = (ImageView) event.getSource();
+        Integer r = GridPane.getRowIndex(IMGSource);
+        Integer c = GridPane.getColumnIndex(IMGSource);
+        r = (r == null ? 0 : r);
+        c = (c == null ? 0 : c);
+
         GridPane sourceGridPane = (GridPane) IMGSource.getParent();
         String sourceGridPaneName = "";
         if (sourceGridPane == LadangGridPane) {
@@ -229,18 +234,19 @@ public class Player2FieldController{
         if(gameManager.getCurrentPlayer() == 1 && sourceGridPaneName.equals("LadangGridPane")){
             return;
         } //larang player musuh untuk menggeser kartu yang ada di ladang
-    
+
+        try {
+
+            if (gameManager.getCurrentPlayer() == 1 && (sourceGridPane == DeckGridPane) && !(gameManager.getPlayer(0).getDeck().getActiveCard(c) instanceof KartuItem)) return;
+        } catch (Exception e) { System.out.println(c); }
+            
         if (!isPlaceholderImage(IMGSource)) {
-            Integer r = GridPane.getRowIndex(IMGSource) ;
-            Integer c = GridPane.getColumnIndex(IMGSource) ;
-            r = (r == null ? 0 : r);
-            c = (c == null ? 0 : c);
 
             boolean empty = false;
             if ((GridPane) IMGSource.getParent() == LadangGridPane) {
                 empty = !gameManager.getLadangPemain2().is_filled(r, c);
             } else {
-                empty = gameManager.getPlayer(1).getDeck().isEmpty(c);
+                empty = gameManager.getCurrentPlayerInstance().getDeck().isEmpty(c);
                 System.out.println(c);
                 System.out.println(empty);
             }
@@ -359,7 +365,7 @@ public class Player2FieldController{
             boolean fromDeck = sourceGridPane == DeckGridPane;
             
             // logic
-            Deck deck = gameManager.getPlayer(1).getDeck();
+            Deck deck = gameManager.getCurrentPlayerInstance().getDeck();
             Ladang ladang = gameManager.getLadangPemain2();
 
             try {
@@ -412,8 +418,8 @@ public class Player2FieldController{
     @FXML
     public void initialize() {
         try {
-            gameManager.getPlayer(1).getDeck().addKartu(new KartuHewan("domba"), 5);
-            gameManager.getPlayer(1).getDeck().addKartu(new KartuHewan("hiu_darat"), 3);
+            gameManager.getCurrentPlayerInstance().getDeck().addKartu(new KartuHewan("domba"), 5);
+            gameManager.getCurrentPlayerInstance().getDeck().addKartu(new KartuHewan("hiu_darat"), 3);
 
         }catch (Exception e){}
 
