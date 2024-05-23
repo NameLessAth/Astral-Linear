@@ -62,6 +62,14 @@ public class Ladang {
         }
         MakhlukMatrix[dst_row][dst_col] = pop(src_row, src_col);
         isFilled[dst_row][dst_col] = true;
+        if (isProtected[src_row][src_col]) {
+            isProtected[src_row][src_col] = false;
+            isProtected[dst_row][dst_col] = true;
+        }
+        if (isTrapped[src_row][src_col]) {
+            isTrapped[src_row][src_col] = false;
+            isTrapped[dst_row][dst_col] = true;
+        }
     
     }
 

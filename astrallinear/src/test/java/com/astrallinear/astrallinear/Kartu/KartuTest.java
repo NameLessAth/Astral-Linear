@@ -130,4 +130,10 @@ public class KartuTest {
 
     }
     // yay selesai!!!
+
+    @Test
+    public void TestPath() throws Exception {
+        Kartu tanaman = new KartuTanaman("biji_labu");
+        assertTrue(tanaman.getPathToImg().equals("Tanaman/biji_labu.png"));
+    }
 }

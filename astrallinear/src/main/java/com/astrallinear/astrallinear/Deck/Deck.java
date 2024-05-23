@@ -62,7 +62,9 @@ public class Deck {
             if(shuffledCard.isEmpty())
                 break;
             if(activeDeck[i] == null){
-                activeDeck[i] = shuffledCard.remove();
+                Kartu k = shuffledCard.remove();
+                System.out.println(k.getNama());
+                activeDeck[i] = k;
             }
         }
     }

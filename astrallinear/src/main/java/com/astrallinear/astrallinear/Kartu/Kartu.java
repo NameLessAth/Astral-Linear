@@ -8,6 +8,8 @@ public abstract class Kartu {
     public String getNama() {
         return nama;
     }
+
+    public abstract String getPathToImg();
 }
 
 class NamaKartuTidakAdaException extends Exception {

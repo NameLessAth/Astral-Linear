@@ -1,6 +1,10 @@
 package com.astrallinear.astrallinear.GameManager;
 
 import com.astrallinear.astrallinear.Pemain.Pemain;
+
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+
 import com.astrallinear.astrallinear.Ladang.Ladang;
 
 import java.util.ArrayList;
@@ -12,6 +16,9 @@ public class GameManager {
     private Integer currentTurn;
     private Integer currentPlayer;
     private Pemain currentPlayerInstance;
+    public Integer state = 0;
+
+
     ArrayList<Pemain> PlayerList; //daftar pemain
     private GameManager() throws Exception{
         PlayerList = new ArrayList<>();

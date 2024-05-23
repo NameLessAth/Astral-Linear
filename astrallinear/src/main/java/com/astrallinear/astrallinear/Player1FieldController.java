@@ -3,6 +3,7 @@ package com.astrallinear.astrallinear;
 import com.astrallinear.astrallinear.GameManager.GameManager;
 import com.astrallinear.astrallinear.Pemain.Pemain;
 import com.astrallinear.astrallinear.Kartu.Kartu;
+import com.astrallinear.astrallinear.Kartu.KartuProduk;
 import com.astrallinear.astrallinear.Kartu.KartuHewan;
 import com.astrallinear.astrallinear.Kartu.KartuItem;
 import com.astrallinear.astrallinear.Kartu.KartuMakhluk;
@@ -180,6 +181,7 @@ public class Player1FieldController{
     @FXML
     void OnNextButtonClick(ActionEvent e) throws Exception {
         //ganti giliran ke pemain selanjutnya jika pemain sekarang sama dengan nama controller ini
+        gameManager.state = 0;
         Integer currentPlayer = gameManager.getCurrentPlayer();
         System.out.println(currentPlayer);
         if(currentPlayer == 2){
@@ -313,7 +315,7 @@ public class Player1FieldController{
     }
 
     @FXML
-    void handleIMGDrop(DragEvent event) {
+    void handleIMGDrop(DragEvent event) throws Exception {
         ImageView target = (ImageView) event.getGestureTarget();
         ImageView source = (ImageView) event.getGestureSource();
         if (event.getDragboard().hasImage() && target != source) {
@@ -367,19 +369,40 @@ public class Player1FieldController{
                 }
                 if (fromDeck) {
                     KartuMakhluk obj = (KartuMakhluk) deck.getActiveCard(sourceColumn);
-                    ladang.spawn_at(obj, targetRow, targetColumn);
+                    ladang.spawn_at((KartuMakhluk) obj, targetRow, targetColumn);
                     deck.deleteActiveCard(sourceColumn);
                 }
                 
+                
             } catch (Exception e) {
+                System.out.println(e.getMessage());
                 event.setDropCompleted(true);
                 event.consume();
-                return;   
+                return;
             }
 
             target.setImage(event.getDragboard().getImage());
             event.setDropCompleted(true);
             updateDraggableStatus(target);
+
+            // } 
+            // else if (obj instanceof KartuItem) {
+            //     // todo implement logika KartuItem
+
+            //     event.setDropCompleted(true);
+            //     event.consume();
+            //     return;   
+            // }
+            // else { // kartu produk
+            //     try {
+            //         ladang.give_food_at((KartuProduk) obj, targetRow, targetColumn);
+            //     } catch (Exception e) {
+            //         System.out.println(e.getMessage());
+            //         event.setDropCompleted(true);
+            //         event.consume();
+            //         return;   
+            //     }
+            // }
 
         } else {
             event.setDropCompleted(false);
@@ -409,21 +432,68 @@ public class Player1FieldController{
         }
     }
     @FXML
-    public void initialize() throws IOException{
-        try {
-            gameManager.getCurrentPlayerInstance().getDeck().addKartu(new KartuHewan("domba"), 5);
-            gameManager.getCurrentPlayerInstance().getDeck().addKartu(new KartuHewan("hiu_darat"), 3);
-        }catch (Exception e){}
-        FXMLLoader popupLoader = new FXMLLoader(Main.class.getResource("View/shuffle.fxml"));
-        Scene popupScene = new Scene(popupLoader.load());
-        Stage popupStage = new Stage();
-        popupStage.setTitle("Shuffle Pop-up");
-        popupStage.setScene(popupScene);
-        popupStage.setResizable(false);
-        popupStage.setOnCloseRequest(event -> {
-            event.consume(); // Consumes the close request event
-        });
-        popupStage.show();
+    public void initialize() throws IOException {
+
+        // shuffle kartu
+        if (gameManager.state == 0) {
+            FXMLLoader popupLoader = new FXMLLoader(Main.class.getResource("View/shuffle.fxml"));
+            Scene popupScene = new Scene(popupLoader.load());
+            Stage popupStage = new Stage();
+            popupStage.setTitle("Shuffle Pop-up");
+            popupStage.setScene(popupScene);
+            popupStage.setResizable(false);
+            popupStage.setOnCloseRequest(event -> {
+                event.consume(); // Consumes the close request event
+            });
+            popupStage.showAndWait();
+
+            
+        }
+        
+        // display ladang
+        for (Node node : LadangGridPane.getChildren()) {
+            Integer r = GridPane.getRowIndex(node);
+            Integer c = GridPane.getColumnIndex(node);
+            r = (r == null ? 0 : r);
+            c = (c == null ? 0 : c);
+            try {
+                KartuMakhluk kartu = gameManager.getLadangPemain1().get(r, c);
+                System.out.println(r + ' ' + c);
+                String path = kartu.getPathToImg();
+                System.out.println(path);
+
+                Image img = new Image(Main.class.getResource(path).toString());
+                ((ImageView) node).setImage(img);
+                
+            } catch (Exception e) {
+                Image img = new Image(Main.class.getResource(PLACEHOLDER_IMAGE_URL).toString());
+                ((ImageView) node).setImage(img);
+            }
+        }
+
+        // display deck
+        Deck deck = gameManager.getCurrentPlayerInstance().getDeck();
+        
+        System.out.println(deck.countEmptySlot());
+        for (Node node : DeckGridPane.getChildren()) {
+            Integer c = GridPane.getColumnIndex(node);
+            c = (c == null ? 0 : c);
+            try {
+                Kartu kartu = deck.getActiveCard(c);
+                String path = kartu.getPathToImg();
+                System.out.println(path);
+                
+                Image img = new Image(Main.class.getResource(path).toString());
+                ((ImageView) node).setImage(img);
+                
+            } catch (Exception e) {
+                Image img = new Image(Main.class.getResource(PLACEHOLDER_IMAGE_URL).toString());
+                ((ImageView) node).setImage(img);
+
+            }
+        }
+        
+        // debug print
         System.out.println("Giliran Pemain: "+gameManager.getCurrentPlayer());
         CurrentPlayerLabel.setText("Pemain: "+gameManager.getCurrentPlayer());
         System.out.println("Turn Ke- "+gameManager.getCurrentTurn());

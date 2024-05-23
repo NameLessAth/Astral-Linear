@@ -96,6 +96,10 @@ public class KartuHewan extends KartuMakhluk {
     public void setBerat(Integer bobot){
         this.berat = bobot;
     }
+
+    public String getPathToImg() {
+        return "Hewan/" + this.getNama() + ".png";
+    }
 }
 
 class SalahJenisMakananException extends Exception {

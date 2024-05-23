@@ -36,7 +36,7 @@ public class InactiveDeck {
         itemAcak.add("instant_harvest");
         itemAcak.add("destroy");
         itemAcak.add("protect");
-        itemAcak.add("trap");
+        itemAcak.add("bear_trap");
 
     }
 

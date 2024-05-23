@@ -47,4 +47,8 @@ public class KartuProduk extends Kartu {
     public Integer getHarga() {
         return harga;
     }
+    
+    public String getPathToImg() {
+        return "Produk/" + this.getNama() + ".png";
+    }
 }

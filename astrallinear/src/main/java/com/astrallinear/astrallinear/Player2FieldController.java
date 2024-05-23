@@ -162,6 +162,7 @@ public class Player2FieldController{
     @FXML
     void OnNextButtonClick(ActionEvent e) throws Exception {
         Integer currentPlayer = gameManager.getCurrentPlayer();
+        gameManager.state = 0;
         System.out.println(currentPlayer);
         if(currentPlayer == 1){
             Alert nextButtonAlert = new Alert(AlertType.ERROR);
@@ -402,11 +403,22 @@ public class Player2FieldController{
     }
     @FXML
     public void initialize() throws IOException{
-        try {
-            gameManager.getCurrentPlayerInstance().getDeck().addKartu(new KartuHewan("domba"), 5);
-            gameManager.getCurrentPlayerInstance().getDeck().addKartu(new KartuHewan("hiu_darat"), 3);
 
-        } catch (Exception e){ System.out.println(e);}
+        // shuffle kartu
+        if (gameManager.state == 0) {
+            FXMLLoader popupLoader = new FXMLLoader(Main.class.getResource("View/shuffle.fxml"));
+            Scene popupScene = new Scene(popupLoader.load());
+            Stage popupStage = new Stage();
+            popupStage.setTitle("Shuffle Pop-up");
+            popupStage.setScene(popupScene);
+            popupStage.setResizable(false);
+            popupStage.setOnCloseRequest(event -> {
+                event.consume(); // Consumes the close request event
+            });
+            popupStage.showAndWait();
+            
+            
+        }
 
         // display ladang
         for (Node node : LadangGridPane.getChildren()) {
@@ -419,11 +431,11 @@ public class Player2FieldController{
                 System.out.println(r + ' ' + c);
                 String nama = kartu.getNama();
                 String dir = kartu.getClass().getSimpleName();
-
+                
                 if (dir.equals("KartuHewan")) dir = "Hewan";
                 if (dir.equals("KartuTanaman")) dir = "Tanaman";
                 String path = dir + '/' + nama + ".png";
-
+                
                 System.out.println(path);
                 Image img = new Image(Main.class.getResource(path).toString());
                 ((ImageView) node).setImage(img);
@@ -433,7 +445,7 @@ public class Player2FieldController{
                 ((ImageView) node).setImage(img);
             }
         }
-
+        
         // display deck
         Deck deck = gameManager.getCurrentPlayerInstance().getDeck();
         for (Node node : DeckGridPane.getChildren()) {
@@ -441,17 +453,7 @@ public class Player2FieldController{
             c = (c == null ? 0 : c);
             try {
                 Kartu kartu = deck.getActiveCard(c);
-                String nama = kartu.getNama();
-                String dir = kartu.getClass().getSimpleName();
-                
-                System.out.println(dir);
-
-                if (dir.equals("KartuHewan")) dir = "Hewan";
-                if (dir.equals("KartuTanaman")) dir = "Tanaman";
-                if (dir.equals("KartuProduk")) dir = "Produk";
-                if (dir.equals("KartuItem")) dir = "Item";
-
-                String path = dir + '/' + nama + ".png";
+                String path = kartu.getPathToImg();
                 System.out.println(path);
                 
                 Image img = new Image(Main.class.getResource(path).toString());
@@ -460,20 +462,11 @@ public class Player2FieldController{
             } catch (Exception e) {
                 Image img = new Image(Main.class.getResource(PLACEHOLDER_IMAGE_URL).toString());
                 ((ImageView) node).setImage(img);
-
+                
             }
-        }
-
-        FXMLLoader popupLoader = new FXMLLoader(Main.class.getResource("View/shuffle.fxml"));
-        Scene popupScene = new Scene(popupLoader.load());
-        Stage popupStage = new Stage();
-        popupStage.setTitle("Shuffle Pop-up");
-        popupStage.setScene(popupScene);
-        popupStage.setResizable(false);
-        popupStage.setOnCloseRequest(event -> {
-            event.consume(); // Consumes the close request event
-        });
-        popupStage.show();
+        }        
+        
+        // debug print
         System.out.println("Giliran Pemain: "+gameManager.getCurrentPlayer());
         CurrentPlayerLabel.setText("Pemain: "+gameManager.getCurrentPlayer());
         System.out.println("Turn Ke- "+gameManager.getCurrentTurn());

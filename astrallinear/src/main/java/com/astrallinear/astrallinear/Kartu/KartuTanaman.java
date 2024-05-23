@@ -53,4 +53,8 @@ public class KartuTanaman extends KartuMakhluk {
     public Integer getTurnUntukHarvest() {
         return turnUntukHarvest;
     }
+
+    public String getPathToImg() {
+        return "Tanaman/" + this.getNama() + ".png";
+    }
 }
