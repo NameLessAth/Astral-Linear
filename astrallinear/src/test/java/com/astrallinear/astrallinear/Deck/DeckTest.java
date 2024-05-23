@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import com.astrallinear.astrallinear.Kartu.Kartu;
 import com.astrallinear.astrallinear.Kartu.KartuHewan;
 
 
@@ -74,5 +75,26 @@ public class DeckTest {
             deck.takeShuffle();
         }
         assertTrue(deck.getRemainingInactiveDeck() == 0);
+    }
+
+    @Test //test5
+    public void testMoveCard() throws Exception{
+        Deck deck = new Deck();
+        KartuHewan kartu;
+
+        deck.addKartu(new KartuHewan("sapi"));
+        deck.moveCard(0, 1);
+
+        kartu =(KartuHewan) deck.getActiveCard(1);
+        assertTrue(kartu.getNama() == "sapi");
+        assertTrue(kartu.getJenis() == "herbivora");
+        assertTrue(kartu.getBerat() == 0);
+
+        try{
+            deck.getActiveCard(0);
+            assertTrue(false);
+        } catch(Exception e){
+            assertTrue(e.getMessage() == "Slot deck ini tidak berisi kartu apapun!");
+        }
     }
 }

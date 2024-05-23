@@ -48,20 +48,26 @@ public class Deck {
         return count;
     }
 
-    public void takeShuffle()throws Exception{
+    public Queue<Kartu> takeShuffle()throws Exception{
         Integer takenCard = this.countEmptySlot();
         if(takenCard > 4){
             takenCard = 4;
         }
-        Queue<Kartu> newCards = inactiveDeck.takeCards(takenCard);
+        return inactiveDeck.takeCards(takenCard);
+    }
 
+    public void acceptShuffle(Queue<Kartu> shuffledCard){
         for(int i = 0; i < 6; i++){
-            if(newCards.isEmpty())
+            if(shuffledCard.isEmpty())
                 break;
             if(activeDeck[i] == null){
-                activeDeck[i] = newCards.remove();
+                activeDeck[i] = shuffledCard.remove();
             }
         }
+    }
+
+    public void rejectShuffle(Queue<Kartu> shuffledCard){
+        inactiveDeck.cancelTakeCards(shuffledCard.size());
     }
 
     public Integer getRemainingInactiveDeck(){
