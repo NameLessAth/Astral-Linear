@@ -13,6 +13,7 @@ public class GameManager {
     private Integer currentPlayer;
     private Pemain currentPlayerInstance;
     ArrayList<Pemain> PlayerList; //daftar pemain
+    private static String previousPressedButton; //button yang terakhir kali dipencet
     private GameManager() throws Exception{
         PlayerList = new ArrayList<>();
         PlayerList.add(new Pemain());
@@ -20,6 +21,7 @@ public class GameManager {
         currentTurn = 1;
         currentPlayer = 1;
         currentPlayerInstance = PlayerList.get(0);
+        previousPressedButton = "";
     }
 
     public static GameManager getInstance() throws Exception{
@@ -75,5 +77,13 @@ public class GameManager {
 
     public Ladang getLadangPemain2() {
         return PlayerList.get(1).getLadang();
+    }
+
+    public String getPreviousPressedButton(){
+        return previousPressedButton;
+    }
+
+    public void setPreviousPressedButton(String previous){
+        previousPressedButton = previous;
     }
 }

@@ -128,6 +128,10 @@ public class Player1FieldController{
             alreadyInOpponentField.setHeaderText("Pemain 2, kamu sudah berada di ladang lawan!");
             alreadyInOpponentField.show();
         } else {
+            gameManager.setPreviousPressedButton("EnemyField");
+            if(popupStage != null){
+                popupStage.close();
+            }
             root = FXMLLoader.load(getClass().getResource("View/player2field.fxml"));
             stage = (Stage)((Node)e.getSource()).getScene().getWindow();
             scene = new Scene(root);
@@ -139,6 +143,10 @@ public class Player1FieldController{
     @FXML
     void OnLoadPluginButtonClick(ActionEvent e) throws IOException {
         System.out.println("Load Plugin");
+        gameManager.setPreviousPressedButton("LoadPlugin");
+        if(popupStage != null){
+            popupStage.close();
+        }
         root = FXMLLoader.load(getClass().getResource("View/loadplugin.fxml"));
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -150,6 +158,10 @@ public class Player1FieldController{
     @FXML
     void OnLoadStateButtonClick(ActionEvent e) throws IOException{
         System.out.println("Load State");
+        gameManager.setPreviousPressedButton("LoadState");
+        if(popupStage != null){
+            popupStage.close();
+        }
         root = FXMLLoader.load(getClass().getResource("View/loadstate.fxml"));
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -170,6 +182,10 @@ public class Player1FieldController{
             alreadyInMyField.setHeaderText("Pemain 1, kamu sudah berada di ladangmu sendiri!");
             alreadyInMyField.show();
         } else {
+            gameManager.setPreviousPressedButton("MyField");
+            if(popupStage != null){
+                popupStage.close();
+            }
             root = FXMLLoader.load(getClass().getResource("View/player2field.fxml"));
             stage = (Stage)((Node)e.getSource()).getScene().getWindow();
             scene = new Scene(root);
@@ -190,7 +206,10 @@ public class Player1FieldController{
             nextButtonAlert.setHeaderText("Pemain 2, kamu masih di ladang lawan! Kembali ke ladangmu terlebih dahulu untuk lanjut ke turn berikutnya!");
             nextButtonAlert.show();
         } else {
-            popupStage.close();
+            gameManager.setPreviousPressedButton("Next");
+            if(popupStage != null){
+                popupStage.close();
+            }
             gameManager.nextTurn();
             System.out.println(gameManager.getCurrentPlayer());
             root = FXMLLoader.load(getClass().getResource("View/player2field.fxml"));
@@ -204,6 +223,10 @@ public class Player1FieldController{
     @FXML
     void OnSaveStateButtonClick(ActionEvent e) throws IOException {
         System.out.println("Save State");
+        gameManager.setPreviousPressedButton("SaveState");
+        if(popupStage != null){
+            popupStage.close();
+        }
         root = FXMLLoader.load(getClass().getResource("View/savestate.fxml"));
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -214,6 +237,10 @@ public class Player1FieldController{
     @FXML
     void OnShopButtonClick(ActionEvent e) throws IOException {
         System.out.println("Shop");
+        gameManager.setPreviousPressedButton("Shop");
+        if(popupStage != null){
+            popupStage.close();
+        }
         root = FXMLLoader.load(getClass().getResource("View/shop.fxml"));
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -412,21 +439,59 @@ public class Player1FieldController{
         }
     }
     @FXML
+    void OnPanenClick(MouseEvent event) {
+        ImageView source = (ImageView) event.getSource();
+        //cari koordinat source
+        Integer sourceRow = GridPane.getRowIndex(source);
+        Integer sourceColumn = GridPane.getColumnIndex(source);
+        sourceRow = (sourceRow == null) ? 0 : sourceRow;
+        sourceColumn = (sourceColumn == null) ? 0 : sourceColumn;
+        GridPane sourceGridPane = (GridPane) source.getParent();
+        String sourceGridPaneName = "";
+
+        if (sourceGridPane == LadangGridPane) {
+            sourceGridPaneName = "LadangGridPane";
+        } else if (sourceGridPane == DeckGridPane) {
+            sourceGridPaneName = "DeckGridPane";
+        }
+        System.out.println("ImageView asal - baris: " + sourceRow + ", kolom: " + sourceColumn + " GridPane: " + sourceGridPaneName);
+        if(gameManager.getCurrentPlayer() == 2){ //kalau yang buka scene ini adalah pemain 1, keluarin pesan error
+            Alert incorrectPlayer = new Alert(AlertType.ERROR);
+            incorrectPlayer.setTitle("Ladang ini bukan punyamu");
+            incorrectPlayer.setHeaderText("Hei pemain 2! Ladang ini bukan punyamu! \nPergi sana, jangan coba-coba kau panen di sini!");
+            incorrectPlayer.show();
+        } else {
+            if(isPlaceholderImage(source)){ //jika petak kosong, keluarkan error
+                Alert emptyCell = new Alert(AlertType.ERROR);
+                emptyCell.setTitle("Petak kosong");
+                emptyCell.setHeaderText("Pemain 1, petak ini kosong!");
+                emptyCell.show();
+            } else {
+                System.out.println("Pop-up panen");
+            }
+        }
+    }
+    @FXML
     public void initialize() throws IOException{
         try {
             gameManager.getCurrentPlayerInstance().getDeck().addKartu(new KartuHewan("domba"), 5);
             gameManager.getCurrentPlayerInstance().getDeck().addKartu(new KartuHewan("hiu_darat"), 3);
         }catch (Exception e){}
-        FXMLLoader popupLoader = new FXMLLoader(Main.class.getResource("View/shuffle.fxml"));
-        popupScene = new Scene(popupLoader.load());
-        popupStage = new Stage();
-        popupStage.setTitle("Shuffle Pop-up");
-        popupStage.setScene(popupScene);
-        popupStage.setResizable(false);
-        popupStage.setOnCloseRequest(event -> {
-            event.consume(); // Consumes the close request event
-        });
-        popupStage.show();
+        String prevButtonPressed = gameManager.getPreviousPressedButton();
+        System.out.println(prevButtonPressed);
+        if(prevButtonPressed.equals("") || prevButtonPressed.equals("Next")) {//kalo baru mulai atau sebelumnya pencet tombol next
+            FXMLLoader popupLoader = new FXMLLoader(Main.class.getResource("View/shuffle.fxml"));
+            popupScene = new Scene(popupLoader.load());
+            popupStage = new Stage();
+            popupStage.setTitle("Shuffle Pop-up");
+            popupStage.setScene(popupScene);
+            popupStage.setResizable(false);
+            popupStage.setOnCloseRequest(event -> {
+                event.consume(); // Consumes the close request event
+            });
+            popupStage.show();
+        }
+
         System.out.println("Giliran Pemain: "+gameManager.getCurrentPlayer());
         CurrentPlayerLabel.setText("Pemain: "+gameManager.getCurrentPlayer());
         System.out.println("Turn Ke- "+gameManager.getCurrentTurn());
