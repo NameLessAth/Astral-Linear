@@ -401,12 +401,12 @@ public class Player2FieldController{
         }
     }
     @FXML
-    public void initialize() {
+    public void initialize() throws IOException{
         try {
             gameManager.getCurrentPlayerInstance().getDeck().addKartu(new KartuHewan("domba"), 5);
             gameManager.getCurrentPlayerInstance().getDeck().addKartu(new KartuHewan("hiu_darat"), 3);
 
-        }catch (Exception e){ System.out.println(e);}
+        } catch (Exception e){ System.out.println(e);}
 
         // display ladang
         for (Node node : LadangGridPane.getChildren()) {
@@ -464,6 +464,16 @@ public class Player2FieldController{
             }
         }
 
+        FXMLLoader popupLoader = new FXMLLoader(Main.class.getResource("View/shuffle.fxml"));
+        Scene popupScene = new Scene(popupLoader.load());
+        Stage popupStage = new Stage();
+        popupStage.setTitle("Shuffle Pop-up");
+        popupStage.setScene(popupScene);
+        popupStage.setResizable(false);
+        popupStage.setOnCloseRequest(event -> {
+            event.consume(); // Consumes the close request event
+        });
+        popupStage.show();
         System.out.println("Giliran Pemain: "+gameManager.getCurrentPlayer());
         CurrentPlayerLabel.setText("Pemain: "+gameManager.getCurrentPlayer());
         System.out.println("Turn Ke- "+gameManager.getCurrentTurn());
