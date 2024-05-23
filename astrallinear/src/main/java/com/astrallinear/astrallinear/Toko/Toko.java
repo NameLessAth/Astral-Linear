@@ -2,13 +2,15 @@ package com.astrallinear.astrallinear.Toko;
 
 import java.util.HashMap;
 
+import com.astrallinear.astrallinear.Kartu.KartuProduk;
+
 
 
 public class Toko {
-    Toko toko = null;
-    HashMap<String, Integer> isiToko;
+    private static Toko toko = null;
+    private static HashMap<String, Integer> isiToko;
 
-    public Toko getToko(){
+    public static Toko getToko(){
         if(toko == null)
             toko = new Toko();
         return toko;
@@ -22,7 +24,7 @@ public class Toko {
         return new HashMap<String, Integer>(isiToko);
     }
 
-    public void buyProductByName(String productName) throws Exception{
+    public KartuProduk buyProductByName(String productName) throws Exception{
         if(!isiToko.containsKey(productName)){
             throw new noItemOnStoreException();
         }
@@ -30,16 +32,20 @@ public class Toko {
             isiToko.put(productName, isiToko.get(productName) - 1);
             if(isiToko.get(productName) == 0)
                 isiToko.remove(productName);
+            return new KartuProduk(productName);
         }
     }
 
-    public void sellProductByName(String productName) throws Exception{
+    // return money from selling
+    public Integer sellProduct(KartuProduk productCard) throws Exception{
+        String productName = productCard.getNama();
         if(!isiToko.containsKey(productName)){
             isiToko.put(productName, 1);
         }
         else{
             isiToko.put(productName, isiToko.get(productName) + 1);
         }
+        return productCard.getHarga();
     }
 }
 
