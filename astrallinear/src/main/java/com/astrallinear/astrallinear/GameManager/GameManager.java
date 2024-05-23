@@ -38,6 +38,7 @@ public class GameManager {
         } else if(currentPlayer == 2){
             currentPlayer = 1;
         }
+        currentPlayerInstance = PlayerList.get(currentPlayer-1);
     }
     public void endGame(){
         if(currentTurn.equals(MAX_TURN)){
@@ -61,5 +62,9 @@ public class GameManager {
 
     public Pemain getCurrentPlayerInstance() {
         return currentPlayerInstance;
+    }
+
+    public Pemain getPlayer(Integer index){
+        return PlayerList.get(index);
     }
 }

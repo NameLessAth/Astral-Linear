@@ -157,13 +157,13 @@ public class Player1FieldController{
             nextButtonAlert.setHeaderText("Pemain 2, kamu masih di ladang lawan! Kembali ke ladangmu terlebih dahulu untuk lanjut ke turn berikutnya!");
             nextButtonAlert.show();
         } else {
+            gameManager.nextTurn();
+            System.out.println(gameManager.getCurrentPlayer());
             root = FXMLLoader.load(getClass().getResource("View/player2field.fxml"));
             stage = (Stage)((Node)e.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
-            gameManager.nextTurn();
-            System.out.println(gameManager.getCurrentPlayer());
         }
     }
 
@@ -286,5 +286,16 @@ public class Player1FieldController{
         } else {
             imageView.setOnDragDetected(this::handleDragDetectIMG);
         }
+    }
+    @FXML
+    public void initialize() {
+        System.out.println("Giliran Pemain: "+gameManager.getCurrentPlayer());
+        CurrentPlayerLabel.setText("Pemain: "+gameManager.getCurrentPlayer());
+        System.out.println("Turn Ke- "+gameManager.getCurrentTurn());
+        turnCount.setText(Integer.toString(gameManager.getCurrentTurn()));
+        System.out.println("Gulden Pemain 1: "+gameManager.getPlayer(0).getGulden());
+        Player1Gold.setText(Integer.toString(gameManager.getPlayer(0).getGulden()));
+        System.out.println("Gulden Pemain 2: "+gameManager.getPlayer(1).getGulden());
+        Player2Gold.setText(Integer.toString(gameManager.getPlayer(1).getGulden()));
     }
 }
