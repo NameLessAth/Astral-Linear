@@ -190,6 +190,17 @@ public class Player1FieldController{
     @FXML
     void handleDragDetectIMG(MouseEvent event) {
         ImageView IMGSource = (ImageView) event.getSource();
+        GridPane sourceGridPane = (GridPane) IMGSource.getParent();
+        String sourceGridPaneName = "";
+        if (sourceGridPane == LadangGridPane) {
+            sourceGridPaneName = "LadangGridPane";
+        } else if (sourceGridPane == DeckGridPane) {
+            sourceGridPaneName = "DeckGridPane";
+        }
+        System.out.println(sourceGridPaneName);
+        if(gameManager.getCurrentPlayer() == 2 && sourceGridPaneName.equals("LadangGridPane")){
+            return;
+        } //larang player musuh untuk menggeser kartu yang ada di ladang
         if (!isPlaceholderImage(IMGSource)) {
             Dragboard db = IMGSource.startDragAndDrop(TransferMode.ANY);
             ClipboardContent cb = new ClipboardContent();
