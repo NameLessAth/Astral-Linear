@@ -83,22 +83,7 @@ public class Player2FieldController{
         }
     }
 
-    // // Method to set visibility based on indices
-    // private void set_grid_cell_not_visible(GridPane gridPane, int targetRow, int targetColumn) {
-    //     for (Node node : gridPane.getChildren()) {
-    //         Integer row = GridPane.getRowIndex(node);
-    //         Integer column = GridPane.getColumnIndex(node);
-            
-    //         // Check for nulls because they can be unspecified
-    //         if (row == null) row = 0;
-    //         if (column == null) column = 0;
-
-    //         if (row == targetRow && column == targetColumn) {
-    //             node.setVisible(false);
-    //             node.setManaged(false);
-    //         }
-    //     }
-    // }
+    // Method to set visibility based on indices
 
     // @FXML
     // private void initialize() {
@@ -421,7 +406,63 @@ public class Player2FieldController{
             gameManager.getCurrentPlayerInstance().getDeck().addKartu(new KartuHewan("domba"), 5);
             gameManager.getCurrentPlayerInstance().getDeck().addKartu(new KartuHewan("hiu_darat"), 3);
 
-        }catch (Exception e){}
+        }catch (Exception e){ System.out.println(e);}
+
+        // display ladang
+        for (Node node : LadangGridPane.getChildren()) {
+            Integer r = GridPane.getRowIndex(node);
+            Integer c = GridPane.getColumnIndex(node);
+            r = (r == null ? 0 : r);
+            c = (c == null ? 0 : c);
+            try {
+                KartuMakhluk kartu = gameManager.getLadangPemain2().get(r, c);
+                System.out.println(r + ' ' + c);
+                String nama = kartu.getNama();
+                String dir = kartu.getClass().getSimpleName();
+
+                if (dir.equals("KartuHewan")) dir = "Hewan";
+                if (dir.equals("KartuTanaman")) dir = "Tanaman";
+                String path = dir + '/' + nama + ".png";
+
+                System.out.println(path);
+                Image img = new Image(Main.class.getResource(path).toString());
+                ((ImageView) node).setImage(img);
+                
+            } catch (Exception e) {
+                Image img = new Image(Main.class.getResource(PLACEHOLDER_IMAGE_URL).toString());
+                ((ImageView) node).setImage(img);
+            }
+        }
+
+        // display deck
+        Deck deck = gameManager.getCurrentPlayerInstance().getDeck();
+        for (Node node : DeckGridPane.getChildren()) {
+            Integer c = GridPane.getColumnIndex(node);
+            c = (c == null ? 0 : c);
+            try {
+                Kartu kartu = deck.getActiveCard(c);
+                String nama = kartu.getNama();
+                String dir = kartu.getClass().getSimpleName();
+                
+                System.out.println(dir);
+
+                if (dir.equals("KartuHewan")) dir = "Hewan";
+                if (dir.equals("KartuTanaman")) dir = "Tanaman";
+                if (dir.equals("KartuProduk")) dir = "Produk";
+                if (dir.equals("KartuItem")) dir = "Item";
+
+                String path = dir + '/' + nama + ".png";
+                System.out.println(path);
+                
+                Image img = new Image(Main.class.getResource(path).toString());
+                ((ImageView) node).setImage(img);
+                
+            } catch (Exception e) {
+                Image img = new Image(Main.class.getResource(PLACEHOLDER_IMAGE_URL).toString());
+                ((ImageView) node).setImage(img);
+
+            }
+        }
 
         System.out.println("Giliran Pemain: "+gameManager.getCurrentPlayer());
         CurrentPlayerLabel.setText("Pemain: "+gameManager.getCurrentPlayer());

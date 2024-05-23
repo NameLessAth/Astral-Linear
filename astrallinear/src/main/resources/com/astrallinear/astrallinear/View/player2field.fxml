@@ -253,7 +253,7 @@
             </ImageView>
             <ImageView fitHeight="72.0" fitWidth="196.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
                <image>
-                  <Image url="@../Hewan/hiu%20darat.png" />
+                  <Image url="@../Hewan/hiu_darat.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="72.0" fitWidth="196.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4">
