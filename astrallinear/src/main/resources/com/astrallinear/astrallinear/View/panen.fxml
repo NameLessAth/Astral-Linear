@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.astrallinear.astrallinear.PanenController">
+   <children>
+      <Label fx:id="PanenObjectNameLabel" layoutX="299.0" layoutY="41.0" text="Nama GameObject">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="PanenObjectIMG" fitHeight="192.0" fitWidth="189.0" layoutX="14.0" layoutY="206.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Placeholder/EmptyCell.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="ItemDetailsLabel" layoutX="203.0" layoutY="107.0" prefHeight="389.0" prefWidth="584.0" text="Bagian ini isinya adalah keterangan dari object yang mau dipanen.&#10;Cara Displaynya:&#10;1. Buat display Nama GameObject, caranya itu panggil method&#10;PanenObjectNameLabel.setText(Nama GameObject yang ada &#10;di petak itu taroh di sini) terus taruh di method initialize&#10;2.  Buat Display Gambar yang ada di sebelah kiri label ini,&#10;panggil method PanenObjectIMG.setImage(gambar objeknya)&#10;terus taruh di method initialize&#10;3. Buat Display keterangan objek yang ada di petak ini, panggil&#10;method ItemDetailsLabel.setText(isi keterangan di sini)&#10;terus taruh di method initialize&#10;4. Algoritma panen taruh di dalam method OnPanenButtonClick&#10;Semua command ini ada di PanenController.java">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="PanenButton" layoutX="186.0" layoutY="529.0" mnemonicParsing="false" onAction="#OnPanenButtonClick" text="Panen">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="BackButton" layoutX="502.0" layoutY="529.0" mnemonicParsing="false" onAction="#OnBackButtonClick" text="Kembali">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

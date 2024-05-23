@@ -236,32 +236,32 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ImageView fitHeight="72.0" fitWidth="196.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="72.0" fitWidth="196.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onMouseClicked="#OnCardDetailClick" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Hewan/beruang.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="72.0" fitWidth="196.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+            <ImageView fitHeight="72.0" fitWidth="196.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onMouseClicked="#OnCardDetailClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
                <image>
                   <Image url="@../Hewan/ayam.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="72.0" fitWidth="196.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
+            <ImageView fitHeight="72.0" fitWidth="196.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onMouseClicked="#OnCardDetailClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
                <image>
                   <Image url="@../Hewan/sapi.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="72.0" fitWidth="196.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
+            <ImageView fitHeight="72.0" fitWidth="196.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onMouseClicked="#OnCardDetailClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
                <image>
                   <Image url="@../Hewan/hiu_darat.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="72.0" fitWidth="196.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4">
+            <ImageView fitHeight="72.0" fitWidth="196.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onMouseClicked="#OnCardDetailClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4">
                <image>
                   <Image url="@../Hewan/kuda.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="72.0" fitWidth="196.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5">
+            <ImageView fitHeight="72.0" fitWidth="196.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onMouseClicked="#OnCardDetailClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5">
                <image>
                   <Image url="@../Hewan/domba.png" />
                </image>
