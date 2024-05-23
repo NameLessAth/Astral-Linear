@@ -40,4 +40,8 @@ public class Pemain {
     public void newTurn()throws Exception{
         deck.takeShuffle();
     }
+
+    public Integer getGulden(){
+        return gulden;
+    }
 }
