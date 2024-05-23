@@ -1,5 +1,6 @@
 package com.astrallinear.astrallinear;
 
+import com.astrallinear.astrallinear.Deck.InactiveDeck;
 import com.astrallinear.astrallinear.GameManager.GameManager;
 import com.astrallinear.astrallinear.Pemain.Pemain;
 import com.astrallinear.astrallinear.Kartu.Kartu;
@@ -463,7 +464,7 @@ public class Player1FieldController{
     }
 
     @FXML
-    void OnPanenClick(MouseEvent event) {
+    void OnPanenClick(MouseEvent event) throws IOException {
         ImageView source = (ImageView) event.getSource();
         //cari koordinat source
         Integer sourceRow = GridPane.getRowIndex(source);
@@ -492,6 +493,16 @@ public class Player1FieldController{
                 emptyCell.show();
             } else {
                 System.out.println("Pop-up panen");
+                FXMLLoader popupLoader = new FXMLLoader(Main.class.getResource("View/panen.fxml"));
+                Scene popupScene = new Scene(popupLoader.load());
+                Stage popupStage = new Stage();
+                popupStage.setTitle("Panen pop-up");
+                popupStage.setScene(popupScene);
+                popupStage.setResizable(false);
+                popupStage.setOnCloseRequest(e -> {
+                    e.consume(); // Consumes the close request event
+                });
+                popupStage.show();
             }
         }
     }
@@ -559,6 +570,7 @@ public class Player1FieldController{
         }
         
         // debug print
+        Pemain curPlayer = gameManager.getCurrentPlayerInstance();
         System.out.println("Giliran Pemain: "+gameManager.getCurrentPlayer());
         CurrentPlayerLabel.setText("Pemain: "+gameManager.getCurrentPlayer());
         System.out.println("Turn Ke- "+gameManager.getCurrentTurn());
@@ -567,5 +579,7 @@ public class Player1FieldController{
         Player1Gold.setText(Integer.toString(gameManager.getPlayer(0).getGulden()));
         System.out.println("Gulden Pemain 2: "+gameManager.getPlayer(1).getGulden());
         Player2Gold.setText(Integer.toString(gameManager.getPlayer(1).getGulden()));
+        System.out.println("Kartu tersisa di deck: "+ curPlayer.getDeck().getRemainingInactiveDeck());
+        CardLeftLabel.setText(Integer.toString(curPlayer.getDeck().getRemainingInactiveDeck()));
     }
 }
