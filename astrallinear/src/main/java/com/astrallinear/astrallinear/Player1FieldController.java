@@ -80,6 +80,10 @@ public class Player1FieldController{
     private Label CardLeftLabel;
     Scene popupScene;
     Stage popupStage;
+    Scene PanenPopUpScene;
+    Stage PanenPopUpStage;
+    Scene CardDetailPopUpScene;
+    Stage CardDetailPopUpStage;
     private static final String PLACEHOLDER_IMAGE_URL = "Placeholder/EmptyCell.png";
     private static GameManager gameManager;
     static {
@@ -493,20 +497,48 @@ public class Player1FieldController{
                 emptyCell.show();
             } else {
                 System.out.println("Pop-up panen");
-                FXMLLoader popupLoader = new FXMLLoader(Main.class.getResource("View/panen.fxml"));
-                Scene popupScene = new Scene(popupLoader.load());
-                Stage popupStage = new Stage();
-                popupStage.setTitle("Panen pop-up");
-                popupStage.setScene(popupScene);
-                popupStage.setResizable(false);
-                popupStage.setOnCloseRequest(e -> {
+                FXMLLoader PanenPopUpLoader = new FXMLLoader(Main.class.getResource("View/panen.fxml"));
+                PanenPopUpScene = new Scene(PanenPopUpLoader.load());
+                PanenPopUpStage = new Stage();
+                PanenPopUpStage.setTitle("Panen pop-up");
+                PanenPopUpStage.setScene(PanenPopUpScene);
+                PanenPopUpStage.setResizable(false);
+                PanenPopUpStage.setOnCloseRequest(e -> {
                     e.consume(); // Consumes the close request event
                 });
-                popupStage.show();
+                PanenPopUpStage.show();
             }
         }
     }
-    
+    @FXML
+    void OnCardDetailClick(MouseEvent event) throws IOException{
+        ImageView source = (ImageView) event.getSource();
+        //cari koordinat source
+        Integer sourceRow = GridPane.getRowIndex(source);
+        Integer sourceColumn = GridPane.getColumnIndex(source);
+        sourceRow = (sourceRow == null) ? 0 : sourceRow;
+        sourceColumn = (sourceColumn == null) ? 0 : sourceColumn;
+        GridPane sourceGridPane = (GridPane) source.getParent();
+        String sourceGridPaneName = "";
+
+        if (sourceGridPane == LadangGridPane) {
+            sourceGridPaneName = "LadangGridPane";
+        } else if (sourceGridPane == DeckGridPane) {
+            sourceGridPaneName = "DeckGridPane";
+        }
+        System.out.println("ImageView asal - baris: " + sourceRow + ", kolom: " + sourceColumn + " GridPane: " + sourceGridPaneName);
+        System.out.println("Pop-up kartu");
+        FXMLLoader CardDetailPopUpLoader = new FXMLLoader(Main.class.getResource("View/carddetail.fxml"));
+        CardDetailPopUpScene = new Scene(CardDetailPopUpLoader.load());
+        CardDetailPopUpStage = new Stage();
+        CardDetailPopUpStage.setTitle("Card Detail pop-up");
+        CardDetailPopUpStage.setScene(CardDetailPopUpScene);
+        CardDetailPopUpStage.setResizable(false);
+        CardDetailPopUpStage.setOnCloseRequest(e -> {
+            e.consume(); // Consumes the close request event
+        });
+        CardDetailPopUpStage.show();
+    }
     @FXML
     public void initialize() throws IOException {
 
