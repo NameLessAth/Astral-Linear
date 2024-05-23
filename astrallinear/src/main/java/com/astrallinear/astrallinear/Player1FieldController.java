@@ -76,6 +76,8 @@ public class Player1FieldController{
     private AnchorPane DeckIndicatorPane;
     @FXML
     private Label CardLeftLabel;
+    Scene popupScene;
+    Stage popupStage;
     private static final String PLACEHOLDER_IMAGE_URL = "Placeholder/EmptyCell.png";
     private static GameManager gameManager;
     static {
@@ -188,6 +190,7 @@ public class Player1FieldController{
             nextButtonAlert.setHeaderText("Pemain 2, kamu masih di ladang lawan! Kembali ke ladangmu terlebih dahulu untuk lanjut ke turn berikutnya!");
             nextButtonAlert.show();
         } else {
+            popupStage.close();
             gameManager.nextTurn();
             System.out.println(gameManager.getCurrentPlayer());
             root = FXMLLoader.load(getClass().getResource("View/player2field.fxml"));
@@ -415,8 +418,8 @@ public class Player1FieldController{
             gameManager.getCurrentPlayerInstance().getDeck().addKartu(new KartuHewan("hiu_darat"), 3);
         }catch (Exception e){}
         FXMLLoader popupLoader = new FXMLLoader(Main.class.getResource("View/shuffle.fxml"));
-        Scene popupScene = new Scene(popupLoader.load());
-        Stage popupStage = new Stage();
+        popupScene = new Scene(popupLoader.load());
+        popupStage = new Stage();
         popupStage.setTitle("Shuffle Pop-up");
         popupStage.setScene(popupScene);
         popupStage.setResizable(false);
