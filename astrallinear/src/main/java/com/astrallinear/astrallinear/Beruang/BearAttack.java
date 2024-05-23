@@ -2,6 +2,8 @@ package com.astrallinear.astrallinear.Beruang;
 import java.util.Random;
 
 import com.astrallinear.astrallinear.Kartu.KartuHewan;
+import com.astrallinear.astrallinear.Kartu.KartuItem;
+import com.astrallinear.astrallinear.Kartu.KartuMakhluk;
 import com.astrallinear.astrallinear.Ladang.Ladang;
 import com.astrallinear.astrallinear.Pemain.Pemain;
 
@@ -70,10 +72,11 @@ public class BearAttack {
 
         for (int i = startPointHeight; i < startPointHeight+this.attackedHeight; i++){
             for (int j = startPointWidth; j < startPointWidth+this.attackedWidth; j++){
-                if (ladangDiserang.is_trapped(i, j)){
+                if (ladangDiserang.get(i, j).getItemAktif().containsKey("trap")){
                     kenaTrap = true;
-                    lastI = i; lastJ = j;
-                    // buat trap nya jadi false
+                    KartuMakhluk temp = ladangDiserang.get(i, j);
+                    temp.removeItemAktif(new KartuItem("trap"));
+                    ladangDiserang.spawn_at(temp, lastI, lastJ);
                 }
             }
         } 
@@ -82,16 +85,15 @@ public class BearAttack {
             try {
                 pemainDiserang.addActiveCard(new KartuHewan("beruang"));
             } catch (Exception e) {
-                ladangDiserang.kartu_destroy(lastI, lastJ);
-                ladangDiserang.spawn_at(new KartuHewan("beruang"), lastI, lastJ);
+                System.out.println("Beruang kabur karena deck aktif penuh!");
             }
         } else{
             for (int i = startPointHeight; i < startPointHeight+this.attackedHeight; i++){
                 for (int j = startPointWidth; j < startPointWidth+this.attackedWidth; j++){
                     if (ladangDiserang.is_filled(i, j)){
-                        if (!ladangDiserang.is_protected(i, j)){
+                        if (!ladangDiserang.get(i, j).getItemAktif().containsKey("protect")){
                             try{
-                                ladangDiserang.kartu_destroy(i, j);
+                                ladangDiserang.pop(i, j);
                             } catch (Exception e){}
                         }
                     }
