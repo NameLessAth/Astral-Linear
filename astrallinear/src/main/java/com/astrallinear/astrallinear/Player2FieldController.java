@@ -212,7 +212,7 @@ public class Player2FieldController{
     void handleDragDoneIMG(DragEvent event) {
         if (event.getTransferMode() != null) {
             ImageView IMGSource = (ImageView) event.getSource();
-            Image img = new Image(getClass().getResourceAsStream(PLACEHOLDER_IMAGE_URL));
+            Image img = new Image(getClass().getResource(PLACEHOLDER_IMAGE_URL).toString());
             IMGSource.setImage(img);
             updateDraggableStatus(IMGSource);
         }
