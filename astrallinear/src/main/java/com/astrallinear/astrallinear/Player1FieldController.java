@@ -66,6 +66,8 @@ public class Player1FieldController{
     private AnchorPane DeckIndicatorPane;
     @FXML
     private Label CardLeftLabel;
+    private static final String PLACEHOLDER_IMAGE_URL = "Placeholder/EmptyCell.png";
+
     @FXML
     void OnEnemyFieldButtonClick(ActionEvent e) throws IOException{
         //tanpa mengubah giliran
@@ -130,7 +132,6 @@ public class Player1FieldController{
         stage.setScene(scene);
         stage.show();
     }
-
     @FXML
     void OnShopButtonClick(ActionEvent e) throws IOException {
         System.out.println("Shop");
@@ -143,12 +144,12 @@ public class Player1FieldController{
     @FXML
     void handleDragDetectIMG(MouseEvent event) {
         ImageView IMGSource = (ImageView) event.getSource();
-        Dragboard db = IMGSource.startDragAndDrop(TransferMode.ANY);
-        System.out.println(IMGSource.getImage().getUrl());
-        ClipboardContent cb = new ClipboardContent();
-        cb.putImage(IMGSource.getImage());
-        db.setContent(cb);
-
+        if (!isPlaceholderImage(IMGSource)) {
+            Dragboard db = IMGSource.startDragAndDrop(TransferMode.ANY);
+            ClipboardContent cb = new ClipboardContent();
+            cb.putImage(IMGSource.getImage());
+            db.setContent(cb);
+        }
         event.consume();
     }
 
@@ -156,9 +157,11 @@ public class Player1FieldController{
     void handleDragDoneIMG(DragEvent event) {
         if (event.getTransferMode() != null) {
             ImageView IMGSource = (ImageView) event.getSource();
-            Image img = new Image(Main.class.getResourceAsStream("Placeholder/EmptyCell.png"));
+            Image img = new Image(getClass().getResourceAsStream(PLACEHOLDER_IMAGE_URL));
             IMGSource.setImage(img);
+            updateDraggableStatus(IMGSource);
         }
+        event.consume();
     }
 
     @FXML
@@ -172,12 +175,35 @@ public class Player1FieldController{
     @FXML
     void handleIMGDrop(DragEvent event) {
         ImageView target = (ImageView) event.getSource();
-        if (event.getDragboard().hasImage()) {
+        ImageView source = (ImageView) event.getGestureSource();
+        if (event.getDragboard().hasImage() && target != source) {
             target.setImage(event.getDragboard().getImage());
             event.setDropCompleted(true);
+            updateDraggableStatus(target);
         } else {
             event.setDropCompleted(false);
         }
         event.consume();
+    }
+
+    private boolean isPlaceholderImage(ImageView imageView) {
+        Image image = imageView.getImage();
+        if (image == null) {
+            return false;
+        }
+        String imageUrl = image.getUrl();
+        if (imageUrl == null) {
+            return false;
+        }
+        String placeholderUrl = getClass().getResource(PLACEHOLDER_IMAGE_URL).toString();
+        return imageUrl.equals(placeholderUrl);
+    }
+
+    private void updateDraggableStatus(ImageView imageView) {
+        if (isPlaceholderImage(imageView)) {
+            imageView.setOnDragDetected(null);
+        } else {
+            imageView.setOnDragDetected(this::handleDragDetectIMG);
+        }
     }
 }

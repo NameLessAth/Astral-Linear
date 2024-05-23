@@ -2,12 +2,17 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.astrallinear.astrallinear.Player2FieldController">
    <children>
-      <Label layoutX="46.0" layoutY="63.0" text="Pemain 1:">
+      <Label layoutX="46.0" layoutY="49.0" text="Pemain 1:">
          <font>
             <Font size="24.0" />
          </font>
@@ -17,12 +22,12 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Label fx:id="Player1Gold" layoutX="167.0" layoutY="63.0" text="Gold Pemain 1">
+      <Label fx:id="Player1Gold" layoutX="167.0" layoutY="49.0" text="Gold Pemain 1">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Label layoutX="330.0" layoutY="63.0" text="gold">
+      <Label layoutX="330.0" layoutY="49.0" text="gold">
          <font>
             <Font size="24.0" />
          </font>
@@ -42,7 +47,7 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Label fx:id="turnCount" layoutX="579.0" layoutY="63.0" text="jumlah turn">
+      <Label fx:id="turnCount" layoutX="580.0" layoutY="48.0" text="jumlah turn">
          <font>
             <Font size="24.0" />
          </font>
@@ -82,20 +87,205 @@
             <Font size="24.0" />
          </font>
       </Button>
-      <Label layoutX="46.0" layoutY="98.0" text="Giliran:">
+      <Label layoutX="46.0" layoutY="84.0" text="Giliran:">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Label fx:id="CurrentPlayerLabel" layoutX="127.0" layoutY="98.0" text="Giliran Pemain">
+      <Label fx:id="CurrentPlayerLabel" layoutX="127.0" layoutY="84.0" text="Giliran Pemain">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Label layoutX="47.0" layoutY="14.0" text="Ladang Pemain 2">
+      <Label layoutX="46.0" layoutY="14.0" text="Ladang Pemain 2">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
+      <GridPane fx:id="LadangGridPane" layoutX="303.0" layoutY="133.0" prefHeight="354.0" prefWidth="677.0" style="-fx-background-color: lightgreen; -fx-grid-lines-visible: true;">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Placeholder/EmptyCell.png" />
+               </image></ImageView>
+            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+               <image>
+                  <Image url="@../Placeholder/EmptyCell.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
+               <image>
+                  <Image url="@../Placeholder/EmptyCell.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
+               <image>
+                  <Image url="@../Placeholder/EmptyCell.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4">
+               <image>
+                  <Image url="@../Placeholder/EmptyCell.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../Placeholder/EmptyCell.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../Placeholder/EmptyCell.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../Placeholder/EmptyCell.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../Placeholder/EmptyCell.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../Placeholder/EmptyCell.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
+               <image>
+                  <Image url="@../Placeholder/EmptyCell.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <image>
+                  <Image url="@../Placeholder/EmptyCell.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <image>
+                  <Image url="@../Placeholder/EmptyCell.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="2">
+               <image>
+                  <Image url="@../Placeholder/EmptyCell.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="2">
+               <image>
+                  <Image url="@../Placeholder/EmptyCell.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3">
+               <image>
+                  <Image url="@../Placeholder/EmptyCell.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <image>
+                  <Image url="@../Placeholder/EmptyCell.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="3">
+               <image>
+                  <Image url="@../Placeholder/EmptyCell.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="3">
+               <image>
+                  <Image url="@../Placeholder/EmptyCell.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="3">
+               <image>
+                  <Image url="@../Placeholder/EmptyCell.png" />
+               </image>
+            </ImageView>
+         </children>
+      </GridPane>
+      <Label layoutX="601.0" layoutY="84.0" text="Ladang">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <GridPane fx:id="DeckGridPane" layoutX="300.0" layoutY="537.0" prefHeight="79.0" prefWidth="686.0" style="-fx-background-color: lightblue; -fx-grid-lines-visible: true;">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <ImageView fitHeight="72.0" fitWidth="196.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Hewan/bear.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="72.0" fitWidth="196.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+               <image>
+                  <Image url="@../Hewan/chicken.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="72.0" fitWidth="196.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
+               <image>
+                  <Image url="@../Hewan/cow.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="72.0" fitWidth="196.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
+               <image>
+                  <Image url="@../Hewan/hiu%20darat.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="72.0" fitWidth="196.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4">
+               <image>
+                  <Image url="@../Hewan/horse.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="72.0" fitWidth="196.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5">
+               <image>
+                  <Image url="@../Hewan/sheep.png" />
+               </image>
+            </ImageView>
+         </children>
+      </GridPane>
+      <AnchorPane fx:id="DeckIndicatorPane" layoutX="49.0" layoutY="520.0" prefHeight="106.0" prefWidth="200.0" style="-fx-background-color: lightgray; -fx-grid-lines-visible: true;">
+         <children>
+            <Label layoutX="74.0" layoutY="14.0" text="Deck">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="109.0" layoutY="57.0" text="/40">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="CardLeftLabel" layoutX="59.0" layoutY="57.0" text="Card">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>
