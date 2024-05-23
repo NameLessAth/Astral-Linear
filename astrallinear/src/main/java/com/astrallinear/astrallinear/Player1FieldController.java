@@ -1,5 +1,12 @@
 package com.astrallinear.astrallinear;
 
+import com.astrallinear.astrallinear.GameManager.GameManager;
+import com.astrallinear.astrallinear.Pemain.Pemain;
+import com.astrallinear.astrallinear.Kartu.Kartu;
+import com.astrallinear.astrallinear.Deck.Deck;
+import com.astrallinear.astrallinear.Ladang.Ladang;
+import com.astrallinear.astrallinear.Beruang.BearAttack;
+import com.astrallinear.astrallinear.Beruang.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -67,17 +74,33 @@ public class Player1FieldController{
     @FXML
     private Label CardLeftLabel;
     private static final String PLACEHOLDER_IMAGE_URL = "Placeholder/EmptyCell.png";
+    private static GameManager gameManager;
+    static {
+        try {
+            gameManager = GameManager.getInstance();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @FXML
     void OnEnemyFieldButtonClick(ActionEvent e) throws IOException{
         //tanpa mengubah giliran
-
-        //tombol next di scene ladang musuh akan mengeluarkan pesan error setelah menekan tombol ini
-        root = FXMLLoader.load(getClass().getResource("View/player2field.fxml"));
-        stage = (Stage)((Node)e.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        Integer currentPlayer = gameManager.getCurrentPlayer();
+        System.out.println(currentPlayer);
+        if(currentPlayer == 2){ //jika pemain sekarang adalah pemain 2 yang menekan tombol "Ladang Lawan" di ladang pemain 1
+            //Dia sudah mengunjungi ladang lawan, keluarkan pesan error
+            Alert alreadyInOpponentField = new Alert(AlertType.ERROR);
+            alreadyInOpponentField.setTitle("Sudah di ladang lawan!");
+            alreadyInOpponentField.setHeaderText("Pemain 2, kamu sudah berada di ladang lawan!");
+            alreadyInOpponentField.show();
+        } else {
+            root = FXMLLoader.load(getClass().getResource("View/player2field.fxml"));
+            stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
     }
 
     @FXML
@@ -88,6 +111,7 @@ public class Player1FieldController{
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+        System.out.println(gameManager.getCurrentPlayer());
     }
 
     @FXML
@@ -98,29 +122,49 @@ public class Player1FieldController{
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+        System.out.println(gameManager.getCurrentPlayer());
     }
 
     @FXML
-    void OnMyFieldButtonClick(ActionEvent event) {
-        System.out.println("My Field");
-        //Jika sekarang giliran pemain 2 (berada di ladang lawan)
-        //Kembali ke ladang pemain 2
+    void OnMyFieldButtonClick(ActionEvent e) throws IOException{
+        //tanpa mengubah giliran
+        Integer currentPlayer = gameManager.getCurrentPlayer();
+        System.out.println(currentPlayer);
+        if(currentPlayer == 1){
+            //Jika sekarang giliran pemain 1 (sudah berada di ladang sendiri) tampilkan error ini
+            Alert alreadyInMyField = new Alert(AlertType.ERROR);
+            alreadyInMyField.setTitle("Sudah di ladang sendiri");
+            alreadyInMyField.setHeaderText("Pemain 1, kamu sudah berada di ladangmu sendiri!");
+            alreadyInMyField.show();
+        } else {
+            root = FXMLLoader.load(getClass().getResource("View/player2field.fxml"));
+            stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
 
-        //Jika sekarang giliran pemain 1 (sudah berada di ladang sendiri) tampilkan error ini
-        Alert alreadyInMyField = new Alert(AlertType.ERROR);
-        alreadyInMyField.setTitle("Sudah di ladang sendiri");
-        alreadyInMyField.setHeaderText("Anda sudah berada di ladang sendiri!");
-        alreadyInMyField.show();
     }
 
     @FXML
-    void OnNextButtonClick(ActionEvent e) throws IOException {
-        //ganti giliran ke pemain selanjutnya
-        root = FXMLLoader.load(getClass().getResource("View/player2field.fxml"));
-        stage = (Stage)((Node)e.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    void OnNextButtonClick(ActionEvent e) throws Exception {
+        //ganti giliran ke pemain selanjutnya jika pemain sekarang sama dengan nama controller ini
+        Integer currentPlayer = gameManager.getCurrentPlayer();
+        System.out.println(currentPlayer);
+        if(currentPlayer == 2){
+            Alert nextButtonAlert = new Alert(AlertType.ERROR);
+            nextButtonAlert.setTitle("Next Button Error");
+            nextButtonAlert.setHeaderText("Pemain 2, kamu masih di ladang lawan! Kembali ke ladangmu terlebih dahulu untuk lanjut ke turn berikutnya!");
+            nextButtonAlert.show();
+        } else {
+            root = FXMLLoader.load(getClass().getResource("View/player2field.fxml"));
+            stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+            gameManager.nextTurn();
+            System.out.println(gameManager.getCurrentPlayer());
+        }
     }
 
     @FXML
@@ -131,6 +175,7 @@ public class Player1FieldController{
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+        System.out.println(gameManager.getCurrentPlayer());
     }
     @FXML
     void OnShopButtonClick(ActionEvent e) throws IOException {
@@ -140,6 +185,7 @@ public class Player1FieldController{
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+        System.out.println(gameManager.getCurrentPlayer());
     }
     @FXML
     void handleDragDetectIMG(MouseEvent event) {
