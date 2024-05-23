@@ -111,6 +111,9 @@ public class Player2FieldController{
             alreadyInMyField.show();
         } else {
             gameManager.setPreviousPressedButton("EnemyField");
+            if(popupStage != null){
+                popupStage.close();
+            }
             root = FXMLLoader.load(getClass().getResource("View/player1field.fxml"));
             stage = (Stage)((Node)e.getSource()).getScene().getWindow();
             scene = new Scene(root);
@@ -123,6 +126,9 @@ public class Player2FieldController{
     void OnLoadPluginButtonClick(ActionEvent e) throws IOException {
         System.out.println("Load Plugin");
         gameManager.setPreviousPressedButton("LoadPlugin");
+        if(popupStage != null){
+            popupStage.close();
+        }
         root = FXMLLoader.load(getClass().getResource("View/loadplugin.fxml"));
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -135,6 +141,9 @@ public class Player2FieldController{
     void OnLoadStateButtonClick(ActionEvent e) throws IOException{
         System.out.println("Load State");
         gameManager.setPreviousPressedButton("LoadState");
+        if(popupStage != null){
+            popupStage.close();
+        }
         root = FXMLLoader.load(getClass().getResource("View/loadstate.fxml"));
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -156,6 +165,9 @@ public class Player2FieldController{
             alreadyInMyField.show();
         } else {
             gameManager.setPreviousPressedButton("MyField");
+            if(popupStage != null){
+                popupStage.close();
+            }
             root = FXMLLoader.load(getClass().getResource("View/player1field.fxml"));
             stage = (Stage)((Node)e.getSource()).getScene().getWindow();
             scene = new Scene(root);
@@ -193,6 +205,9 @@ public class Player2FieldController{
     void OnSaveStateButtonClick(ActionEvent e) throws IOException {
         System.out.println("Save State");
         gameManager.setPreviousPressedButton("SaveState");
+        if(popupStage != null){
+            popupStage.close();
+        }
         root = FXMLLoader.load(getClass().getResource("View/savestate.fxml"));
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -204,6 +219,9 @@ public class Player2FieldController{
     void OnShopButtonClick(ActionEvent e) throws IOException {
         System.out.println("Shop");
         gameManager.setPreviousPressedButton("Shop");
+        if(popupStage != null){
+            popupStage.close();
+        }
         root = FXMLLoader.load(getClass().getResource("View/shop.fxml"));
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
