@@ -226,6 +226,41 @@ public class Player1FieldController{
             target.setImage(event.getDragboard().getImage());
             event.setDropCompleted(true);
             updateDraggableStatus(target);
+            //Debug Koordinat
+
+            //cari koordinat source
+            Integer sourceRow = GridPane.getRowIndex(source);
+            Integer sourceColumn = GridPane.getColumnIndex(source);
+            //cari koordinat target
+            Integer targetRow = GridPane.getRowIndex(target);
+            Integer targetColumn = GridPane.getColumnIndex(target);
+            //handle nilai null
+            sourceRow = (sourceRow == null) ? 0 : sourceRow;
+            sourceColumn = (sourceColumn == null) ? 0 : sourceColumn;
+            targetRow = (targetRow == null) ? 0 : targetRow;
+            targetColumn = (targetColumn == null) ? 0 : targetColumn;
+
+            //dapetin parent dari imageviewnya dari gridpane yang mana
+            GridPane sourceGridPane = (GridPane) source.getParent();
+            GridPane targetGridPane = (GridPane) target.getParent();
+
+            String sourceGridPaneName = "";
+            String targetGridPaneName = "";
+
+            if (sourceGridPane == LadangGridPane) {
+                sourceGridPaneName = "LadangGridPane";
+            } else if (sourceGridPane == DeckGridPane) {
+                sourceGridPaneName = "DeckGridPane";
+            }
+
+            if (targetGridPane == LadangGridPane) {
+                targetGridPaneName = "LadangGridPane";
+            } else if (targetGridPane == DeckGridPane) {
+                targetGridPaneName = "DeckGridPane";
+            }
+            System.out.println("ImageView asal - baris: " + sourceRow + ", kolom: " + sourceColumn + " GridPane: " + sourceGridPaneName);
+            System.out.println("ImageView tujuan - baris: " + targetRow + ", kolom: " + targetColumn + " GridPane: " + targetGridPaneName);
+
         } else {
             event.setDropCompleted(false);
         }
