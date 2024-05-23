@@ -50,7 +50,7 @@ public class BearAttack {
         notify();
     }
 
-    synchronized Ladang attackLadang(Ladang ladangDiserang){
+    synchronized Ladang attackLadang(Ladang ladangDiserang) throws Exception{
         Random rd = new Random();
         readyAtt = true;
         notify();
@@ -64,7 +64,7 @@ public class BearAttack {
 
         for (int i = startPointHeight; i < startPointHeight+this.attackedHeight; i++){
             for (int j = startPointWidth; j < startPointWidth+this.attackedWidth; j++){
-                if (ladangDiserang.is_trapped(i, j)) return ladangDiserang;
+                if (ladangDiserang.is_trapped(i, j)) throw new BearKenaTrap("Beruang Terkena Trap");
             }
         } 
         for (int i = startPointHeight; i < startPointHeight+this.attackedHeight; i++){
@@ -96,4 +96,10 @@ class BearAttackRun extends Thread{
             this.brt.Attack(this.tpr);    
         }  
     } 
+}
+
+class BearKenaTrap extends Exception{
+    public BearKenaTrap(String message){
+        super(message);
+    }
 }
