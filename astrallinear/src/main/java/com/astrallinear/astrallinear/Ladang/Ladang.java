@@ -4,7 +4,9 @@ import java.util.*;
 import com.astrallinear.astrallinear.Kartu.KartuMakhluk;
 import com.astrallinear.astrallinear.Kartu.KartuProduk;
 import com.astrallinear.astrallinear.Kartu.KartuTanaman;
+import com.astrallinear.astrallinear.GameManager.GameManager;
 import com.astrallinear.astrallinear.Kartu.KartuHewan;
+import com.astrallinear.astrallinear.Kartu.KartuItem;
 
 
 public class Ladang {
@@ -125,30 +127,61 @@ public class Ladang {
      *   EFEK KARTU ITEM
      */
 
-    public void kartu_destroy(Integer row, Integer col) throws EmptyCellException {
+    public void kartu_destroy(Integer row, Integer col) throws Exception {
         if (!isFilled[row][col]) throw new EmptyCellException(row, col);
+        
+        GameManager gm = GameManager.getInstance();
+        if (is_protected(row, col)) throw new Exception("sel ini di-protect!");
+        if (gm.getCurrentPlayerInstance().getLadang() == this) throw new Exception("serang sel sendiri");
+        
         isFilled[row][col] = false;
+        get(row, col).addItemAktif(new KartuItem("destroy"));
     }
-    public void kartu_trap(Integer row, Integer col) throws AlreadyTrappedCellException,EmptyCellException {
+    public void kartu_trap(Integer row, Integer col) throws Exception {
         if (isTrapped[row][col]) throw new AlreadyTrappedCellException(row, col);
         if (!isFilled[row][col]) throw new EmptyCellException(row, col);
+        
+        GameManager gm = GameManager.getInstance();
+        if (gm.getCurrentPlayerInstance().getLadang() != this) throw new Exception("bukan sel sendiri");
+        
         isTrapped[row][col] = true;
+        get(row, col).addItemAktif(new KartuItem("bear_trap"));
     }
-    public void kartu_protect(Integer row, Integer col) throws AlreadyProtectedCellException,EmptyCellException {
+    public void kartu_protect(Integer row, Integer col) throws Exception {
         if (isProtected[row][col]) throw new AlreadyProtectedCellException(row, col);
         if (!isFilled[row][col]) throw new EmptyCellException(row, col);
+
+        GameManager gm = GameManager.getInstance();
+        if (gm.getCurrentPlayerInstance().getLadang() != this) throw new Exception("bukan sel sendiri");
+
         isProtected[row][col] = true;
+        get(row, col).addItemAktif(new KartuItem("protect"));
     }
-    public void kartu_accelerate(Integer row, Integer col) throws EmptyCellException {
+    public void kartu_accelerate(Integer row, Integer col) throws Exception {
         if (!isFilled[row][col]) throw new EmptyCellException(row, col);
+
+        GameManager gm = GameManager.getInstance();
+        if (gm.getCurrentPlayerInstance().getLadang() != this) throw new Exception("bukan sel sendiri");
+
         MakhlukMatrix[row][col].accelerate();
+        get(row, col).addItemAktif(new KartuItem("accelerate"));
     }
-    public void kartu_delay(Integer row, Integer col) throws EmptyCellException {
+    public void kartu_delay(Integer row, Integer col) throws Exception {
         if (!isFilled[row][col]) throw new EmptyCellException(row, col);
+                
+        GameManager gm = GameManager.getInstance();
+        if (is_protected(row, col)) throw new Exception("sel ini di-protect!");
+        if (gm.getCurrentPlayerInstance().getLadang() == this) throw new Exception("serang sel sendiri");
+
         MakhlukMatrix[row][col].delay();
+        get(row, col).addItemAktif(new KartuItem("delay"));
     }
-    public KartuProduk kartu_instant_harvest(Integer row, Integer col) throws EmptyCellException {
+    public KartuProduk kartu_instant_harvest(Integer row, Integer col) throws Exception{
         if (!isFilled[row][col]) throw new EmptyCellException(row, col);
+
+        GameManager gm = GameManager.getInstance();
+        if (gm.getCurrentPlayerInstance().getLadang() != this) throw new Exception("bukan sel sendiri");
+
         isFilled[row][col] = false;
         return MakhlukMatrix[row][col].instant_harvest_panen();
     }

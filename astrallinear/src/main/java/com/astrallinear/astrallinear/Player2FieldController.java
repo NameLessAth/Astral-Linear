@@ -413,7 +413,54 @@ public class Player2FieldController{
                 }
                 else { // item. todo: implement
 
+                    try {
+                        if (obj.getNama().equals("accelerate")) {
+                            ladang.kartu_accelerate(targetRow, targetColumn);
+                        }
+                        if (obj.getNama().equals("instant_harvest")) {
+                            ladang.kartu_instant_harvest(targetRow, targetColumn);
+                        }
+                        if (obj.getNama().equals("bear_trap")) {
+                            ladang.kartu_trap(targetRow, targetColumn);
+                        }
+                        if (obj.getNama().equals("delay")) {
+                            ladang.kartu_delay(targetRow, targetColumn);
+                        }
+                        if (obj.getNama().equals("destroy")) {
+                            ladang.kartu_destroy(targetRow, targetColumn);
+                            Image img = new Image(Main.class.getResource(PLACEHOLDER_IMAGE_URL).toString());
+                            target.setImage(img);
+                        }
+                        if (obj.getNama().equals("protect")) {
+                            ladang.kartu_protect(targetRow, targetColumn);
+                        }
+                        deck.deleteActiveCard(sourceColumn);
+
+                    } catch (Exception e2) { 
+                        if (e2.getMessage().equals("sel ini di-protect!")) {
+                            Alert isProtectedAlert = new Alert(AlertType.ERROR);
+                            isProtectedAlert.setTitle("Eits! Tidak bisa!");
+                            isProtectedAlert.setHeaderText("Kamu tidak bisa serang sel ini karena pemain lawan melindungi dengan item protect!");
+                            isProtectedAlert.show();
+                        }
+                        else if (e2.getMessage().equals("serang sel sendiri")) {
+                            Alert suicideAlert = new Alert(AlertType.ERROR);
+                            suicideAlert.setTitle("Lho.. jangan serang ladang sendiri dong!");
+                            suicideAlert.setHeaderText("Silakan ganti ladang terlebih dahulu sebelum menyerang");
+                            suicideAlert.show();
+                        }
+                        else if (e2.getMessage().equals("bukan sel sendiri")) {
+                            Alert notSelfLadang = new Alert(AlertType.ERROR);
+                            notSelfLadang.setTitle("Lho.. Ini bukan ladangmu!");
+                            notSelfLadang.setHeaderText("Silakan ganti ladang terlebih dahulu sebelum menggunakan kartu item powerup");
+                            notSelfLadang.show();
+                        }
+                        event.setDropCompleted(true);
+                        event.consume();
+                        return;
+                    }
                 }
+                
                 
                 event.setDropCompleted(true);
                 event.consume();
@@ -515,14 +562,8 @@ public class Player2FieldController{
 
     @FXML
     void OnCardDetailClick(MouseEvent event) throws IOException{
-        //block window game utama
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("View/blocker.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        Stage gameStage = gameManager.getGameStage();
-        gameStage.setTitle("Tubes 2 OOP");
-        gameStage.setScene(scene);
-        gameStage.setResizable(false);
-        gameStage.show();
+    
+        // info
         ImageView source = (ImageView) event.getSource();
         //cari koordinat source
         Integer sourceRow = GridPane.getRowIndex(source);
@@ -531,6 +572,17 @@ public class Player2FieldController{
         sourceColumn = (sourceColumn == null) ? 0 : sourceColumn;
         GridPane sourceGridPane = (GridPane) source.getParent();
         boolean onDeck = (sourceGridPane == DeckGridPane) ;
+
+        if (!gameManager.getLadangPemain1().is_filled(sourceRow, sourceColumn)) return;
+
+        //block window game utama
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("View/blocker.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage gameStage = gameManager.getGameStage();
+        gameStage.setTitle("Tubes 2 OOP");
+        gameStage.setScene(scene);
+        gameStage.setResizable(false);
+        gameStage.show();
 
         Kartu kartu;
         try {
