@@ -192,18 +192,22 @@ public class Player2FieldController{
             nextButtonAlert.setHeaderText("Pemain 1, kamu masih di ladang lawan! Kembali ke ladangmu terlebih dahulu untuk lanjut ke turn berikutnya!");
             nextButtonAlert.show();
         } else {
-            gameManager.setPreviousPressedButton("Next");
-            if(popupStage != null){
-                popupStage.close();
+            if(gameManager.getCurrentTurn() < gameManager.getMaxTurn()) {
+                gameManager.setPreviousPressedButton("Next");
+                if (popupStage != null) {
+                    popupStage.close();
+                }
+                gameManager.state = 0;
+                gameManager.nextTurn();
+                System.out.println(gameManager.getCurrentPlayer());
+                root = FXMLLoader.load(getClass().getResource("View/player1field.fxml"));
+                stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            } else {
+                gameManager.endGame();
             }
-            gameManager.state = 0;
-            gameManager.nextTurn();
-            System.out.println(gameManager.getCurrentPlayer());
-            root = FXMLLoader.load(getClass().getResource("View/player1field.fxml"));
-            stage = (Stage)((Node)e.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
         }
     }
 
@@ -630,6 +634,7 @@ public class Player2FieldController{
         // shuffle kartu
         String prevButtonPressed = gameManager.getPreviousPressedButton();
         System.out.println(prevButtonPressed);
+
         if (gameManager.state == 0 && (prevButtonPressed.equals("") || prevButtonPressed.equals("Next"))) { //kalo baru mulai atau sebelumnya pencet tombol next
             gameManager.state = 1;
             FXMLLoader popupLoader = new FXMLLoader(Main.class.getResource("View/shuffle.fxml"));
