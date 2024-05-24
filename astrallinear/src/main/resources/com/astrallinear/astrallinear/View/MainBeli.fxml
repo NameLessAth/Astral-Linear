@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.astrallinear.astrallinear.MainBeliController">
+    <children>
+        <ScrollPane fx:id="scrollPane" layoutX="0.0" layoutY="0.0" prefHeight="720.0" prefWidth="1280.0">
+            <content>
+                <AnchorPane fx:id="dynamicAnchorPane" prefHeight="720.0" prefWidth="1280.0">
+               <children>
+                  <Label layoutX="577.0" layoutY="14.0" text="Beli Kartu">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="BackButton" layoutX="27.0" layoutY="14.0" mnemonicParsing="false" onAction="#BackToShop" text="Kembali">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Button>
+               </children></AnchorPane>
+            </content>
+        </ScrollPane>
+    </children>
+</AnchorPane>
