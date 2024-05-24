@@ -44,7 +44,11 @@ public class ShopSceneController {
     }
 
     @FXML
-    void OnJualButtonClick(ActionEvent event) {
-
+    void OnJualButtonClick(ActionEvent e) throws IOException{
+        root = FXMLLoader.load(getClass().getResource("View/MainJual.fxml"));
+        stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 }
