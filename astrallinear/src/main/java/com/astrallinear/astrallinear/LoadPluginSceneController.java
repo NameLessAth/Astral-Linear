@@ -40,7 +40,8 @@ public class LoadPluginSceneController {
 
     @FXML
     void LoadPlugin(ActionEvent event) {
-
+        //tau dah dikerjain apa gak ini aowokawoko
+        System.out.println(FileNameField.getText());
     }
 
 }

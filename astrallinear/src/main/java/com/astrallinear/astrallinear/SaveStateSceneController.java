@@ -19,8 +19,8 @@ public class SaveStateSceneController {
     private Button BackButton;
 
     @FXML
-    private ChoiceBox<?> FileFormatSelector;
-
+    private ChoiceBox<String> FileFormatSelector;
+    private String[] validFileFormats = {".txt",".json",".xml"};
     @FXML
     private TextField FileNameField;
 
@@ -45,6 +45,13 @@ public class SaveStateSceneController {
     @FXML
     void SaveState(ActionEvent event) {
 
+        //nanti algoritma buat savenya taroh di sini
+        System.out.println(FileFormatSelector.getValue());
+        System.out.println(FileNameField.getText());
     }
 
+    @FXML
+    public void initialize(){
+        FileFormatSelector.getItems().addAll(validFileFormats);
+    }
 }
