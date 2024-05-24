@@ -60,10 +60,11 @@ public class KartuTanaman extends KartuMakhluk {
 
     public String getInfo() {
         return (
+            "\n\tNama: " + getNama().replace("_", " ") +
             "\n\tUmur: "                    + umur +
             "\n\tUmur threshold panen: "    + turnUntukHarvest +
             "\n\tSiap panen: "              + (isSiapPanen() ? "ya!" : "tidak!") +
-            "\n\tHasil panen: "             + drop.getNama()
+            "\n\tHasil panen: "             + drop.getNama().replace("_", " ")
         );
     }
 }
