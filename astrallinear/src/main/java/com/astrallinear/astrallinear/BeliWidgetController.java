@@ -47,14 +47,13 @@ public class BeliWidgetController {
         KartuProduk kartuProduk = new KartuProduk(this.getBuyItemNameLabel().
         getText());
 
-        currentPlayer.increaseGulden(1000);
         if(currentPlayer.getGulden() < kartuProduk.getHarga()){
             Alert miskinAlert = new Alert(AlertType.ERROR);
             miskinAlert.setTitle("Notifikasi pembelian");
             miskinAlert.setHeaderText("Aa kasian aa..\nduit anda tidak mencukupi, pembelian gagal");
             miskinAlert.show();
         }
-        else if(currentPlayer.getDeck().getRemainingInactiveDeck() == 0){
+        else if(currentPlayer.getDeck().countEmptySlot() == 0){
             Alert fullDeckAlert = new Alert(AlertType.ERROR);
             fullDeckAlert.setTitle("Notifikasi pembelian");
             fullDeckAlert.setHeaderText("Deck anda sudah penuh, pembelian gagal");
@@ -64,8 +63,9 @@ public class BeliWidgetController {
             Alert nextButtonAlert = new Alert(AlertType.INFORMATION);
             nextButtonAlert.setTitle("Notifikasi pembelian");
             nextButtonAlert.setHeaderText("Pembelian berhasil");
+            currentPlayer.reduceGulden(kartuProduk.getHarga());
+            currentPlayer.addActiveCard(Toko.getToko().buyProductByName(this.getBuyItemNameLabel().getText()));
             nextButtonAlert.show();
-            gameManager.getCurrentPlayerInstance().addActiveCard(Toko.getToko().buyProductByName(this.getBuyItemNameLabel().getText()));
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("View/MainBeli.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             Stage stage = gameManager.getGameStage();
