@@ -47,10 +47,6 @@ public class GameManager {
         return instance;
     }
     public void nextTurn() throws Exception{
-        if(currentTurn.equals(MAX_TURN)){
-            endGame();
-            return;
-        }
         currentTurn++;
         if(currentPlayer == 1){
             currentPlayer++;
@@ -65,6 +61,13 @@ public class GameManager {
                 System.out.println("Seri!");
                 GameWinner = 0;
                 WinnerGulden = 0;
+                Stage gameStage = GameStage;
+                FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("View/drawscene.fxml"));
+                Scene scene = new Scene(fxmlLoader.load());
+                gameStage.setTitle("Tubes 2 OOP");
+                gameStage.setScene(scene);
+                gameStage.setResizable(false);
+                gameStage.show();
             } else {
                 if(PlayerList.get(0).getGulden() > PlayerList.get(1).getGulden()){
                     System.out.println("Pemain 1 menang!");

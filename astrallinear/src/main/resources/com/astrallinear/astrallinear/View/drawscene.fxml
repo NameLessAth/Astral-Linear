@@ -5,41 +5,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.astrallinear.astrallinear.WinnerSceneController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.astrallinear.astrallinear.DrawSceneController">
    <children>
       <Label layoutX="481.0" layoutY="31.0" text="Permainan Berakhir!">
          <font>
             <Font size="36.0" />
-         </font>
-      </Label>
-      <Label layoutX="556.0" layoutY="145.0" text="Selamat kepada:">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <Label fx:id="WinnerLabel" layoutX="542.0" layoutY="207.0" text="Pemain Pemenang">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <Label layoutX="740.0" layoutY="207.0" text="!">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <Label layoutX="276.0" layoutY="267.0" text="Karena telah memenangkan permainan ini dengan berhasil mengumpulkan: ">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <Label fx:id="WinnerGuldenLabel" layoutX="516.0" layoutY="317.0" text="Winner Gulden" textFill="#38d34f">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <Label layoutX="685.0" layoutY="317.0" text="gulden!">
-         <font>
-            <Font size="24.0" />
          </font>
       </Label>
       <AnchorPane layoutX="105.0" layoutY="384.0" prefHeight="232.0" prefWidth="1076.0" style="-fx-background-color: lightgray; -fx-border-color: black; -fx-border-width: 5px;">
@@ -86,5 +56,10 @@
             <Font size="20.0" />
          </font>
       </Button>
+      <Label layoutX="458.0" layoutY="214.0" text="Yah... Permainannya berakhir seri...&#10;Gak ada pemenangnya :(((&#10;">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
