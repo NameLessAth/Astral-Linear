@@ -9,8 +9,6 @@ public class TimerProcRun extends Thread {
 
     @Override
     public void run(){
-        while(true) {
-            this.tpc.Timer();
-        }
+        this.tpc.Timer();
     }
 }

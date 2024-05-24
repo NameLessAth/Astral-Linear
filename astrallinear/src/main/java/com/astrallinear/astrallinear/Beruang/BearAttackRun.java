@@ -11,8 +11,7 @@ class BearAttackRun extends Thread{
 
     @Override
     public void run(){
-        while (true) {
-            this.brt.Attack(this.tpr);    
-        }  
+        try{this.brt.Attack(this.tpr);}
+        catch (Exception e) {}
     } 
 }

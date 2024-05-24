@@ -10,6 +10,7 @@ import com.astrallinear.astrallinear.Pemain.Pemain;
 public class BearAttack {
     public boolean readyAtt = false;
     public boolean interrupted = false;
+    private Pemain pemainDiserang;
     private Integer attackedHeight;
     private Integer attackedWidth;
 
@@ -19,7 +20,7 @@ public class BearAttack {
         else return false;
     }
 
-    synchronized void Attack(TimerProcRun tpr){
+    synchronized void Attack(TimerProcRun tpr) throws Exception{
         // Idling
         while(!readyAtt){
             try {wait();}
@@ -44,25 +45,9 @@ public class BearAttack {
             try{wait(durasi);}
             catch (InterruptedException e){}
         } tpr.tpc.Interrupt();
-        readyAtt = false;
-        interrupted = false;
-        notify();
-    }
-
-    synchronized void Interrupt(){
-        interrupted = true;
-        notify();
-    }
-
-    synchronized void attackLadang(Ladang ladangDiserang, Pemain pemainDiserang) throws Exception{
-        Random rd = new Random();
-        readyAtt = true;
-        notify();
-        while(readyAtt){
-            try {wait();}
-            catch (InterruptedException e) {}
-        } 
-
+        
+        Ladang ladangDiserang = this.pemainDiserang.getLadang();
+        
         Integer startPointHeight = rd.nextInt(4-this.attackedHeight);
         Integer startPointWidth = rd.nextInt(5-this.attackedWidth);
 
@@ -100,5 +85,16 @@ public class BearAttack {
                 }
             } 
         }
+    }
+
+    synchronized void Interrupt(){
+        interrupted = true;
+        notify();
+    }
+
+    synchronized void attackLadang(Pemain pemainDiserang) throws Exception{
+        this.pemainDiserang = pemainDiserang;
+        readyAtt = true;
+        notify();
     }
 }
