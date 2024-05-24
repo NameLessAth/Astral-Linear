@@ -22,6 +22,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert.AlertType;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -719,9 +720,13 @@ public class Player2FieldController implements Initializable {
 
         // bear atk
         BearAttackTimer.setVisible(false);
-        Set<Button> daftar_button = new HashSet<>(Arrays.asList(
-            EnemyFieldButton, LoadButton, MyFieldButton, EnemyFieldButton, LoadButton, NextButton, PluginButton, SaveButton, ShopButton
-        ));
+
+        Set<Button> daftar_button = new HashSet<>(Arrays.asList());
+        Field[] fields = this.getClass().getDeclaredFields();
+        for (Field f : fields) {
+            if (f.get(this) instanceof Button) daftar_button.add((Button)f.get(this));
+        }
+  
 
         if (gameManager.state == 2) {
             

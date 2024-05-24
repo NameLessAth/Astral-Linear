@@ -1,5 +1,6 @@
 package com.astrallinear.astrallinear;
 
+import java.lang.reflect.Field;
 import java.util.*;
 import com.astrallinear.astrallinear.Deck.InactiveDeck;
 import com.astrallinear.astrallinear.GameManager.GameManager;
@@ -700,10 +701,13 @@ public class Player1FieldController implements Initializable{
         CardLeftLabel.setText(Integer.toString(curPlayer.getDeck().getRemainingInactiveDeck()));
         
         BearAttackTimer.setVisible(false);
-        Set<Button> daftar_button = new HashSet<>(Arrays.asList(
-            EnemyFieldButton, LoadButton, MyFieldButton, EnemyFieldButton, LoadButton, NextButton, PluginButton, SaveButton, ShopButton
-        ));
 
+        Set<Button> daftar_button = new HashSet<>(Arrays.asList());
+        Field[] fields = this.getClass().getDeclaredFields();
+        for (Field f : fields) {
+            if (f.get(this) instanceof Button) daftar_button.add((Button)f.get(this));
+        }
+        
         System.out.println(BearAttackTimer);
         System.out.println("State: " + gameManager.state);
         if (gameManager.state == 2) {
