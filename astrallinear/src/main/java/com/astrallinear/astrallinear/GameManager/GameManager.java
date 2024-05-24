@@ -6,6 +6,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 import com.astrallinear.astrallinear.Ladang.Ladang;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
@@ -17,7 +18,7 @@ public class GameManager {
     private Integer currentPlayer;
     private Pemain currentPlayerInstance;
     public Integer state = 0;
-
+    private static Stage GameStage;
 
     ArrayList<Pemain> PlayerList; //daftar pemain
     private static String previousPressedButton; //button yang terakhir kali dipencet
@@ -92,5 +93,13 @@ public class GameManager {
 
     public void setPreviousPressedButton(String previous){
         previousPressedButton = previous;
+    }
+
+    public void setGameStage(Stage stage){
+        GameStage = stage;
+    }
+
+    public Stage getGameStage(){
+        return GameStage;
     }
 }

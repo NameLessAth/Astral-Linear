@@ -2,7 +2,9 @@ package com.astrallinear.astrallinear;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -40,16 +42,33 @@ public class PanenController {
     private Kartu kartu;
     private Integer row;
     private Integer col;
-
+    private static GameManager gameManager;
+    static {
+        try {
+            gameManager = GameManager.getInstance();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
     @FXML
-    void OnBackButtonClick(ActionEvent event) {
+    void OnBackButtonClick(ActionEvent event) throws IOException {
+        //unblock window game utama
+
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.close();
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("View/player"+gameManager.getCurrentPlayer()+"field.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage gameStage = gameManager.getGameStage();
+        gameStage.setTitle("Tubes 2 OOP");
+        gameStage.setScene(scene);
+        gameStage.setResizable(false);
+        gameStage.show();
     }
 
     @FXML
     void OnPanenButtonClick(ActionEvent event) throws Exception {
         GameManager gameManager = GameManager.getInstance();
+
         Pemain pemain = gameManager.getCurrentPlayerInstance();
         Ladang ladang = pemain.getLadang();
         Deck deck = pemain.getDeck();
@@ -65,9 +84,16 @@ public class PanenController {
         KartuProduk produk = ladang.harvest_at(row,col);
         deck.addKartu(produk);
         System.out.println(produk);
+
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.close();
-
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("View/player"+gameManager.getCurrentPlayer()+"field.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage gameStage = gameManager.getGameStage();
+        gameStage.setTitle("Tubes 2 OOP");
+        gameStage.setScene(scene);
+        gameStage.setResizable(false);
+        gameStage.show();
     }
     @FXML
     public void initialize() {
