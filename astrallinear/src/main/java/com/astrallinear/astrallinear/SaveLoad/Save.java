@@ -1,4 +1,4 @@
-package com.astrallinear.astrallinear.Save;
+package com.astrallinear.astrallinear.SaveLoad;
 
 import java.io.FileWriter;
 import java.io.File;
@@ -15,13 +15,19 @@ import com.astrallinear.astrallinear.Toko.Toko;
 
 public class Save {
     public static void SaveGameState(GameManager gmg, Toko shop, String filepath) throws Exception{
-        FileWriter bufferWrite = new FileWriter(filepath + "/gamestate.txt");
+        File directory = new File(filepath);
+        if (!directory.exists()) directory.mkdirs();
+        FileWriter bufferWrite = new FileWriter(new File(directory,"gamestate.txt"));
 
         // write current turn
         bufferWrite.write(String.format("%d", gmg.getCurrentTurn()) + '\n');
 
         // write jumlah item di toko
         bufferWrite.write(String.format("%d", shop.getIsiToko().size()) + '\n');
+
+        // write player
+        Save.SavePlayerState(gmg.getPlayer(0), filepath, "player1");
+        Save.SavePlayerState(gmg.getPlayer(1), filepath, "player2");
 
         // write tiap item di toko
         List<String> listItems = new ArrayList<>(shop.getIsiToko().keySet());
@@ -33,7 +39,6 @@ public class Save {
     }
     public static void SavePlayerState(Pemain ply, String filepath, String namaPemain) throws Exception{
         File directory = new File(filepath);
-        if (!directory.exists()) directory.mkdirs(); 
         FileWriter bufferWrite = new FileWriter(new File(directory, namaPemain + ".txt"));
         
         // write gulden
@@ -46,7 +51,7 @@ public class Save {
         // write tiap kartunya
         for (int i = 0; i < (6); i++){
             try{
-                bufferWrite.write(((char)(i+'A')) + "01" + ply.getDeck().getActiveCard(i-1).getNama() + '\n');
+                bufferWrite.write(((char)(i+'A')) + "01 " + ply.getDeck().getActiveCard(i).getNama() + '\n');
             } catch (Exception e) {}
         }
         
@@ -72,9 +77,15 @@ public class Save {
                     else if (ldg.get(i, j) instanceof KartuTanaman) bufferWrite.write(String.format("%d ", ((KartuTanaman)ldg.get(i, j)).getUmur()));
                     // write kartu aktif
                     HashMap<String, Integer> activeCardTemp = ldg.get(i, j).getItemAktif();
-                    bufferWrite.write(String.format("%d", activeCardTemp.size()));
+                    Integer nAttributeApplied = 0;
                     for (String iterate : activeCardTemp.keySet()){
-                        bufferWrite.write(" " + iterate);
+                        for(int k = 0; k < activeCardTemp.get(iterate); k++)
+                            nAttributeApplied ++;
+                    }
+                    bufferWrite.write(String.format("%d", nAttributeApplied));
+                    for (String iterate : activeCardTemp.keySet()){
+                        for(int k = 0; k < activeCardTemp.get(iterate); k++)
+                            bufferWrite.write(" " + iterate);
                     }
                     bufferWrite.write('\n');
                 }
