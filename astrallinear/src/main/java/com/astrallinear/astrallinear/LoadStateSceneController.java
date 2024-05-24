@@ -19,8 +19,8 @@ public class LoadStateSceneController {
     private Button BackButton;
 
     @FXML
-    private ChoiceBox<?> FileFormatSelector;
-
+    private ChoiceBox<String> FileFormatSelector;
+    private String[] validFileFormats = {".txt",".json",".xml"};
     @FXML
     private TextField FileNameField;
 
@@ -32,6 +32,7 @@ public class LoadStateSceneController {
     private Stage stage;
     @FXML
     private Parent root;
+
     @FXML
     void BackToGame(ActionEvent e) throws IOException {
         //kembali ke ladang pemaiin yang sekarang bermain
@@ -44,7 +45,12 @@ public class LoadStateSceneController {
 
     @FXML
     void LoadState(ActionEvent event) {
-
+        //nanti algoritma buat loadnya taroh di sini
+        System.out.println(FileFormatSelector.getValue());
+        System.out.println(FileNameField.getText());
     }
-
+    @FXML
+    public void initialize(){
+        FileFormatSelector.getItems().addAll(validFileFormats);
+    }
 }
