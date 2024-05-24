@@ -23,7 +23,7 @@ public class BearAttack {
 
     public static boolean isAttacking(){
         Integer terjadi = new Random().nextInt(100+1);
-        if (terjadi <= 25) return true;
+        if (terjadi <= 35) return true;
         else return false;
     }
 

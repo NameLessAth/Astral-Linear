@@ -700,8 +700,8 @@ public class Player1FieldController implements Initializable{
         System.out.println("State: " + gameManager.state);
         if (gameManager.state == 2) {
             
-            // if (BearAttack.isAttacking() && gameManager.getCurrentTurn() > 4) {
-            if (true) {
+            if (BearAttack.isAttacking() && gameManager.getCurrentTurn() > 4) {
+            // if (true) { // kalau mau paksa setiap turn
 
                 Alert BeruangAlert = new Alert(AlertType.WARNING);
                 BeruangAlert.setTitle("WADAW!");

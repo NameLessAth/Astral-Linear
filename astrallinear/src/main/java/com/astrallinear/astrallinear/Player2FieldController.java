@@ -24,6 +24,7 @@ import javafx.scene.control.Alert.AlertType;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javafx.scene.layout.AnchorPane;
@@ -724,8 +725,8 @@ public class Player2FieldController implements Initializable {
 
         if (gameManager.state == 2) {
             
-            // if (BearAttack.isAttacking() && gameManager.getCurrentTurn() > 4) {
-            if (true) {
+            if (BearAttack.isAttacking() && gameManager.getCurrentTurn() > 4) {
+            // if (true) {
 
                 Alert BeruangAlert = new Alert(AlertType.WARNING);
                 BeruangAlert.setTitle("WADAW!");
@@ -737,8 +738,16 @@ public class Player2FieldController implements Initializable {
                 tpr.start();
                 BearAttackRun brt = new BearAttackRun(tpr);
                 brt.start();
-                brt.brt.attackLadang(gameManager.getCurrentPlayerInstance(), this);
+                
+                List<Integer> coordinate_info = brt.brt.attackLadang(gameManager.getCurrentPlayerInstance(), this);
+               
                 for (Button b : daftar_button) b.setDisable(true);
+
+                // buat mark di GUI
+                Integer startPointRow = coordinate_info.get(0);
+                Integer startPointColumn = coordinate_info.get(1);
+                Integer attackedWidth = coordinate_info.get(2);
+                Integer attackedHeigh = coordinate_info.get(3);
             }
 
             gameManager.state = 1;
