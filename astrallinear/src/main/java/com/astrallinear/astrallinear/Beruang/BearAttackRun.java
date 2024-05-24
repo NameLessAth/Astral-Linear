@@ -1,8 +1,8 @@
 package com.astrallinear.astrallinear.Beruang;
 
-class BearAttackRun extends Thread{
-    BearAttack brt;
-    TimerProcRun tpr;
+public class BearAttackRun extends Thread{
+    public BearAttack brt;
+    public TimerProcRun tpr;
 
     public BearAttackRun(TimerProcRun tpr){
         this.brt = new BearAttack();
@@ -10,8 +10,10 @@ class BearAttackRun extends Thread{
     }
 
     @Override
-    public void run(){
-        try{this.brt.Attack(this.tpr);}
-        catch (Exception e) {}
+    public void run() {
+        try { this.brt.Attack(this.tpr); }
+        catch (Exception e) { 
+            System.out.println(e.getMessage());
+        }    
     } 
 }
