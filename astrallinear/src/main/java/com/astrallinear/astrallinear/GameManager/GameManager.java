@@ -19,8 +19,6 @@ public class GameManager {
     private static GameManager instance;
     private static final Integer MAX_TURN = 20; //banyak turn maksimal
     private Integer currentTurn;
-    private Integer currentPlayer;
-    private Pemain currentPlayerInstance;
     public Integer state = 0;
     private static Stage GameStage;
     private static Integer GameWinner;
@@ -32,8 +30,6 @@ public class GameManager {
         PlayerList.add(new Pemain());
         PlayerList.add(new Pemain());
         currentTurn = 1;
-        currentPlayer = 1;
-        currentPlayerInstance = PlayerList.get(0);
         previousPressedButton = "";
         GameWinner = 0;
         WinnerGulden = 0;
@@ -46,14 +42,12 @@ public class GameManager {
         }
         return instance;
     }
+
+    public static void gameManagerReset() throws Exception{
+        instance = new GameManager();
+    }
     public void nextTurn() throws Exception{
         currentTurn++;
-        if(currentPlayer == 1){
-            currentPlayer++;
-        } else if(currentPlayer == 2){
-            currentPlayer = 1;
-        }
-        currentPlayerInstance = PlayerList.get(currentPlayer-1);
     }
     public void endGame() throws IOException{
         if(currentTurn.equals(MAX_TURN)){
@@ -93,16 +87,29 @@ public class GameManager {
         return currentTurn;
     }
 
+    public void setCurrentTurn(Integer currentTurn) {
+        this.currentTurn = currentTurn;
+    }
+
     public Integer getCurrentPlayer() {
-        return currentPlayer;
+        if(currentTurn%2 == 0){
+            return 2;
+        }
+        else{
+            return 1;
+        }
     }
 
     public Pemain getCurrentPlayerInstance() {
-        return currentPlayerInstance;
+        return PlayerList.get(getCurrentPlayer()-1);
     }
 
     public Pemain getPlayer(Integer index){
         return PlayerList.get(index);
+    }
+
+    public void setPlayer(Integer index, Pemain pemainBaru){
+        this.PlayerList.set(index, pemainBaru);
     }
     
     public Ladang getLadangPemain1() {
@@ -128,7 +135,6 @@ public class GameManager {
     public Stage getGameStage(){
         return GameStage;
     }
-
     public Integer getWinnerGulden(){
         return WinnerGulden;
     }

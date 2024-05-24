@@ -55,4 +55,8 @@ public class Pemain {
     public Ladang getLadang() {
         return ladang;
     }
+
+    public void setLadang(Ladang ladang){
+        this.ladang = ladang;
+    }
 }
