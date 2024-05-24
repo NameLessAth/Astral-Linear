@@ -30,7 +30,7 @@ public class Save {
 
         bufferWrite.close();
     }
-    public static void SavePlayerState(Pemain ply, Ladang ldg, String filepath, String namaPemain) throws Exception{
+    public static void SavePlayerState(Pemain ply, String filepath, String namaPemain) throws Exception{
         FileWriter bufferWrite = new FileWriter(filepath + "/" + namaPemain + ".txt");
         
         // write gulden
@@ -46,7 +46,9 @@ public class Save {
                 bufferWrite.write(((char)(i+'A')) + "01" + ply.getDeck().getActiveCard(i-1).getNama() + '\n');
             } catch (Exception e) {}
         }
-
+        
+        Ladang ldg = ply.getLadang();
+        
         // write ladang yang terisi
         Integer countLdg = 0;
         for (int i = 0; i < 4; i++){
