@@ -630,6 +630,9 @@ public class Player2FieldController{
         // shuffle kartu
         String prevButtonPressed = gameManager.getPreviousPressedButton();
         System.out.println(prevButtonPressed);
+        if(gameManager.getCurrentTurn().equals(gameManager.getMaxTurn())){
+            return;
+        }
         if (gameManager.state == 0 && (prevButtonPressed.equals("") || prevButtonPressed.equals("Next"))) { //kalo baru mulai atau sebelumnya pencet tombol next
             gameManager.state = 1;
             FXMLLoader popupLoader = new FXMLLoader(Main.class.getResource("View/shuffle.fxml"));
