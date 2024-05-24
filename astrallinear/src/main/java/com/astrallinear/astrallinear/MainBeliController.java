@@ -13,11 +13,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
 
 import com.astrallinear.astrallinear.Kartu.Kartu;
-import com.astrallinear.astrallinear.Kartu.KartuHewan;
 import com.astrallinear.astrallinear.Kartu.KartuProduk;
 import com.astrallinear.astrallinear.Toko.Toko;
 
@@ -29,8 +26,6 @@ public class MainBeliController {
     private AnchorPane dynamicAnchorPane;
     @FXML
     private Button BackButton;
-    //ganti data structure di sini jadi data barang yang disimpan di toko
-    // private List<String> data = List.of("Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6","capek bang","java bosok","mending","unity");
     @FXML
     private Scene scene;
     @FXML
