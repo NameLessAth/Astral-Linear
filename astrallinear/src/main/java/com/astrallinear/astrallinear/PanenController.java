@@ -87,13 +87,14 @@ public class PanenController {
 
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.close();
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("View/player"+gameManager.getCurrentPlayer()+"field.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        Stage gameStage = gameManager.getGameStage();
-        gameStage.setTitle("Tubes 2 OOP");
-        gameStage.setScene(scene);
-        gameStage.setResizable(false);
-        gameStage.show();
+
+        // FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("View/player"+gameManager.getCurrentPlayer()+"field.fxml"));
+        // Scene scene = new Scene(fxmlLoader.load());
+        // Stage gameStage = gameManager.getGameStage();
+        // gameStage.setTitle("Tubes 2 OOP");
+        // gameStage.setScene(scene);
+        // gameStage.setResizable(false);
+        // gameStage.show();
     }
     @FXML
     public void initialize() {

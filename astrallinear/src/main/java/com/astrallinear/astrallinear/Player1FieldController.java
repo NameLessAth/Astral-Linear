@@ -11,8 +11,6 @@ import com.astrallinear.astrallinear.Kartu.KartuItem;
 import com.astrallinear.astrallinear.Kartu.KartuMakhluk;
 import com.astrallinear.astrallinear.Deck.Deck;
 import com.astrallinear.astrallinear.Ladang.Ladang;
-import com.astrallinear.astrallinear.Beruang.BearAttackRun;
-import com.astrallinear.astrallinear.Beruang.BearAttack;
 import com.astrallinear.astrallinear.Beruang.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,9 +28,6 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert.AlertType;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 import javafx.scene.layout.AnchorPane;
 
@@ -270,7 +265,7 @@ public class Player1FieldController implements Initializable{
             if ((GridPane) IMGSource.getParent() == LadangGridPane) {
                 empty = !gameManager.getLadangPemain1().is_filled(r, c);
             } else {
-                empty = gameManager.getPlayer(0).getDeck().isEmpty(c);
+                empty = gameManager.getCurrentPlayerInstance().getDeck().isEmpty(c);
                 System.out.println(c);
                 System.out.println(empty);
             }
@@ -412,7 +407,20 @@ public class Player1FieldController implements Initializable{
                             ladang.kartu_accelerate(targetRow, targetColumn);
                         }
                         if (obj.getNama().equals("instant_harvest")) {
-                            ladang.kartu_instant_harvest(targetRow, targetColumn);
+                            if (deck.countEmptySlot() == 0) {
+                                Alert deckIsFullAlert = new Alert(AlertType.ERROR);
+                                deckIsFullAlert.setTitle("Tidak ada tempat kosong!");
+                                deckIsFullAlert.setHeaderText("Deck aktif Anda masih penuh! Silakan kosongkan minimal satu slot agar bisa panen!");
+                                deckIsFullAlert.showAndWait();
+                                return;
+                            }
+                            else {
+                                KartuProduk produk = ladang.kartu_instant_harvest(targetRow, targetColumn);
+                                deck.addKartu(produk);
+                                Image img = new Image(Main.class.getResource(PLACEHOLDER_IMAGE_URL).toString());
+                                target.setImage(img);
+                                initialize();
+                            }
                         }
                         if (obj.getNama().equals("bear_trap")) {
                             ladang.kartu_trap(targetRow, targetColumn);
