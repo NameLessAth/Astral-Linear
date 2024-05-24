@@ -1,18 +1,26 @@
 package com.astrallinear.astrallinear;
 
 import com.astrallinear.astrallinear.GameManager.GameManager;
+import com.astrallinear.astrallinear.SaveLoad.Load;
+import com.astrallinear.astrallinear.SaveLoad.Save;
+import com.astrallinear.astrallinear.Toko.Toko;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.FileNameMap;
 
 public class LoadStateSceneController {
     private static GameManager gameManager;
@@ -41,6 +49,10 @@ public class LoadStateSceneController {
     @FXML
     private Parent root;
 
+    public static boolean containsSpecialChars(String str) {
+        return !(str.matches("[a-zA-Z0-9 ]*"));
+    }
+
     @FXML
     void BackToGame(ActionEvent e) throws IOException {
         //kembali ke ladang pemaiin yang sekarang bermain
@@ -53,9 +65,42 @@ public class LoadStateSceneController {
 
     @FXML
     void LoadState(ActionEvent event) {
-        //nanti algoritma buat loadnya taroh di sini
-        System.out.println(FileFormatSelector.getValue());
-        System.out.println(FileNameField.getText());
+        //nanti algoritma buat savenya taroh di sini
+        if(!(FileFormatSelector.getValue() == ".txt")){
+            Alert failSaveAlert = new Alert(AlertType.ERROR);
+            failSaveAlert.setTitle("Notifikasi memuat");
+            failSaveAlert.setHeaderText("Memuat dalam format ini tidak tersedia, muat gagal");
+            failSaveAlert.show();
+        }
+        else if(containsSpecialChars(FileNameField.getText())){
+            Alert failSaveAlert = new Alert(AlertType.ERROR);
+            failSaveAlert.setTitle("Notifikasi memuat");
+            failSaveAlert.setHeaderText("Memuat dalam penamaan folder ini tidak diterima, muat gagal");
+            failSaveAlert.show();
+        }
+        else{
+            File directory = new File("test/" + FileNameField.getText());
+            if (!directory.exists()){
+                Alert nextButtonAlert = new Alert(AlertType.ERROR);
+                    nextButtonAlert.setTitle("Notifikasi memuat");
+                    nextButtonAlert.setHeaderText("Folder dengan nama tersebut tidak ada, muat gagal");
+                    nextButtonAlert.show();
+            }
+            else{
+                try{
+                    Load.LoadGame("test/" + FileNameField.getText());
+                    Alert nextButtonAlert = new Alert(AlertType.INFORMATION);
+                    nextButtonAlert.setTitle("Notifikasi memuat");
+                    nextButtonAlert.setHeaderText("State program berhasil dimuat");
+                    nextButtonAlert.show();
+                }catch(Exception e){
+                    Alert nextButtonAlert = new Alert(AlertType.ERROR);
+                    nextButtonAlert.setTitle("Notifikasi memuat");
+                    nextButtonAlert.setHeaderText("Terjadi anomali dalam memuat, muat gagal");
+                    nextButtonAlert.show();
+                }
+            }
+        }
     }
     @FXML
     public void initialize(){

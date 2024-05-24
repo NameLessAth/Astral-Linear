@@ -90,8 +90,6 @@ public class SaveStateSceneController {
                 nextButtonAlert.show();
             }
         }
-        System.out.println(FileFormatSelector.getValue());
-        System.out.println(FileNameField.getText());
     }
 
     @FXML

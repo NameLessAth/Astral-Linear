@@ -1,0 +1,8 @@
+0
+36
+4
+A01 biji_stroberi
+B01 ayam
+C01 bear_trap
+D01 biji_labu
+0
