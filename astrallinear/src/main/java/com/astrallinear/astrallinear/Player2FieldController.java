@@ -184,7 +184,6 @@ public class Player2FieldController{
     @FXML
     void OnNextButtonClick(ActionEvent e) throws Exception {
         Integer currentPlayer = gameManager.getCurrentPlayer();
-        gameManager.state = 0;
         gameManager.getLadangPemain2().age_all_plants();
         System.out.println(currentPlayer);
         if(currentPlayer == 1){
@@ -197,6 +196,7 @@ public class Player2FieldController{
             if(popupStage != null){
                 popupStage.close();
             }
+            gameManager.state = 0;
             gameManager.nextTurn();
             System.out.println(gameManager.getCurrentPlayer());
             root = FXMLLoader.load(getClass().getResource("View/player1field.fxml"));
@@ -394,6 +394,7 @@ public class Player2FieldController{
                     ladang.move(sourceRow, sourceColumn, targetRow, targetColumn);
                 }
                 if (fromDeck) {
+                    System.out.println("FROM DECK");
                     KartuMakhluk obj = (KartuMakhluk) deck.getActiveCard(sourceColumn);
                     ladang.spawn_at((KartuMakhluk) obj, targetRow, targetColumn);
                     deck.deleteActiveCard(sourceColumn);
@@ -455,6 +456,7 @@ public class Player2FieldController{
                             notSelfLadang.setHeaderText("Silakan ganti ladang terlebih dahulu sebelum menggunakan kartu item powerup");
                             notSelfLadang.show();
                         }
+                        System.out.println(e2);
                         event.setDropCompleted(true);
                         event.consume();
                         return;
@@ -466,12 +468,11 @@ public class Player2FieldController{
                 event.consume();
                 custom(event);
 
-                deck.deleteActiveCard(sourceColumn);
-
                 return;
 
             }
             catch (Exception e) {
+                System.out.println(e);
                 System.out.println(e.getMessage());
                 event.setDropCompleted(true);
                 event.consume();
@@ -573,7 +574,8 @@ public class Player2FieldController{
         GridPane sourceGridPane = (GridPane) source.getParent();
         boolean onDeck = (sourceGridPane == DeckGridPane) ;
 
-        if (!gameManager.getLadangPemain1().is_filled(sourceRow, sourceColumn)) return;
+        if (!onDeck && !gameManager.getLadangPemain2().is_filled(sourceRow, sourceColumn)) return;
+        if (onDeck && gameManager.getCurrentPlayerInstance().getDeck().isEmpty(sourceColumn)) return;
 
         //block window game utama
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("View/blocker.fxml"));
@@ -627,6 +629,7 @@ public class Player2FieldController{
         String prevButtonPressed = gameManager.getPreviousPressedButton();
         System.out.println(prevButtonPressed);
         if (gameManager.state == 0 && (prevButtonPressed.equals("") || prevButtonPressed.equals("Next"))) { //kalo baru mulai atau sebelumnya pencet tombol next
+            gameManager.state = 1;
             FXMLLoader popupLoader = new FXMLLoader(Main.class.getResource("View/shuffle.fxml"));
             popupScene = new Scene(popupLoader.load());
             popupStage = new Stage();

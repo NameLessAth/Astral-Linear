@@ -204,10 +204,9 @@ public class Player1FieldController{
     @FXML
     void OnNextButtonClick(ActionEvent e) throws Exception {
         //ganti giliran ke pemain selanjutnya jika pemain sekarang sama dengan nama controller ini
-        gameManager.state = 0;
         Integer currentPlayer = gameManager.getCurrentPlayer();
         gameManager.getLadangPemain1().age_all_plants();
-
+        
         if(currentPlayer == 2){
             Alert nextButtonAlert = new Alert(AlertType.ERROR);
             nextButtonAlert.setTitle("Next Button Error");
@@ -218,6 +217,7 @@ public class Player1FieldController{
             if(popupStage != null){
                 popupStage.close();
             }
+            gameManager.state = 0;
             gameManager.nextTurn();
             System.out.println(gameManager.getCurrentPlayer());
             root = FXMLLoader.load(getClass().getResource("View/player2field.fxml"));
@@ -583,7 +583,8 @@ public class Player1FieldController{
         GridPane sourceGridPane = (GridPane) source.getParent();
         boolean onDeck = (sourceGridPane == DeckGridPane) ;
 
-        if (!gameManager.getLadangPemain1().is_filled(sourceRow, sourceColumn)) return;
+        if (!onDeck && !gameManager.getLadangPemain1().is_filled(sourceRow, sourceColumn)) return;
+        if (onDeck && gameManager.getCurrentPlayerInstance().getDeck().isEmpty(sourceRow)) return;
 
         //block window game utama
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("View/blocker.fxml"));
@@ -634,6 +635,7 @@ public class Player1FieldController{
 
         // shuffle kartu
         if (gameManager.state == 0) {
+            gameManager.state = 1;
             FXMLLoader popupLoader = new FXMLLoader(Main.class.getResource("View/shuffle.fxml"));
             Scene popupScene = new Scene(popupLoader.load());
             Stage popupStage = new Stage();

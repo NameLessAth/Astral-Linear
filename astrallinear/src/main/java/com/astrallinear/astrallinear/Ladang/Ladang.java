@@ -135,7 +135,6 @@ public class Ladang {
         if (gm.getCurrentPlayerInstance().getLadang() == this) throw new Exception("serang sel sendiri");
         
         isFilled[row][col] = false;
-        get(row, col).addItemAktif(new KartuItem("destroy"));
     }
     public void kartu_trap(Integer row, Integer col) throws Exception {
         if (isTrapped[row][col]) throw new AlreadyTrappedCellException(row, col);
