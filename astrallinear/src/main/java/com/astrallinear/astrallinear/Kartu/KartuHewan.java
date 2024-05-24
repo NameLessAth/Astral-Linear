@@ -102,12 +102,20 @@ public class KartuHewan extends KartuMakhluk {
     }
 
     public String getInfo() {
+        String temp = ""; boolean first = true;
+        for (String iterate : this.itemAktif.keySet()){
+            if (!first) temp += ",";
+            else first = false;
+            temp = temp + " " + iterate.replace("_", " ") + " (" + this.itemAktif.get(iterate) + ")";
+        }
         return (
+            "\n\tNama: " + getNama().replace("_", " ") + 
             "\n\tBerat: "                   + berat +
             "\n\tBerat threshold panen: "   + beratPanen +
             "\n\tJenis: "                   + getJenis() +
             "\n\tSiap panen: "              + (isSiapPanen() ? "ya!" : "tidak!") +
-            "\n\tHasil panen: "             + drop.getNama()
+            "\n\tHasil panen: "             + drop.getNama().replace("_", " ") +
+            "\n\tItem Aktif:" + temp
         );
     }
 }
