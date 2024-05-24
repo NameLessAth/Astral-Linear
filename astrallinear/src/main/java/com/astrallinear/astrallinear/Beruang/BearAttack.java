@@ -1,10 +1,10 @@
 package com.astrallinear.astrallinear.Beruang;
-import java.util.Random;
-import javafx.scene.control.Label;
+import java.util.*;
+
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 import com.astrallinear.astrallinear.Initializable;
-import com.astrallinear.astrallinear.Player1FieldController;
-import com.astrallinear.astrallinear.Player2FieldController;
 import com.astrallinear.astrallinear.Kartu.KartuHewan;
 import com.astrallinear.astrallinear.Kartu.KartuItem;
 import com.astrallinear.astrallinear.Kartu.KartuMakhluk;
@@ -17,6 +17,8 @@ public class BearAttack {
     private Pemain pemainDiserang;
     private Integer attackedHeight;
     private Integer attackedWidth;
+    private Integer startPointRow;
+    private Integer startPointColumn;
     private Initializable initializable;
 
     public static boolean isAttacking(){
@@ -26,30 +28,10 @@ public class BearAttack {
     }
 
     synchronized void Attack(TimerProcRun tpr) throws Exception{
-        // generating which field is attacked
-        Random rd = new Random();
-        Integer width = rd.nextInt(5)+1, height;
-        if (width > 3) height = 1;
-        else if (width == 3) height = rd.nextInt(2)+1;
-        else if (width == 2) height = rd.nextInt(3)+1;
-        else height = rd.nextInt(4)+1;
         
-        this.attackedWidth = width;
-        this.attackedHeight = height;
-
         Ladang ladangDiserang = this.pemainDiserang.getLadang();
-        Integer startPointHeight = rd.nextInt(4-this.attackedHeight+1);
-        Integer startPointWidth = rd.nextInt(5-this.attackedWidth+1);
-        
+        Random rd = new Random();
 
-        System.out.println("----------------");
-        System.out.println("Ladang diserang di: ");
-        System.out.println(startPointHeight + ", " + startPointWidth);
-        System.out.println("Ukuran Serangan: ");
-        System.out.println(attackedWidth + "x" + attackedHeight);
-        System.out.println("----------------");
-        
-        
         // Idling
         while(!readyAtt){
             try {wait();}
@@ -65,16 +47,16 @@ public class BearAttack {
         
         boolean kenaTrap = false;
 
-        Integer lastI = 0, lastJ = 0;
+        // Integer lastI = 0, lastJ = 0;
 
-        for (int i = startPointHeight; i < startPointHeight+this.attackedHeight; i++){
-            for (int j = startPointWidth; j < startPointWidth+this.attackedWidth; j++){
+        for (int i = startPointRow; i < startPointRow+this.attackedHeight; i++){
+            for (int j = startPointColumn; j < startPointColumn+this.attackedWidth; j++){
                 if (ladangDiserang.is_filled(i, j)) {
                     if (ladangDiserang.get(i, j).getItemAktif().containsKey("bear_trap")){
                         kenaTrap = true;
                         KartuMakhluk temp = ladangDiserang.get(i, j);
                         temp.removeItemAktif(new KartuItem("bear_trap"));
-                        ladangDiserang.spawn_at(temp, lastI, lastJ);
+                        // ladangDiserang.spawn_at(temp, lastI, lastJ);
                     }
                 }
             }
@@ -83,10 +65,14 @@ public class BearAttack {
             try {
                 pemainDiserang.addActiveCard(new KartuHewan("beruang"));
             } catch (Exception e) {
+                 Alert InventoryFullAlert = new Alert(AlertType.INFORMATION);
+                InventoryFullAlert.setTitle("Yah...");
+                InventoryFullAlert.setHeaderText("Kamu menangkap beruang, tetapi karena inventory-mu penuh, jadinya beruangnya kabur... :(");
+                InventoryFullAlert.show();
             }
         } else{
-            for (int i = startPointHeight; i < startPointHeight+this.attackedHeight; i++){
-                for (int j = startPointWidth; j < startPointWidth+this.attackedWidth; j++){
+            for (int i = startPointRow; i < startPointRow+this.attackedHeight; i++){
+                for (int j = startPointColumn; j < startPointColumn+this.attackedWidth; j++){
                     if (ladangDiserang.is_filled(i, j)){
                         if (!ladangDiserang.get(i, j).getItemAktif().containsKey("protect")){
                             try{
@@ -111,11 +97,44 @@ public class BearAttack {
         notify();
     }
 
-    public synchronized void attackLadang(Pemain pemainDiserang, Initializable initializable) throws Exception{
+    public synchronized List<Integer> attackLadang(Pemain pemainDiserang, Initializable initializable) throws Exception{
         this.initializable = initializable;
         this.pemainDiserang = pemainDiserang;
+
+        // generating which field is attacked
+        Random rd = new Random();
+        Integer width = rd.nextInt(5)+1, height;
+        if (width > 3) height = 1;
+        else if (width == 3) height = rd.nextInt(2)+1;
+        else if (width == 2) height = rd.nextInt(3)+1;
+        else height = rd.nextInt(4)+1;
+        
+        this.attackedWidth = width;
+        this.attackedHeight = height;
+
+        this.startPointRow = rd.nextInt(4-this.attackedHeight+1);
+        this.startPointColumn = rd.nextInt(5-this.attackedWidth+1);
+        
+        // debug info
+        System.out.println("----------------");
+        System.out.println("Ladang diserang di: ");
+        System.out.println(startPointRow + ", " + startPointColumn);
+        System.out.println("Ukuran Serangan: ");
+        System.out.println(attackedWidth + "x" + attackedHeight);
+        System.out.println("----------------");
+        
+        List<Integer> coordinate_info = new ArrayList<>(Arrays.asList(
+            startPointRow,
+            startPointColumn,
+            attackedWidth,
+            attackedHeight
+        ));
+
         readyAtt = true;
         notify();
+            
+        return coordinate_info;
+
     }
 
     // public synchronized void attackLadang(Pemain pemainDiserang, Player2FieldController controller) throws Exception{

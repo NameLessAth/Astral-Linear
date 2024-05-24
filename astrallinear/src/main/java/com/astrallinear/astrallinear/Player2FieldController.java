@@ -5,7 +5,6 @@ import com.astrallinear.astrallinear.Pemain.Pemain;
 import com.astrallinear.astrallinear.Kartu.*;
 import com.astrallinear.astrallinear.Deck.Deck;
 import com.astrallinear.astrallinear.Ladang.Ladang;
-import com.astrallinear.astrallinear.Beruang.BearAttack;
 import com.astrallinear.astrallinear.Beruang.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,9 +22,16 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert.AlertType;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 import javafx.scene.layout.AnchorPane;
 
 public class Player2FieldController implements Initializable {
+
+    @FXML
+    private Label BearAttackTimer;
 
     @FXML
     private Label CurrentPlayerLabel;
@@ -567,7 +573,7 @@ public class Player2FieldController implements Initializable {
     }
 
     @FXML
-    void OnCardDetailClick(MouseEvent event) throws IOException{
+    void OnCardDetailClick(MouseEvent event) throws Exception {
     
         // info
 
@@ -629,14 +635,14 @@ public class Player2FieldController implements Initializable {
     }
 
     @FXML
-    public void initialize() throws IOException{
+    public void initialize() throws Exception {
 
         // shuffle kartu
         String prevButtonPressed = gameManager.getPreviousPressedButton();
         System.out.println(prevButtonPressed);
 
         if (gameManager.state == 0 && (prevButtonPressed.equals("") || prevButtonPressed.equals("Next"))) { //kalo baru mulai atau sebelumnya pencet tombol next
-            gameManager.state = 1;
+            gameManager.state = 2;
             FXMLLoader popupLoader = new FXMLLoader(Main.class.getResource("View/shuffle.fxml"));
             popupScene = new Scene(popupLoader.load());
             popupStage = new Stage();
@@ -709,9 +715,41 @@ public class Player2FieldController implements Initializable {
         Player2Gold.setText(Integer.toString(gameManager.getPlayer(1).getGulden()));
         System.out.println("Kartu tersisa di deck: "+ curPlayer.getDeck().getRemainingInactiveDeck());
         CardLeftLabel.setText(Integer.toString(curPlayer.getDeck().getRemainingInactiveDeck()));
+
+        // bear atk
+        BearAttackTimer.setVisible(false);
+        Set<Button> daftar_button = new HashSet<>(Arrays.asList(
+            EnemyFieldButton, LoadButton, MyFieldButton, EnemyFieldButton, LoadButton, NextButton, PluginButton, SaveButton, ShopButton
+        ));
+
+        if (gameManager.state == 2) {
+            
+            // if (BearAttack.isAttacking() && gameManager.getCurrentTurn() > 4) {
+            if (true) {
+
+                Alert BeruangAlert = new Alert(AlertType.WARNING);
+                BeruangAlert.setTitle("WADAW!");
+                BeruangAlert.setHeaderText("KAMU SEDANG DISERANG OLEH BERUANG!!!");
+                BeruangAlert.showAndWait();
+
+                BearAttackTimer.setVisible(true);
+                TimerProcRun tpr = new TimerProcRun();
+                tpr.start();
+                BearAttackRun brt = new BearAttackRun(tpr);
+                brt.start();
+                brt.brt.attackLadang(gameManager.getCurrentPlayerInstance(), this);
+                for (Button b : daftar_button) b.setDisable(true);
+            }
+
+            gameManager.state = 1;
+        }
+        else {
+            System.out.println("Done!!");
+            for (Button b : daftar_button) b.setDisable(false);
+        }
     }
 
     public Label getBearTimer() {
-        return null;
+        return BearAttackTimer;
     }
 }

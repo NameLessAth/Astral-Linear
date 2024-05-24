@@ -1,5 +1,6 @@
 package com.astrallinear.astrallinear;
 
+import java.util.*;
 import com.astrallinear.astrallinear.Deck.InactiveDeck;
 import com.astrallinear.astrallinear.GameManager.GameManager;
 import com.astrallinear.astrallinear.Pemain.Pemain;
@@ -554,9 +555,7 @@ public class Player1FieldController implements Initializable{
     
     @FXML
     void OnCardDetailClick(MouseEvent event) throws Exception {
-        System.out.println("OnCardDetailClick");
-
-
+        // System.out.println("OnCardDetailClick");
 
         // info
         ImageView source = (ImageView) event.getSource();
@@ -572,13 +571,13 @@ public class Player1FieldController implements Initializable{
         if (onDeck && gameManager.getCurrentPlayerInstance().getDeck().isEmpty(sourceRow)) return;
 
         //block window game utama
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("View/blocker.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        Stage gameStage = gameManager.getGameStage();
-        gameStage.setTitle("Tubes 2 OOP");
-        gameStage.setScene(scene);
-        gameStage.setResizable(false);
-        gameStage.show();
+        // FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("View/blocker.fxml"));
+        // Scene scene = new Scene(fxmlLoader.load());
+        // Stage gameStage = gameManager.getGameStage();
+        // gameStage.setTitle("Tubes 2 OOP");
+        // gameStage.setScene(scene);
+        // gameStage.setResizable(false);
+        // gameStage.show();
 
         Kartu kartu;
         try {
@@ -605,7 +604,7 @@ public class Player1FieldController implements Initializable{
         cdc.setKartu(kartu);
         
         cdc.initialize();
-        
+
         CardDetailPopUpStage = new Stage();
         CardDetailPopUpStage.setTitle("Card Detail pop-up");
         CardDetailPopUpStage.setScene(new Scene(root));
@@ -692,8 +691,7 @@ public class Player1FieldController implements Initializable{
         System.out.println("Kartu tersisa di deck: "+ curPlayer.getDeck().getRemainingInactiveDeck());
         CardLeftLabel.setText(Integer.toString(curPlayer.getDeck().getRemainingInactiveDeck()));
         
-        BearAttackTimer.setVisible(true);
-        // BearAttackTimer.setVisible(false);
+        BearAttackTimer.setVisible(false);
         Set<Button> daftar_button = new HashSet<>(Arrays.asList(
             EnemyFieldButton, LoadButton, MyFieldButton, EnemyFieldButton, LoadButton, NextButton, PluginButton, SaveButton, ShopButton
         ));
@@ -717,15 +715,24 @@ public class Player1FieldController implements Initializable{
                 tpr.start();
                 BearAttackRun brt = new BearAttackRun(tpr);
                 brt.start();
-                brt.brt.attackLadang(gameManager.getCurrentPlayerInstance(), this);
-                for (Button b : daftar_button) b.setVisible(false);
+
+                List<Integer> coordinate_info = brt.brt.attackLadang(gameManager.getCurrentPlayerInstance(), this);
+               
+                for (Button b : daftar_button) b.setDisable(true);
+
+                // buat mark di GUI
+                Integer startPointRow = coordinate_info.get(0);
+                Integer startPointColumn = coordinate_info.get(1);
+                Integer attackedWidth = coordinate_info.get(2);
+                Integer attackedHeigh = coordinate_info.get(3);
+
             }
 
             gameManager.state = 1;
         }
         else {
             System.out.println("Done!!");
-            for (Button b : daftar_button) b.setVisible(true);
+            for (Button b : daftar_button) b.setDisable(false);
         }
     }
 
