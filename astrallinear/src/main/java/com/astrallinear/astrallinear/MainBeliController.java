@@ -8,11 +8,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+
+import com.astrallinear.astrallinear.Kartu.Kartu;
+import com.astrallinear.astrallinear.Kartu.KartuHewan;
+import com.astrallinear.astrallinear.Kartu.KartuProduk;
+import com.astrallinear.astrallinear.Toko.Toko;
 
 public class MainBeliController {
     @FXML
@@ -23,22 +30,23 @@ public class MainBeliController {
     @FXML
     private Button BackButton;
     //ganti data structure di sini jadi data barang yang disimpan di toko
-    private List<String> data = List.of("Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6","capek bang","java bosok","mending","unity");
+    // private List<String> data = List.of("Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6","capek bang","java bosok","mending","unity");
     @FXML
     private Scene scene;
     @FXML
     private Stage stage;
     @FXML
     private Parent root;
-    public void initialize() {
+    public void initialize(){
         try {
-            populateAnchorPaneWithWidgets(data);
+            Toko toko = Toko.getToko();
+            populateAnchorPaneWithWidgets(toko);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void populateAnchorPaneWithWidgets(List<String> data) throws IOException {
+    private void populateAnchorPaneWithWidgets(Toko toko) throws IOException {
         double yOffset = 100.0;
         double initialXOffset = 200.0;
         double xOffset = initialXOffset;
@@ -46,15 +54,27 @@ public class MainBeliController {
         double verticalSpacing = 20.0;
         double horizontalSpacing = 300.0;
 
-        for (String item : data) {
+        for (String namaProduk : toko.getIsiToko().keySet()){
+            // System.err.println(namaProduk);
             //spawn widget buat beli barang
             FXMLLoader loader = new FXMLLoader(getClass().getResource("View/BeliWidget.fxml"));
             Node customWidget = loader.load();
             //dapetin controller dari semua widget
             BeliWidgetController controller = loader.getController();
-            controller.getBuyItemNameLabel().setText(item); //buat ganti nama item
-            //buat ganti gambar item, pake controller.getBuyItemImage().setImage(gambarnya)
-            //buat ganti detail item, pake controller.getBuyItemDetailLabel().setImage(detail itemnya)
+            controller.getBuyItemNameLabel().setText(namaProduk); //buat ganti nama item
+            controller.getBuyItemNameLabel().setVisible(false);
+            try{
+                Kartu kartu = new KartuProduk(namaProduk);
+                Image img = new Image(getClass().getResource(kartu.getPathToImg()).toString());
+                //buat ganti gambar item, pake controller.getBuyItemImage().setImage(gambarnya)
+                controller.getBuyItemImage().setImage(img);
+                //buat ganti detail item, pake controller.getBuyItemDetailLabel().setImage(detail itemnya)
+                System.err.println(kartu.getInfo());
+                controller.getBuyItemDetailLabel().setText(kartu.getInfo());
+                // controller.getBuyItemDetailLabel().setVisible(true);
+            }catch(Exception e){
+                System.err.println(e.getMessage());
+            }
             //dibawah ini cuma buat setup posisi masing-masing widget
             AnchorPane.setTopAnchor(customWidget, yOffset);
             AnchorPane.setLeftAnchor(customWidget, xOffset);

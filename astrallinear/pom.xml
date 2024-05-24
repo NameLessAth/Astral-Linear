@@ -11,7 +11,9 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-<junit.version>5.10.0</junit.version>  </properties>
+    <exec.mainClass>com.astrallinear.astrallinear.Main</exec.mainClass>
+    <junit.version>5.10.0</junit.version>  
+  </properties>
 
   <dependencies>
     <dependency>
