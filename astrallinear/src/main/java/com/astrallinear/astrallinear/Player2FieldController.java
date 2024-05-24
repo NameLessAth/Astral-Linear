@@ -521,13 +521,13 @@ public class Player2FieldController implements Initializable {
     void OnPanenClick(MouseEvent event) throws IOException{
         //block window game utama
         System.out.println("OnPanenClick");
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("View/blocker.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        Stage gameStage = gameManager.getGameStage();
-        gameStage.setTitle("Tubes 2 OOP");
-        gameStage.setScene(scene);
-        gameStage.setResizable(false);
-        gameStage.show();
+        // FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("View/blocker.fxml"));
+        // Scene scene = new Scene(fxmlLoader.load());
+        // Stage gameStage = gameManager.getGameStage();
+        // gameStage.setTitle("Tubes 2 OOP");
+        // gameStage.setScene(scene);
+        // gameStage.setResizable(false);
+        // gameStage.show();
         ImageView source = (ImageView) event.getSource();
         //cari koordinat source
         Integer sourceRow = GridPane.getRowIndex(source);
@@ -591,13 +591,13 @@ public class Player2FieldController implements Initializable {
         if (onDeck && gameManager.getCurrentPlayerInstance().getDeck().isEmpty(sourceColumn)) return;
 
         //block window game utama
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("View/blocker.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        Stage gameStage = gameManager.getGameStage();
-        gameStage.setTitle("Tubes 2 OOP");
-        gameStage.setScene(scene);
-        gameStage.setResizable(false);
-        gameStage.show();
+        // FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("View/blocker.fxml"));
+        // Scene scene = new Scene(fxmlLoader.load());
+        // Stage gameStage = gameManager.getGameStage();
+        // gameStage.setTitle("Tubes 2 OOP");
+        // gameStage.setScene(scene);
+        // gameStage.setResizable(false);
+        // gameStage.show();
 
         Kartu kartu;
         try {
