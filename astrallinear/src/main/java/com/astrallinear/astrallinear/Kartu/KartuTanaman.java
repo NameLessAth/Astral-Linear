@@ -57,4 +57,13 @@ public class KartuTanaman extends KartuMakhluk {
     public String getPathToImg() {
         return "Tanaman/" + this.getNama() + ".png";
     }
+
+    public String getInfo() {
+        return (
+            "\n\tUmur: "                    + umur +
+            "\n\tUmur threshold panen: "    + turnUntukHarvest +
+            "\n\tSiap panen: "              + (isSiapPanen() ? "ya!" : "tidak!") +
+            "\n\tHasil panen: "             + drop.getNama()
+        );
+    }
 }

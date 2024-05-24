@@ -19,4 +19,8 @@ public class KartuItem extends Kartu {
     public String getPathToImg() {
         return "Item/" + this.getNama() + ".png";
     }
+
+    public String getInfo() {
+        return this.getNama();
+    }
 }

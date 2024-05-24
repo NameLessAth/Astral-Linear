@@ -470,7 +470,6 @@ public class Player1FieldController{
         }
     }
 
-    @FXML
     void OnPanenClick(MouseEvent event) throws IOException {
         ImageView source = (ImageView) event.getSource();
         //cari koordinat source
@@ -478,15 +477,11 @@ public class Player1FieldController{
         Integer sourceColumn = GridPane.getColumnIndex(source);
         sourceRow = (sourceRow == null) ? 0 : sourceRow;
         sourceColumn = (sourceColumn == null) ? 0 : sourceColumn;
-        GridPane sourceGridPane = (GridPane) source.getParent();
-        String sourceGridPaneName = "";
-    
-        if (sourceGridPane == LadangGridPane) {
-            sourceGridPaneName = "LadangGridPane";
-        } else if (sourceGridPane == DeckGridPane) {
-            sourceGridPaneName = "DeckGridPane";
-        }
-        System.out.println("ImageView asal - baris: " + sourceRow + ", kolom: " + sourceColumn + " GridPane: " + sourceGridPaneName);
+        Kartu kartu;
+        try {
+            kartu = gameManager.getLadangPemain1().get(sourceRow, sourceColumn);
+        } catch (Exception e) {System.out.println(e.getMessage()); return ;}
+
         if(gameManager.getCurrentPlayer() == 2){ //kalau yang buka scene ini adalah pemain 1, keluarin pesan error
             Alert incorrectPlayer = new Alert(AlertType.ERROR);
             incorrectPlayer.setTitle("Ladang ini bukan punyamu");
@@ -502,6 +497,13 @@ public class Player1FieldController{
                 System.out.println("Pop-up panen");
                 FXMLLoader PanenPopUpLoader = new FXMLLoader(Main.class.getResource("View/panen.fxml"));
                 PanenPopUpScene = new Scene(PanenPopUpLoader.load());
+                
+                PanenController pc = PanenPopUpLoader.getController();
+                
+                pc.setKartuRowCol(kartu, sourceRow, sourceColumn);
+                
+                pc.initialize();
+
                 PanenPopUpStage = new Stage();
                 PanenPopUpStage.setTitle("Panen pop-up");
                 PanenPopUpStage.setScene(PanenPopUpScene);
@@ -509,12 +511,14 @@ public class Player1FieldController{
                 PanenPopUpStage.setOnCloseRequest(e -> {
                     e.consume(); // Consumes the close request event
                 });
-                PanenPopUpStage.show();
+                PanenPopUpStage.showAndWait();
             }
         }
     }
+    
     @FXML
     void OnCardDetailClick(MouseEvent event) throws IOException{
+
         ImageView source = (ImageView) event.getSource();
         //cari koordinat source
         Integer sourceRow = GridPane.getRowIndex(source);
@@ -522,20 +526,37 @@ public class Player1FieldController{
         sourceRow = (sourceRow == null) ? 0 : sourceRow;
         sourceColumn = (sourceColumn == null) ? 0 : sourceColumn;
         GridPane sourceGridPane = (GridPane) source.getParent();
-        String sourceGridPaneName = "";
+        boolean onDeck = (sourceGridPane == DeckGridPane) ;
 
-        if (sourceGridPane == LadangGridPane) {
-            sourceGridPaneName = "LadangGridPane";
-        } else if (sourceGridPane == DeckGridPane) {
-            sourceGridPaneName = "DeckGridPane";
+        Kartu kartu;
+        try {
+            if (onDeck) {
+                kartu = gameManager.getCurrentPlayerInstance().getDeck().getActiveCard(sourceColumn);
+            }
+            else {   
+                kartu = gameManager.getLadangPemain1().get(sourceRow, sourceColumn);
+            }
+        } catch (Exception e) { System.out.println(e.getMessage()); return ; }
+
+        if (!onDeck && ((KartuMakhluk)kartu).isSiapPanen()) {
+            OnPanenClick(event);
+            initialize();
+            return;
         }
-        System.out.println("ImageView asal - baris: " + sourceRow + ", kolom: " + sourceColumn + " GridPane: " + sourceGridPaneName);
-        System.out.println("Pop-up kartu");
+
         FXMLLoader CardDetailPopUpLoader = new FXMLLoader(Main.class.getResource("View/carddetail.fxml"));
-        CardDetailPopUpScene = new Scene(CardDetailPopUpLoader.load());
+        
+        Parent root = CardDetailPopUpLoader.load();
+
+        CardDetailController cdc = CardDetailPopUpLoader.getController();
+        
+        cdc.setKartu(kartu);
+        
+        cdc.initialize();
+        
         CardDetailPopUpStage = new Stage();
         CardDetailPopUpStage.setTitle("Card Detail pop-up");
-        CardDetailPopUpStage.setScene(CardDetailPopUpScene);
+        CardDetailPopUpStage.setScene(new Scene(root));
         CardDetailPopUpStage.setResizable(false);
         CardDetailPopUpStage.setOnCloseRequest(e -> {
             e.consume(); // Consumes the close request event
@@ -576,15 +597,13 @@ public class Player1FieldController{
                 
             } catch (Exception e) {
                 Image img = new Image(Main.class.getResource(PLACEHOLDER_IMAGE_URL).toString());
-                ((ImageView) node).setImage(img);
+                try { ((ImageView) node).setImage(img); }
+                catch (Exception e2){System.out.println(e2.getLocalizedMessage());}
             }
         }
 
         // display deck
         Deck deck = gameManager.getCurrentPlayerInstance().getDeck();
-
-        try {deck.addKartu(new KartuProduk("jagung"));}
-        catch (Exception e) {}
 
         System.out.println(deck.countEmptySlot());
         for (Node node : DeckGridPane.getChildren()) {
@@ -600,7 +619,8 @@ public class Player1FieldController{
                 
             } catch (Exception e) {
                 Image img = new Image(Main.class.getResource(PLACEHOLDER_IMAGE_URL).toString());
-                ((ImageView) node).setImage(img);
+                try { ((ImageView) node).setImage(img); }
+                catch (Exception e3) {System.out.println(e3.getLocalizedMessage());}
 
             }
         }

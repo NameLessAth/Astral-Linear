@@ -1,10 +1,13 @@
 package com.astrallinear.astrallinear;
 
+import com.astrallinear.astrallinear.Kartu.*;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
@@ -21,6 +24,8 @@ public class CardDetailController {
 
     @FXML
     private Label ItemDetailsLabel;
+    
+    private Kartu kartu;
 
     @FXML
     void OnBackButtonClick(ActionEvent event) {
@@ -29,6 +34,14 @@ public class CardDetailController {
     }
     @FXML
     public void initialize() {
+        if (kartu == null) return;
+        CardNameLabel.setText(kartu.getNama());
+        Image img = new Image(getClass().getResource(kartu.getPathToImg()).toString());
+        CardIMG.setImage(img);
+        ItemDetailsLabel.setText(kartu.getInfo());
+    }
 
+    public void setKartu(Kartu kartu) {
+        this.kartu = kartu;
     }
 }

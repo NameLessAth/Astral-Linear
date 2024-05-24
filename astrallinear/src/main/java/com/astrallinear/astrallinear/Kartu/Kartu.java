@@ -10,6 +10,7 @@ public abstract class Kartu {
     }
 
     public abstract String getPathToImg();
+    public abstract String getInfo();
 }
 
 class NamaKartuTidakAdaException extends Exception {

@@ -117,101 +117,101 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" onMouseClicked="#OnPanenClick" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" onMouseClicked="#OnCardDetailClick" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Placeholder/EmptyCell.png" />
                </image></ImageView>
-            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" onMouseClicked="#OnPanenClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" onMouseClicked="#OnCardDetailClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
                <image>
                   <Image url="@../Placeholder/EmptyCell.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" onMouseClicked="#OnPanenClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
+            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" onMouseClicked="#OnCardDetailClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
                <image>
                   <Image url="@../Placeholder/EmptyCell.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" onMouseClicked="#OnPanenClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
+            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" onMouseClicked="#OnCardDetailClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
                <image>
                   <Image url="@../Placeholder/EmptyCell.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" onMouseClicked="#OnPanenClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4">
+            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" onMouseClicked="#OnCardDetailClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4">
                <image>
                   <Image url="@../Placeholder/EmptyCell.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" onMouseClicked="#OnPanenClick" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" onMouseClicked="#OnCardDetailClick" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
                <image>
                   <Image url="@../Placeholder/EmptyCell.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" onMouseClicked="#OnPanenClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" onMouseClicked="#OnCardDetailClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <image>
                   <Image url="@../Placeholder/EmptyCell.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" onMouseClicked="#OnPanenClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" onMouseClicked="#OnCardDetailClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <image>
                   <Image url="@../Placeholder/EmptyCell.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" onMouseClicked="#OnPanenClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" onMouseClicked="#OnCardDetailClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <image>
                   <Image url="@../Placeholder/EmptyCell.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" onMouseClicked="#OnPanenClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="1">
+            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" onMouseClicked="#OnCardDetailClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="1">
                <image>
                   <Image url="@../Placeholder/EmptyCell.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" onMouseClicked="#OnPanenClick" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
+            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" onMouseClicked="#OnCardDetailClick" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
                <image>
                   <Image url="@../Placeholder/EmptyCell.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" onMouseClicked="#OnPanenClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" onMouseClicked="#OnCardDetailClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <image>
                   <Image url="@../Placeholder/EmptyCell.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" onMouseClicked="#OnPanenClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" onMouseClicked="#OnCardDetailClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <image>
                   <Image url="@../Placeholder/EmptyCell.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" onMouseClicked="#OnPanenClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="2">
+            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" onMouseClicked="#OnCardDetailClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="2">
                <image>
                   <Image url="@../Placeholder/EmptyCell.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" onMouseClicked="#OnPanenClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="2">
+            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" onMouseClicked="#OnCardDetailClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="2">
                <image>
                   <Image url="@../Placeholder/EmptyCell.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" onMouseClicked="#OnPanenClick" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3">
+            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" onMouseClicked="#OnCardDetailClick" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3">
                <image>
                   <Image url="@../Placeholder/EmptyCell.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" onMouseClicked="#OnPanenClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" onMouseClicked="#OnCardDetailClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <image>
                   <Image url="@../Placeholder/EmptyCell.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" onMouseClicked="#OnPanenClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="3">
+            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" onMouseClicked="#OnCardDetailClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="3">
                <image>
                   <Image url="@../Placeholder/EmptyCell.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" onMouseClicked="#OnPanenClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="3">
+            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" onMouseClicked="#OnCardDetailClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="3">
                <image>
                   <Image url="@../Placeholder/EmptyCell.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" onMouseClicked="#OnPanenClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="3">
+            <ImageView fitHeight="83.0" fitWidth="124.0" onDragDetected="#handleDragDetectIMG" onDragDone="#handleDragDoneIMG" onDragDropped="#handleIMGDrop" onDragOver="#handleIMGDragOver" onMouseClicked="#OnCardDetailClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="3">
                <image>
                   <Image url="@../Placeholder/EmptyCell.png" />
                </image>

@@ -3,7 +3,7 @@ import java.util.HashMap;
 
 public abstract class KartuMakhluk extends Kartu {
     private HashMap<String, Integer> itemAktif;
-    private KartuProduk drop;
+    protected KartuProduk drop;
 
     public KartuMakhluk(String nama, KartuProduk drop) {
         super(nama);

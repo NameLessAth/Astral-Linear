@@ -185,7 +185,7 @@ public class Player2FieldController{
     void OnNextButtonClick(ActionEvent e) throws Exception {
         Integer currentPlayer = gameManager.getCurrentPlayer();
         gameManager.state = 0;
-        gameManager.getLadangPemain1().age_all_plants();
+        gameManager.getLadangPemain2().age_all_plants();
         System.out.println(currentPlayer);
         if(currentPlayer == 1){
             Alert nextButtonAlert = new Alert(AlertType.ERROR);
@@ -459,7 +459,6 @@ public class Player2FieldController{
         }
     }
 
-    @FXML
     void OnPanenClick(MouseEvent event) throws IOException{
         ImageView source = (ImageView) event.getSource();
         //cari koordinat source
@@ -467,15 +466,11 @@ public class Player2FieldController{
         Integer sourceColumn = GridPane.getColumnIndex(source);
         sourceRow = (sourceRow == null) ? 0 : sourceRow;
         sourceColumn = (sourceColumn == null) ? 0 : sourceColumn;
-        GridPane sourceGridPane = (GridPane) source.getParent();
-        String sourceGridPaneName = "";
+        Kartu kartu;
+        try {
+            kartu = gameManager.getLadangPemain2().get(sourceRow, sourceColumn);
+        } catch (Exception e) {System.out.println(e.getMessage()); return ;}
 
-        if (sourceGridPane == LadangGridPane) {
-            sourceGridPaneName = "LadangGridPane";
-        } else if (sourceGridPane == DeckGridPane) {
-            sourceGridPaneName = "DeckGridPane";
-        }
-        System.out.println("ImageView asal - baris: " + sourceRow + ", kolom: " + sourceColumn + " GridPane: " + sourceGridPaneName);
         if(gameManager.getCurrentPlayer() == 1){ //kalau yang buka scene ini adalah pemain 1, keluarin pesan error
             Alert incorrectPlayer = new Alert(AlertType.ERROR);
             incorrectPlayer.setTitle("Ladang ini bukan punyamu");
@@ -491,6 +486,13 @@ public class Player2FieldController{
                 System.out.println("Pop-up panen");
                 FXMLLoader PanenPopUpLoader = new FXMLLoader(Main.class.getResource("View/panen.fxml"));
                 PanenPopUpScene = new Scene(PanenPopUpLoader.load());
+                
+                PanenController pc = PanenPopUpLoader.getController();
+                
+                pc.setKartuRowCol(kartu, sourceRow, sourceColumn);
+                
+                pc.initialize();
+
                 PanenPopUpStage = new Stage();
                 PanenPopUpStage.setTitle("Panen pop-up");
                 PanenPopUpStage.setScene(PanenPopUpScene);
@@ -498,13 +500,14 @@ public class Player2FieldController{
                 PanenPopUpStage.setOnCloseRequest(e -> {
                     e.consume(); // Consumes the close request event
                 });
-                PanenPopUpStage.show();
+                PanenPopUpStage.showAndWait();
             }
         }
     }
 
     @FXML
     void OnCardDetailClick(MouseEvent event) throws IOException{
+     
         ImageView source = (ImageView) event.getSource();
         //cari koordinat source
         Integer sourceRow = GridPane.getRowIndex(source);
@@ -512,26 +515,44 @@ public class Player2FieldController{
         sourceRow = (sourceRow == null) ? 0 : sourceRow;
         sourceColumn = (sourceColumn == null) ? 0 : sourceColumn;
         GridPane sourceGridPane = (GridPane) source.getParent();
-        String sourceGridPaneName = "";
+        boolean onDeck = (sourceGridPane == DeckGridPane) ;
 
-        if (sourceGridPane == LadangGridPane) {
-            sourceGridPaneName = "LadangGridPane";
-        } else if (sourceGridPane == DeckGridPane) {
-            sourceGridPaneName = "DeckGridPane";
+        Kartu kartu;
+        try {
+            if (onDeck) {
+                kartu = gameManager.getCurrentPlayerInstance().getDeck().getActiveCard(sourceColumn);
+            }
+            else {   
+                kartu = gameManager.getLadangPemain2().get(sourceRow, sourceColumn);
+            }
+        } catch (Exception e) { System.out.println(e.getMessage()); return ; }
+
+        if (!onDeck && ((KartuMakhluk)kartu).isSiapPanen()) {
+            OnPanenClick(event);
+            initialize();
+            return;
         }
-        System.out.println("ImageView asal - baris: " + sourceRow + ", kolom: " + sourceColumn + " GridPane: " + sourceGridPaneName);
-        System.out.println("Pop-up kartu");
+
         FXMLLoader CardDetailPopUpLoader = new FXMLLoader(Main.class.getResource("View/carddetail.fxml"));
-        CardDetailPopUpScene = new Scene(CardDetailPopUpLoader.load());
+        
+        Parent root = CardDetailPopUpLoader.load();
+
+        CardDetailController cdc = CardDetailPopUpLoader.getController();
+        
+        cdc.setKartu(kartu);
+        
+        cdc.initialize();
+        
         CardDetailPopUpStage = new Stage();
         CardDetailPopUpStage.setTitle("Card Detail pop-up");
-        CardDetailPopUpStage.setScene(CardDetailPopUpScene);
+        CardDetailPopUpStage.setScene(new Scene(root));
         CardDetailPopUpStage.setResizable(false);
         CardDetailPopUpStage.setOnCloseRequest(e -> {
             e.consume(); // Consumes the close request event
         });
         CardDetailPopUpStage.show();
     }
+
     @FXML
     public void initialize() throws IOException{
 
@@ -573,7 +594,8 @@ public class Player2FieldController{
                 
             } catch (Exception e) {
                 Image img = new Image(Main.class.getResource(PLACEHOLDER_IMAGE_URL).toString());
-                ((ImageView) node).setImage(img);
+                try { ((ImageView) node).setImage(img); }
+                catch (Exception e3) {System.out.println(e3.getLocalizedMessage());}
             }
         }
         
@@ -592,7 +614,8 @@ public class Player2FieldController{
                 
             } catch (Exception e) {
                 Image img = new Image(Main.class.getResource(PLACEHOLDER_IMAGE_URL).toString());
-                ((ImageView) node).setImage(img);
+                try { ((ImageView) node).setImage(img); }
+                catch (Exception e3) {System.out.println(e3.getLocalizedMessage());}
                 
             }
         }        

@@ -51,4 +51,11 @@ public class KartuProduk extends Kartu {
     public String getPathToImg() {
         return "Produk/" + this.getNama() + ".png";
     }
+
+    public String getInfo() {
+        return (
+            "\n\tBerat: "           + berat +
+            "\n\tHarga jual: "      + harga
+        );
+    }
 }

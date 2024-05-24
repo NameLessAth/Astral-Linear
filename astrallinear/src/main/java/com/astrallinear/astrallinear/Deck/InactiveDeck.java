@@ -27,7 +27,6 @@ public class InactiveDeck {
         hewanAcak.add("domba");
         hewanAcak.add("kuda");
         hewanAcak.add("ayam");
-        hewanAcak.add("beruang");
         tanamanAcak.add("biji_jagung");
         tanamanAcak.add("biji_labu");
         tanamanAcak.add("biji_stroberi");
@@ -68,7 +67,7 @@ public class InactiveDeck {
         res.add(new KartuTanaman(tanamanAcak.get(random.nextInt(3))));
         if(nTaken == 1) return res;
 
-        res.add(new KartuHewan(hewanAcak.get(random.nextInt(11))));
+        res.add(new KartuHewan(hewanAcak.get(random.nextInt(9))));
         if(nTaken == 2) return res;
 
         res.add(new KartuItem(itemAcak.get(random.nextInt(6))));

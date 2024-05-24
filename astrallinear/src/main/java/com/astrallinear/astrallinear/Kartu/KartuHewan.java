@@ -100,6 +100,16 @@ public class KartuHewan extends KartuMakhluk {
     public String getPathToImg() {
         return "Hewan/" + this.getNama() + ".png";
     }
+
+    public String getInfo() {
+        return (
+            "\n\tBerat: "                   + berat +
+            "\n\tBerat threshold panen: "   + beratPanen +
+            "\n\tJenis: "                   + getJenis() +
+            "\n\tSiap panen: "              + (isSiapPanen() ? "ya!" : "tidak!") +
+            "\n\tHasil panen: "             + drop.getNama()
+        );
+    }
 }
 
 class SalahJenisMakananException extends Exception {
