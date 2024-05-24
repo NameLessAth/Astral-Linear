@@ -51,7 +51,6 @@ public class ShuffleController {
         
         gameManager.getCurrentPlayerInstance().getDeck().acceptShuffle(shuffledCards);
         System.out.println( gameManager.getCurrentPlayerInstance().getDeck().countEmptySlot());
-        gameManager.state = 1;
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.close();
     }

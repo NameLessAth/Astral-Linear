@@ -25,7 +25,7 @@ import javafx.scene.control.Alert.AlertType;
 import java.io.IOException;
 import javafx.scene.layout.AnchorPane;
 
-public class Player2FieldController{
+public class Player2FieldController implements Initializable {
 
     @FXML
     private Label CurrentPlayerLabel;
@@ -709,5 +709,9 @@ public class Player2FieldController{
         Player2Gold.setText(Integer.toString(gameManager.getPlayer(1).getGulden()));
         System.out.println("Kartu tersisa di deck: "+ curPlayer.getDeck().getRemainingInactiveDeck());
         CardLeftLabel.setText(Integer.toString(curPlayer.getDeck().getRemainingInactiveDeck()));
+    }
+
+    public Label getBearTimer() {
+        return null;
     }
 }

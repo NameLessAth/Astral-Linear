@@ -12,6 +12,11 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.astrallinear.astrallinear.Player1FieldController">
    <children>
+      <Label fx:id="BearAttackTimer" layoutX="1100" layoutY="200" text="Timer: 0.0s">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
       <Label layoutX="46.0" layoutY="49.0" text="Pemain 1:">
          <font>
             <Font size="24.0" />

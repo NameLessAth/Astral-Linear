@@ -10,6 +10,7 @@ import com.astrallinear.astrallinear.Kartu.KartuItem;
 import com.astrallinear.astrallinear.Kartu.KartuMakhluk;
 import com.astrallinear.astrallinear.Deck.Deck;
 import com.astrallinear.astrallinear.Ladang.Ladang;
+import com.astrallinear.astrallinear.Beruang.BearAttackRun;
 import com.astrallinear.astrallinear.Beruang.BearAttack;
 import com.astrallinear.astrallinear.Beruang.*;
 import javafx.event.ActionEvent;
@@ -28,9 +29,13 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert.AlertType;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 import javafx.scene.layout.AnchorPane;
 
-public class Player1FieldController{
+public class Player1FieldController implements Initializable{
 
     @FXML
     private Label CurrentPlayerLabel;
@@ -61,6 +66,9 @@ public class Player1FieldController{
 
     @FXML
     private Button ShopButton;
+
+    @FXML
+    public Label BearAttackTimer;
 
     @FXML
     private Label turnCount;
@@ -94,33 +102,6 @@ public class Player1FieldController{
         }
     }
 
-    // Method to set visibility based on indices
-    private void set_grid_cell_not_visible(GridPane gridPane, int targetRow, int targetColumn) {
-        for (Node node : gridPane.getChildren()) {
-            Integer row = GridPane.getRowIndex(node);
-            Integer column = GridPane.getColumnIndex(node);
-            
-            // Check for nulls because they can be unspecified
-            if (row == null) row = 0;
-            if (column == null) column = 0;
-
-            if (row == targetRow && column == targetColumn) {
-                node.setVisible(false);
-                node.setManaged(false);
-            }
-        }
-    }
-
-    // @FXML
-    // private void initialize() {
-    //     Integer r = LadangGridPane.getRowCount();
-    //     Integer c = LadangGridPane.getColumnCount();
-    //     for (int i = 0; i < r; i++) {
-    //         for (int j = 0; j < c; j++) {
-    //             set_grid_cell_not_visible(LadangGridPane, i, j);
-    //         }
-    //     }
-    // }
 
     @FXML
     void OnEnemyFieldButtonClick(ActionEvent e) throws IOException{
@@ -572,7 +553,7 @@ public class Player1FieldController{
     }
     
     @FXML
-    void OnCardDetailClick(MouseEvent event) throws IOException{
+    void OnCardDetailClick(MouseEvent event) throws Exception {
         System.out.println("OnCardDetailClick");
 
 
@@ -636,11 +617,11 @@ public class Player1FieldController{
 
     }
     @FXML
-    public void initialize() throws IOException {
+    public void initialize() throws Exception {
 
         // shuffle kartu
         if (gameManager.state == 0) {
-            gameManager.state = 1;
+            gameManager.state = 2;
             FXMLLoader popupLoader = new FXMLLoader(Main.class.getResource("View/shuffle.fxml"));
             Scene popupScene = new Scene(popupLoader.load());
             Stage popupStage = new Stage();
@@ -710,5 +691,45 @@ public class Player1FieldController{
         Player2Gold.setText(Integer.toString(gameManager.getPlayer(1).getGulden()));
         System.out.println("Kartu tersisa di deck: "+ curPlayer.getDeck().getRemainingInactiveDeck());
         CardLeftLabel.setText(Integer.toString(curPlayer.getDeck().getRemainingInactiveDeck()));
+        
+        BearAttackTimer.setVisible(true);
+        // BearAttackTimer.setVisible(false);
+        Set<Button> daftar_button = new HashSet<>(Arrays.asList(
+            EnemyFieldButton, LoadButton, MyFieldButton, EnemyFieldButton, LoadButton, NextButton, PluginButton, SaveButton, ShopButton
+        ));
+
+        System.out.println(BearAttackTimer);
+        System.out.println("State: " + gameManager.state);
+        if (gameManager.state == 2) {
+            
+            // if (BearAttack.isAttacking() && gameManager.getCurrentTurn() > 4) {
+            if (true) {
+
+                Alert BeruangAlert = new Alert(AlertType.WARNING);
+                BeruangAlert.setTitle("WADAW!");
+                BeruangAlert.setHeaderText("KAMU SEDANG DISERANG OLEH BERUANG!!!");
+                BeruangAlert.showAndWait();
+
+                System.out.println("uwoooghh");
+                BearAttackTimer.setVisible(true);
+                BearAttackTimer.setVisible(true);
+                TimerProcRun tpr = new TimerProcRun();
+                tpr.start();
+                BearAttackRun brt = new BearAttackRun(tpr);
+                brt.start();
+                brt.brt.attackLadang(gameManager.getCurrentPlayerInstance(), this);
+                for (Button b : daftar_button) b.setVisible(false);
+            }
+
+            gameManager.state = 1;
+        }
+        else {
+            System.out.println("Done!!");
+            for (Button b : daftar_button) b.setVisible(true);
+        }
+    }
+
+    public Label getBearTimer() {
+        return this.BearAttackTimer;
     }
 }
