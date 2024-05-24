@@ -471,6 +471,7 @@ public class Player1FieldController{
     }
 
     void OnPanenClick(MouseEvent event) throws IOException {
+        System.out.println("OnPanenClick");
         //block window game utama
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("View/blocker.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
@@ -526,14 +527,8 @@ public class Player1FieldController{
     
     @FXML
     void OnCardDetailClick(MouseEvent event) throws IOException{
-        //block window game utama
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("View/blocker.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        Stage gameStage = gameManager.getGameStage();
-        gameStage.setTitle("Tubes 2 OOP");
-        gameStage.setScene(scene);
-        gameStage.setResizable(false);
-        gameStage.show();
+        System.out.println("OnCardDetailClick");
+
 
         ImageView source = (ImageView) event.getSource();
         //cari koordinat source
@@ -578,6 +573,14 @@ public class Player1FieldController{
             e.consume(); // Consumes the close request event
         });
         CardDetailPopUpStage.show();
+        //block window game utama
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("View/blocker.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage gameStage = gameManager.getGameStage();
+        gameStage.setTitle("Tubes 2 OOP");
+        gameStage.setScene(scene);
+        gameStage.setResizable(false);
+        gameStage.show();
     }
     @FXML
     public void initialize() throws IOException {
