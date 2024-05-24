@@ -201,7 +201,8 @@ public class Player1FieldController{
         //ganti giliran ke pemain selanjutnya jika pemain sekarang sama dengan nama controller ini
         gameManager.state = 0;
         Integer currentPlayer = gameManager.getCurrentPlayer();
-        System.out.println(currentPlayer);
+        gameManager.getLadangPemain1().age_all_plants();
+
         if(currentPlayer == 2){
             Alert nextButtonAlert = new Alert(AlertType.ERROR);
             nextButtonAlert.setTitle("Next Button Error");
@@ -403,36 +404,38 @@ public class Player1FieldController{
                     deck.deleteActiveCard(sourceColumn);
                 }
                 
+                target.setImage(event.getDragboard().getImage());
+                event.setDropCompleted(true);
+                updateDraggableStatus(target);
+
+            } 
+            catch (ClassCastException e) { 
+                // this means player has moved a product/item from deck
+                Kartu obj = deck.getActiveCard(sourceColumn);
+                if (obj instanceof KartuProduk) {
+                    try {
+                        ladang.give_food_at((KartuProduk) obj, targetRow, targetColumn);
+                    } catch (Exception e2) { throw e2 ; } // beri makan gagal
+                }
+                else { // item. todo: implement
+
+                }
                 
-            } catch (Exception e) {
+                event.setDropCompleted(true);
+                event.consume();
+                custom(event);
+
+                deck.deleteActiveCard(sourceColumn);
+
+                return;
+
+            }
+            catch (Exception e) {
                 System.out.println(e.getMessage());
                 event.setDropCompleted(true);
                 event.consume();
                 return;
             }
-
-            target.setImage(event.getDragboard().getImage());
-            event.setDropCompleted(true);
-            updateDraggableStatus(target);
-
-            // } 
-            // else if (obj instanceof KartuItem) {
-            //     // todo implement logika KartuItem
-
-            //     event.setDropCompleted(true);
-            //     event.consume();
-            //     return;   
-            // }
-            // else { // kartu produk
-            //     try {
-            //         ladang.give_food_at((KartuProduk) obj, targetRow, targetColumn);
-            //     } catch (Exception e) {
-            //         System.out.println(e.getMessage());
-            //         event.setDropCompleted(true);
-            //         event.consume();
-            //         return;   
-            //     }
-            // }
 
         } else {
             event.setDropCompleted(false);
@@ -511,8 +514,6 @@ public class Player1FieldController{
                 event.consume(); // Consumes the close request event
             });
             popupStage.showAndWait();
-
-            
         }
         
         // display ladang
@@ -538,7 +539,10 @@ public class Player1FieldController{
 
         // display deck
         Deck deck = gameManager.getCurrentPlayerInstance().getDeck();
-        
+
+        try {deck.addKartu(new KartuProduk("jagung"));}
+        catch (Exception e) {}
+
         System.out.println(deck.countEmptySlot());
         for (Node node : DeckGridPane.getChildren()) {
             Integer c = GridPane.getColumnIndex(node);

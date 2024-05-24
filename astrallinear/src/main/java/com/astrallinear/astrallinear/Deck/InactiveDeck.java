@@ -21,7 +21,7 @@ public class InactiveDeck {
         hewanAcak.add("domba");
         hewanAcak.add("kuda");
         hewanAcak.add("ayam");
-        hewanAcak.add("beruang");
+        // hewanAcak.add("beruang");
         hewanAcak.add("hiu_darat");
         hewanAcak.add("sapi");
         hewanAcak.add("domba");

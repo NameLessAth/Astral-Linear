@@ -181,6 +181,7 @@ public class Player2FieldController{
     void OnNextButtonClick(ActionEvent e) throws Exception {
         Integer currentPlayer = gameManager.getCurrentPlayer();
         gameManager.state = 0;
+        gameManager.getLadangPemain1().age_all_plants();
         System.out.println(currentPlayer);
         if(currentPlayer == 1){
             Alert nextButtonAlert = new Alert(AlertType.ERROR);
@@ -336,7 +337,7 @@ public class Player2FieldController{
     }
 
     @FXML
-    void handleIMGDrop(DragEvent event) {
+    void handleIMGDrop(DragEvent event) throws Exception {
         ImageView target = (ImageView) event.getGestureTarget();
         ImageView source = (ImageView) event.getGestureSource();
         if (event.getDragboard().hasImage() && target != source) {
@@ -390,19 +391,41 @@ public class Player2FieldController{
                 }
                 if (fromDeck) {
                     KartuMakhluk obj = (KartuMakhluk) deck.getActiveCard(sourceColumn);
-                    ladang.spawn_at(obj, targetRow, targetColumn);
+                    ladang.spawn_at((KartuMakhluk) obj, targetRow, targetColumn);
                     deck.deleteActiveCard(sourceColumn);
                 }
+                target.setImage(event.getDragboard().getImage());
+                event.setDropCompleted(true);
+                updateDraggableStatus(target);
                 
-            } catch (Exception e) {
+            } 
+            catch (ClassCastException e) { 
+                // this means player has moved a product/item from deck
+                Kartu obj = deck.getActiveCard(sourceColumn);
+                if (obj instanceof KartuProduk) {
+                    try {
+                        ladang.give_food_at((KartuProduk) obj, targetRow, targetColumn);
+                    } catch (Exception e2) { throw e2 ; } // beri makan gagal
+                }
+                else { // item. todo: implement
+
+                }
+                
                 event.setDropCompleted(true);
                 event.consume();
-                return;   
-            }
+                custom(event);
 
-            target.setImage(event.getDragboard().getImage());
-            event.setDropCompleted(true);
-            updateDraggableStatus(target);
+                deck.deleteActiveCard(sourceColumn);
+
+                return;
+
+            }
+            catch (Exception e) {
+                System.out.println(e.getMessage());
+                event.setDropCompleted(true);
+                event.consume();
+                return;
+            }
 
         } else {
             event.setDropCompleted(false);
@@ -431,6 +454,7 @@ public class Player2FieldController{
             imageView.setOnDragDetected(this::handleDragDetectIMG);
         }
     }
+
     @FXML
     void OnPanenClick(MouseEvent event) {
         ImageView source = (ImageView) event.getSource();
