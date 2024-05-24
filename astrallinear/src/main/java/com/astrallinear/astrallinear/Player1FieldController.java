@@ -1,5 +1,6 @@
 package com.astrallinear.astrallinear;
 
+import com.astrallinear.astrallinear.Deck.InactiveDeck;
 import com.astrallinear.astrallinear.GameManager.GameManager;
 import com.astrallinear.astrallinear.Pemain.Pemain;
 import com.astrallinear.astrallinear.Kartu.Kartu;
@@ -79,6 +80,10 @@ public class Player1FieldController{
     private Label CardLeftLabel;
     Scene popupScene;
     Stage popupStage;
+    Scene PanenPopUpScene;
+    Stage PanenPopUpStage;
+    Scene CardDetailPopUpScene;
+    Stage CardDetailPopUpStage;
     private static final String PLACEHOLDER_IMAGE_URL = "Placeholder/EmptyCell.png";
     private static GameManager gameManager;
     static {
@@ -466,7 +471,7 @@ public class Player1FieldController{
     }
 
     @FXML
-    void OnPanenClick(MouseEvent event) {
+    void OnPanenClick(MouseEvent event) throws IOException {
         ImageView source = (ImageView) event.getSource();
         //cari koordinat source
         Integer sourceRow = GridPane.getRowIndex(source);
@@ -495,10 +500,48 @@ public class Player1FieldController{
                 emptyCell.show();
             } else {
                 System.out.println("Pop-up panen");
+                FXMLLoader PanenPopUpLoader = new FXMLLoader(Main.class.getResource("View/panen.fxml"));
+                PanenPopUpScene = new Scene(PanenPopUpLoader.load());
+                PanenPopUpStage = new Stage();
+                PanenPopUpStage.setTitle("Panen pop-up");
+                PanenPopUpStage.setScene(PanenPopUpScene);
+                PanenPopUpStage.setResizable(false);
+                PanenPopUpStage.setOnCloseRequest(e -> {
+                    e.consume(); // Consumes the close request event
+                });
+                PanenPopUpStage.show();
             }
         }
     }
-    
+    @FXML
+    void OnCardDetailClick(MouseEvent event) throws IOException{
+        ImageView source = (ImageView) event.getSource();
+        //cari koordinat source
+        Integer sourceRow = GridPane.getRowIndex(source);
+        Integer sourceColumn = GridPane.getColumnIndex(source);
+        sourceRow = (sourceRow == null) ? 0 : sourceRow;
+        sourceColumn = (sourceColumn == null) ? 0 : sourceColumn;
+        GridPane sourceGridPane = (GridPane) source.getParent();
+        String sourceGridPaneName = "";
+
+        if (sourceGridPane == LadangGridPane) {
+            sourceGridPaneName = "LadangGridPane";
+        } else if (sourceGridPane == DeckGridPane) {
+            sourceGridPaneName = "DeckGridPane";
+        }
+        System.out.println("ImageView asal - baris: " + sourceRow + ", kolom: " + sourceColumn + " GridPane: " + sourceGridPaneName);
+        System.out.println("Pop-up kartu");
+        FXMLLoader CardDetailPopUpLoader = new FXMLLoader(Main.class.getResource("View/carddetail.fxml"));
+        CardDetailPopUpScene = new Scene(CardDetailPopUpLoader.load());
+        CardDetailPopUpStage = new Stage();
+        CardDetailPopUpStage.setTitle("Card Detail pop-up");
+        CardDetailPopUpStage.setScene(CardDetailPopUpScene);
+        CardDetailPopUpStage.setResizable(false);
+        CardDetailPopUpStage.setOnCloseRequest(e -> {
+            e.consume(); // Consumes the close request event
+        });
+        CardDetailPopUpStage.show();
+    }
     @FXML
     public void initialize() throws IOException {
 
@@ -563,6 +606,7 @@ public class Player1FieldController{
         }
         
         // debug print
+        Pemain curPlayer = gameManager.getCurrentPlayerInstance();
         System.out.println("Giliran Pemain: "+gameManager.getCurrentPlayer());
         CurrentPlayerLabel.setText("Pemain: "+gameManager.getCurrentPlayer());
         System.out.println("Turn Ke- "+gameManager.getCurrentTurn());
@@ -571,5 +615,7 @@ public class Player1FieldController{
         Player1Gold.setText(Integer.toString(gameManager.getPlayer(0).getGulden()));
         System.out.println("Gulden Pemain 2: "+gameManager.getPlayer(1).getGulden());
         Player2Gold.setText(Integer.toString(gameManager.getPlayer(1).getGulden()));
+        System.out.println("Kartu tersisa di deck: "+ curPlayer.getDeck().getRemainingInactiveDeck());
+        CardLeftLabel.setText(Integer.toString(curPlayer.getDeck().getRemainingInactiveDeck()));
     }
 }
