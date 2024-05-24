@@ -54,6 +54,7 @@ public class KartuProduk extends Kartu {
 
     public String getInfo() {
         return (
+            "\n\tNama: " + getNama().replace("_", " ") +
             "\n\tBerat: "           + berat +
             "\n\tHarga jual: "      + harga
         );

@@ -40,9 +40,9 @@ public class Deck {
         }
     }
 
-    public int countEmptySlot(){
-        int count = 0;
-        for(int i = 0; i < 6; i++){
+    public Integer countEmptySlot(){
+        Integer count = 0;
+        for(Integer i = 0; i < 6; i++){
             if(activeDeck[i] == null)
                 count++;
         }

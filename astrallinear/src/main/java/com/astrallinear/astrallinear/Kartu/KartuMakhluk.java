@@ -2,7 +2,7 @@ package com.astrallinear.astrallinear.Kartu;
 import java.util.HashMap;
 
 public abstract class KartuMakhluk extends Kartu {
-    private HashMap<String, Integer> itemAktif;
+    protected HashMap<String, Integer> itemAktif;
     protected KartuProduk drop;
 
     public KartuMakhluk(String nama, KartuProduk drop) {

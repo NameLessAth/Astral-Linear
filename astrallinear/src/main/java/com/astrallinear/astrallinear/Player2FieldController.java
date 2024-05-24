@@ -509,6 +509,7 @@ public class Player2FieldController{
 
     void OnPanenClick(MouseEvent event) throws IOException{
         //block window game utama
+        System.out.println("OnPanenClick");
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("View/blocker.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Stage gameStage = gameManager.getGameStage();
@@ -565,6 +566,7 @@ public class Player2FieldController{
     void OnCardDetailClick(MouseEvent event) throws IOException{
     
         // info
+
         ImageView source = (ImageView) event.getSource();
         //cari koordinat source
         Integer sourceRow = GridPane.getRowIndex(source);

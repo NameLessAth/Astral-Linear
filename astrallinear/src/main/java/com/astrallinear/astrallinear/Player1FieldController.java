@@ -517,6 +517,7 @@ public class Player1FieldController{
     }
 
     void OnPanenClick(MouseEvent event) throws IOException {
+        System.out.println("OnPanenClick");
         //block window game utama
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("View/blocker.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
@@ -572,6 +573,9 @@ public class Player1FieldController{
     
     @FXML
     void OnCardDetailClick(MouseEvent event) throws IOException{
+        System.out.println("OnCardDetailClick");
+
+
 
         // info
         ImageView source = (ImageView) event.getSource();
@@ -629,6 +633,7 @@ public class Player1FieldController{
             e.consume(); // Consumes the close request event
         });
         CardDetailPopUpStage.show();
+
     }
     @FXML
     public void initialize() throws IOException {

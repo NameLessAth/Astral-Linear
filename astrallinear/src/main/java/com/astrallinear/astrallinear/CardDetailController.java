@@ -2,6 +2,7 @@ package com.astrallinear.astrallinear;
 
 import com.astrallinear.astrallinear.GameManager.GameManager;
 import com.astrallinear.astrallinear.Kartu.*;
+import com.astrallinear.astrallinear.Toko.Toko;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -54,7 +55,7 @@ public class CardDetailController {
         gameStage.show();
     }
     @FXML
-    public void initialize() {
+    public void initialize(){
         if (kartu == null) return;
         CardNameLabel.setText(kartu.getNama());
         Image img = new Image(getClass().getResource(kartu.getPathToImg()).toString());

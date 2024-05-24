@@ -22,7 +22,7 @@
             <Image url="@../Placeholder/EmptyCell.png" />
          </image>
       </ImageView>
-      <Label fx:id="BuyItemDetailLabel" layoutX="189.0" layoutY="14.0" prefHeight="30.0" prefWidth="635.0" text="Bagian ini berisi detail dari barang yang ingin dibeli.">
+      <Label fx:id="BuyItemDetailLabel" layoutX="189.0" layoutY="14.0" prefHeight="167.0" prefWidth="608.0" text="Bagian ini berisi detail dari barang yang ingin dibeli.&#10;test baris baru&#10;&#10;">
          <font>
             <Font size="20.0" />
          </font>

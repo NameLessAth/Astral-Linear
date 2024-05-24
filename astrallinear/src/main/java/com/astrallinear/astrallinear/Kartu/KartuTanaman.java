@@ -59,11 +59,19 @@ public class KartuTanaman extends KartuMakhluk {
     }
 
     public String getInfo() {
+        String temp = ""; boolean first = true;
+        for (String iterate : this.itemAktif.keySet()){
+            if (!first) temp += ",";
+            else first = false;
+            temp = temp + " " + iterate.replace("_", " ") + " (" + this.itemAktif.get(iterate) + ")";
+        }
         return (
+            "\n\tNama: " + getNama().replace("_", " ") +
             "\n\tUmur: "                    + umur +
             "\n\tUmur threshold panen: "    + turnUntukHarvest +
             "\n\tSiap panen: "              + (isSiapPanen() ? "ya!" : "tidak!") +
-            "\n\tHasil panen: "             + drop.getNama()
+            "\n\tHasil panen: "             + drop.getNama().replace("_", " ") +
+            "\n\tItem Aktif:" + temp
         );
     }
 }
