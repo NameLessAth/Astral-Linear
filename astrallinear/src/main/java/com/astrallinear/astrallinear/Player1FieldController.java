@@ -629,11 +629,11 @@ public class Player1FieldController implements Initializable{
     @FXML
     public void initialize() throws Exception {
         //setup monitor serangan beruang
-        // for (var node : BearAttackMonitor.getChildren()) {
-        //     if (node instanceof ImageView) {
-        //         ((ImageView) node).setImage(new Image(Main.class.getResource(SAFE_GRID_IMAGE_URL).toString()));
-        //     }
-        // }
+         for (var node : BearAttackMonitor.getChildren()) {
+             if (node instanceof ImageView) {
+                 ((ImageView) node).setImage(new Image(Main.class.getResource(SAFE_GRID_IMAGE_URL).toString()));
+             }
+         }
         // shuffle kartu
         if (gameManager.state == 0) {
             gameManager.state = 2;
