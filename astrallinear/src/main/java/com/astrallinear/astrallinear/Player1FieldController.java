@@ -101,7 +101,14 @@ public class Player1FieldController implements Initializable{
             throw new RuntimeException(e);
         }
     }
-
+    private static AudioManager audioManager;
+    static {
+        try {
+            audioManager = AudioManager.getInstance();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @FXML
     void OnEnemyFieldButtonClick(ActionEvent e) throws IOException{
@@ -721,7 +728,8 @@ public class Player1FieldController implements Initializable{
             
             if (BearAttack.isAttacking() && gameManager.getCurrentTurn() > 4) {
             // if (true) { // kalau mau paksa setiap turn
-
+                audioManager.stopBGM();
+                audioManager.startBearAttackBGM();
                 Alert BeruangAlert = new Alert(AlertType.WARNING);
                 BeruangAlert.setTitle("WADAW!");
                 BeruangAlert.setHeaderText("KAMU SEDANG DISERANG OLEH BERUANG!!!");
@@ -764,6 +772,8 @@ public class Player1FieldController implements Initializable{
         }
         else {
             System.out.println("Done!!");
+            audioManager.stopBGM();
+            audioManager.startNormalBGM();
             for (Button b : daftar_button) b.setDisable(false);
             //setup monitor serangan beruang
             for (var node : BearAttackMonitor.getChildren()) {

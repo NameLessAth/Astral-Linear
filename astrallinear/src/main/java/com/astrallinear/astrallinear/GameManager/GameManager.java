@@ -1,5 +1,6 @@
 package com.astrallinear.astrallinear.GameManager;
 
+import com.astrallinear.astrallinear.AudioManager;
 import com.astrallinear.astrallinear.Main;
 import com.astrallinear.astrallinear.Pemain.Pemain;
 
@@ -16,6 +17,14 @@ import java.util.ArrayList;
 
 //Game Manager menggunakan design pattern singleton untuk mengatur seluruh keberjalanan game
 public class GameManager {
+    private static AudioManager audioManager;
+    static {
+        try {
+            audioManager = AudioManager.getInstance();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
     private static GameManager instance;
     private static final Integer MAX_TURN = 20; //banyak turn maksimal
     private Integer currentTurn;
@@ -50,6 +59,7 @@ public class GameManager {
         currentTurn++;
     }
     public void endGame() throws IOException{
+        audioManager.startEndGameBGM();
         if(currentTurn.equals(MAX_TURN)){
             if(PlayerList.get(0).getGulden().equals(PlayerList.get(1).getGulden())){
                 System.out.println("Seri!");

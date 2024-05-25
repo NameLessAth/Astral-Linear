@@ -17,11 +17,20 @@ public class Main extends Application {
             throw new RuntimeException(e);
         }
     }
+    private static AudioManager audioManager;
+    static {
+        try {
+            audioManager = AudioManager.getInstance();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
     @Override
     public void start(Stage stage) throws IOException {
+        audioManager.startNormalBGM();
+        gameManager.setGameStage(stage);
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("View/splash-screen.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        gameManager.setGameStage(stage);
         stage.setTitle("Tubes 2 OOP");
         stage.setScene(scene);
         stage.setResizable(false);

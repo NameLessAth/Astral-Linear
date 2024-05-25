@@ -99,7 +99,14 @@ public class Player2FieldController implements Initializable {
             throw new RuntimeException(e);
         }
     }
-
+    private static AudioManager audioManager;
+    static {
+        try {
+            audioManager = AudioManager.getInstance();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
     // Method to set visibility based on indices
 
     // @FXML
@@ -752,7 +759,8 @@ public class Player2FieldController implements Initializable {
             
             if (BearAttack.isAttacking() && gameManager.getCurrentTurn() > 4) {
             // if (true) {
-
+                audioManager.stopBGM();
+                audioManager.startBearAttackBGM();
                 Alert BeruangAlert = new Alert(AlertType.WARNING);
                 BeruangAlert.setTitle("WADAW!");
                 BeruangAlert.setHeaderText("KAMU SEDANG DISERANG OLEH BERUANG!!!");
@@ -794,6 +802,8 @@ public class Player2FieldController implements Initializable {
         }
         else {
             System.out.println("Done!!");
+            audioManager.stopBGM();
+            audioManager.startNormalBGM();
             for (Button b : daftar_button) b.setDisable(false);
             //setup monitor serangan beruang
             for (var node : BearAttackMonitor.getChildren()) {
