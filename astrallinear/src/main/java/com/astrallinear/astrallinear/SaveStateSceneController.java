@@ -34,9 +34,6 @@ public class SaveStateSceneController {
     private Button BackButton;
 
     @FXML
-    private ChoiceBox<String> FileFormatSelector;
-    private String[] validFileFormats = {".txt",".json",".xml"};
-    @FXML
     private TextField FileNameField;
 
     @FXML
@@ -63,15 +60,7 @@ public class SaveStateSceneController {
 
     @FXML
     void SaveState(ActionEvent event){
-
-        //nanti algoritma buat savenya taroh di sini
-        if(!(FileFormatSelector.getValue() == ".txt")){
-            Alert failSaveAlert = new Alert(AlertType.ERROR);
-            failSaveAlert.setTitle("Notifikasi menyimpan");
-            failSaveAlert.setHeaderText("Menyimpan dalam format ini tidak tersedia, simpan gagal");
-            failSaveAlert.show();
-        }
-        else if(containsSpecialChars(FileNameField.getText())){
+        if(containsSpecialChars(FileNameField.getText())){
             Alert failSaveAlert = new Alert(AlertType.ERROR);
             failSaveAlert.setTitle("Notifikasi menyimpan");
             failSaveAlert.setHeaderText("Menyimpan dalam penamaan folder ini tidak diterima, simpan gagal");
@@ -95,6 +84,6 @@ public class SaveStateSceneController {
 
     @FXML
     public void initialize(){
-        FileFormatSelector.getItems().addAll(validFileFormats);
+
     }
 }

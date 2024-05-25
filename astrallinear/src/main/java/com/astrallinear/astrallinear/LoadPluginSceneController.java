@@ -8,10 +8,14 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LoadPluginSceneController {
     private static GameManager gameManager;
@@ -25,8 +29,6 @@ public class LoadPluginSceneController {
     @FXML
     private Button BackButton;
 
-    @FXML
-    private TextField FileNameField;
 
     @FXML
     private Button LoadButton;
@@ -37,6 +39,16 @@ public class LoadPluginSceneController {
     @FXML
     private Parent root;
     @FXML
+    private Label PluginNameLabel;
+
+    @FXML
+    private ChoiceBox<String> PluginSelectionDropdown;
+
+    @FXML
+    private Button RefreshButton;
+
+
+    @FXML
     void BackToGame(ActionEvent e) throws IOException {
         //kembali ke ladang pemaiin yang sekarang bermain
         root = FXMLLoader.load(getClass().getResource("View/player"+gameManager.getCurrentPlayer()+"field.fxml"));
@@ -45,11 +57,24 @@ public class LoadPluginSceneController {
         stage.setScene(scene);
         stage.show();
     }
-
+    @FXML
+    void Refresh(ActionEvent event) {
+        System.out.println("Refresh"+PluginSelectionDropdown.getValue());
+    }
     @FXML
     void LoadPlugin(ActionEvent event) {
         //tau dah dikerjain apa gak ini aowokawoko
-        System.out.println(FileNameField.getText());
+        System.out.println("Load Plugin"+PluginSelectionDropdown.getValue());
     }
 
+    @FXML
+    public void initialize(){
+        //ini cuma buat nunjukkin cara masukin valuenya ke dropdown
+        ArrayList<String> dummyList = new ArrayList<>();
+        dummyList.add("Cara masukin valuenya");
+        dummyList.add("begini");
+        dummyList.add("ikutin aja");
+        PluginSelectionDropdown.getItems().setAll(dummyList);
+        PluginNameLabel.setText("ini nama plugin yang udah diload");
+    }
 }

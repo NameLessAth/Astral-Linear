@@ -35,9 +35,6 @@ public class LoadStateSceneController {
     private Button BackButton;
 
     @FXML
-    private ChoiceBox<String> FileFormatSelector;
-    private String[] validFileFormats = {".txt",".json",".xml"};
-    @FXML
     private TextField FileNameField;
 
     @FXML
@@ -66,13 +63,7 @@ public class LoadStateSceneController {
     @FXML
     void LoadState(ActionEvent event) {
         //nanti algoritma buat savenya taroh di sini
-        if(!(FileFormatSelector.getValue() == ".txt")){
-            Alert failSaveAlert = new Alert(AlertType.ERROR);
-            failSaveAlert.setTitle("Notifikasi memuat");
-            failSaveAlert.setHeaderText("Memuat dalam format ini tidak tersedia, muat gagal");
-            failSaveAlert.show();
-        }
-        else if(containsSpecialChars(FileNameField.getText())){
+        if(containsSpecialChars(FileNameField.getText())){
             Alert failSaveAlert = new Alert(AlertType.ERROR);
             failSaveAlert.setTitle("Notifikasi memuat");
             failSaveAlert.setHeaderText("Memuat dalam penamaan folder ini tidak diterima, muat gagal");
@@ -104,6 +95,6 @@ public class LoadStateSceneController {
     }
     @FXML
     public void initialize(){
-        FileFormatSelector.getItems().addAll(validFileFormats);
+
     }
 }

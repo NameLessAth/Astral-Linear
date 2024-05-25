@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
@@ -21,13 +21,28 @@
       </Label>
       <Pane layoutX="320.0" layoutY="180.0" prefHeight="360.0" prefWidth="640.0">
          <children>
-            <Label layoutX="89.0" layoutY="150.0" text="Nama Plugin">
+            <Label layoutX="38.0" layoutY="117.0" text="Pilih Plugin">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <TextField fx:id="FileNameField" layoutX="315.0" layoutY="153.0" prefHeight="25.0" prefWidth="276.0" />
-            <Button fx:id="LoadButton" layoutX="285.0" layoutY="292.0" mnemonicParsing="false" onAction="#LoadPlugin" text="Muat">
+            <Button fx:id="LoadPluginButton" layoutX="440.0" layoutY="292.0" mnemonicParsing="false" onAction="#LoadPlugin" text="Muat Plugin">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+            <Label layoutX="38.0" layoutY="39.0" text="Plugin yang sedang dipakai:">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="PluginNameLabel" layoutX="330.0" layoutY="39.0" text="nama plugin">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <ChoiceBox fx:id="PluginSelectionDropdown" layoutX="213.0" layoutY="120.0" prefHeight="25.0" prefWidth="388.0" />
+            <Button fx:id="RefreshButton" layoutX="126.0" layoutY="292.0" mnemonicParsing="false" onAction="#Refresh" text="Refresh">
                <font>
                   <Font size="15.0" />
                </font>
