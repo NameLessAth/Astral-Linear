@@ -26,8 +26,7 @@ public class TxtLoad {
     private static Ladang ladang1;
     private static Ladang ladang2;
 
-    public static void LoadGame(String folderPath) throws Exception{
-        Toko toko = Toko.getToko();
+    public static void LoadGame(GameManager gameManager, Toko toko, String folderPath) throws Exception{
         toko.resetToko();
         pemain1 = new Pemain();
         pemain2 = new Pemain();
@@ -42,7 +41,6 @@ public class TxtLoad {
         ladang2 = temp.getValue();
 
         // push loaded data to gameManager
-        GameManager gameManager = GameManager.getInstance();
         gameManager.setCurrentTurn(currentTurn);
         pemain1.setLadang(ladang1);
         pemain2.setLadang(ladang2);

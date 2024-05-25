@@ -1,6 +1,7 @@
 package com.astrallinear.astrallinear;
 
 import com.astrallinear.astrallinear.GameManager.GameManager;
+import com.astrallinear.astrallinear.Plugin.PluginState;
 import com.astrallinear.astrallinear.Plugin.SaveLoadPlugin;
 import com.astrallinear.astrallinear.Toko.Toko;
 import com.astrallinear.astrallinear.TxtSaveLoad.TxtLoad;
@@ -79,7 +80,11 @@ public class LoadStateSceneController {
             }
             else{
                 try{
-                    TxtLoad.LoadGame("test/" + FileNameField.getText());
+
+                    // load here
+                    PluginState.getUsedPlugin().load(gameManager, Toko.getToko(), "test/" + FileNameField.getText());
+                    
+                    
                     Alert nextButtonAlert = new Alert(AlertType.INFORMATION);
                     nextButtonAlert.setTitle("Notifikasi memuat");
                     nextButtonAlert.setHeaderText("State program berhasil dimuat");

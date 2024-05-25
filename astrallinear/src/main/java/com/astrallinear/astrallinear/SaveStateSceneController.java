@@ -1,6 +1,8 @@
 package com.astrallinear.astrallinear;
 
 import com.astrallinear.astrallinear.GameManager.GameManager;
+import com.astrallinear.astrallinear.Plugin.PluginState;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -68,7 +70,11 @@ public class SaveStateSceneController {
         }
         else{
             try{
-                TxtSave.SaveGameState(GameManager.getInstance(), Toko.getToko(), "test/" + FileNameField.getText());
+                
+                // save here
+                PluginState.getUsedPlugin().save(GameManager.getInstance(), Toko.getToko(), "test/" + FileNameField.getText());
+                
+                
                 Alert nextButtonAlert = new Alert(AlertType.INFORMATION);
                 nextButtonAlert.setTitle("Notifikasi menyimpan");
                 nextButtonAlert.setHeaderText("State program berhasil disimpan");

@@ -18,11 +18,11 @@ public class PluginState {
         PluginState.plugins.add(plugin);
     }
 
-    public SaveLoadPlugin getUsedPlugin() {
+    public static SaveLoadPlugin getUsedPlugin() {
         return usedPlugin;
     }
     
-    public List<SaveLoadPlugin> getAvailalePlugins() {
+    public static List<SaveLoadPlugin> getAvailalePlugins() {
         return plugins;
     }
 }

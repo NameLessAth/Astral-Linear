@@ -19,7 +19,7 @@ public class TxtSaveLoader implements SaveLoadPlugin  {
         TxtSave.SaveGameState(gmg, shop, filepath);
     }
     public void load(GameManager gmg, Toko shop, String filepath) throws Exception {
-        TxtLoad.LoadGame(filepath);
+        TxtLoad.LoadGame(gmg, shop, filepath);
     }
     public String getExtName() {
         return "txt";
