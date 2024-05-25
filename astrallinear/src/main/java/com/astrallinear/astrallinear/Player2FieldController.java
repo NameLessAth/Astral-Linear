@@ -34,7 +34,8 @@ public class Player2FieldController implements Initializable {
 
     @FXML
     private Label BearAttackTimer;
-
+    @FXML
+    private GridPane BearAttackMonitor;
     @FXML
     private Label CurrentPlayerLabel;
 
@@ -88,6 +89,8 @@ public class Player2FieldController implements Initializable {
     Scene CardDetailPopUpScene;
     Stage CardDetailPopUpStage;
     private static final String PLACEHOLDER_IMAGE_URL = "Placeholder/EmptyCell.png";
+    private static final String SAFE_GRID_IMAGE_URL = "BearAttackOverlay/SafeGrid.png";
+    private static final String UNDER_ATTACK_GRID_URL = "BearAttackOverlay/UnderAttackGrid.png";
     private static GameManager gameManager;
     static {
         try {
@@ -638,7 +641,12 @@ public class Player2FieldController implements Initializable {
 
     @FXML
     public void initialize() throws Exception {
-
+        //setup monitor serangan beruang
+        for (var node : BearAttackMonitor.getChildren()) {
+            if (node instanceof ImageView) {
+                ((ImageView) node).setImage(new Image(Main.class.getResource(SAFE_GRID_IMAGE_URL).toString()));
+            }
+        }
         // shuffle kartu
         String prevButtonPressed = gameManager.getPreviousPressedButton();
         System.out.println(prevButtonPressed);
@@ -752,7 +760,22 @@ public class Player2FieldController implements Initializable {
                 Integer startPointRow = coordinate_info.get(0);
                 Integer startPointColumn = coordinate_info.get(1);
                 Integer attackedWidth = coordinate_info.get(2);
-                Integer attackedHeigh = coordinate_info.get(3);
+                Integer attackedHeight = coordinate_info.get(3);
+                Integer endPointRow = startPointRow+attackedHeight;
+                Integer endPointColumn = startPointColumn+attackedWidth;
+                System.out.println("StartPointRow: "+startPointRow);
+                System.out.println("StartPointColumn: "+startPointColumn);
+                System.out.println("attackedWidth: "+attackedWidth);
+                System.out.println("attackedHeight: "+attackedHeight);
+                //tandai petak yang diserang
+                for (int row = startPointRow; row < endPointRow; row++) {
+                    for (int col = startPointColumn; col < endPointColumn; col++) {
+                        ImageView imageView = getBearAttackMonitorImageView(BearAttackMonitor,col, row);
+                        if (imageView != null) {
+                            imageView.setImage(new Image(Main.class.getResource(UNDER_ATTACK_GRID_URL).toString()));
+                        }
+                    }
+                }
             }
 
             gameManager.state = 1;
@@ -760,10 +783,27 @@ public class Player2FieldController implements Initializable {
         else {
             System.out.println("Done!!");
             for (Button b : daftar_button) b.setDisable(false);
+            //setup monitor serangan beruang
+            for (var node : BearAttackMonitor.getChildren()) {
+                if (node instanceof ImageView) {
+                    ((ImageView) node).setImage(new Image(Main.class.getResource(SAFE_GRID_IMAGE_URL).toString()));
+                }
+            }
         }
     }
 
     public Label getBearTimer() {
         return BearAttackTimer;
+    }
+
+    private ImageView getBearAttackMonitorImageView(GridPane gridPane, int col, int row){
+        for (var node : gridPane.getChildren()) {
+            Integer colIndex = GridPane.getColumnIndex(node);
+            Integer rowIndex = GridPane.getRowIndex(node);
+            if ((colIndex == null ? 0 : colIndex) == col && (rowIndex == null ? 0 : rowIndex) == row && node instanceof ImageView) {
+                return (ImageView) node;
+            }
+        }
+        return null;
     }
 }
