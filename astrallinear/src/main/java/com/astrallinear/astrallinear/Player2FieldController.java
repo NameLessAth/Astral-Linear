@@ -432,6 +432,7 @@ public class Player2FieldController implements Initializable {
                 if (obj instanceof KartuProduk) {
                     try {
                         ladang.give_food_at((KartuProduk) obj, targetRow, targetColumn);
+                        deck.deleteActiveCard(sourceColumn);
                     } catch (Exception e2) { throw e2 ; } // beri makan gagal
                 }
                 else { // item. todo: implement

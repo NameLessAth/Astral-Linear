@@ -12,20 +12,26 @@ public class AudioManager {
     private MediaPlayer mediaPlayer;
     private List<String> NormalBGMList;
     private List<String> BearAttackBGMList;
-    private String EndGameBGM;
+    private String EndGameBGM,ShopBGM,SaveStateBGM,LoadStateBGM,LoadPluginBGM;
     private Random random;
 
     private AudioManager() {
         random = new Random();
         NormalBGMList = new ArrayList<>();
         BearAttackBGMList = new ArrayList<>();
-        NormalBGMList.add(Main.class.getResource("BGM/NormalBGM1.mp3").toString());
-        NormalBGMList.add(Main.class.getResource("BGM/NormalBGM2.mp3").toString());
-        BearAttackBGMList.add(Main.class.getResource("BGM/BearAttackBGM1.mp3").toString());
-        BearAttackBGMList.add(Main.class.getResource("BGM/BearAttackBGM2.mp3").toString());
+        addAudioList(NormalBGMList,3,"NormalBGM");
+        addAudioList(BearAttackBGMList,3,"BearAttackBGM");
         EndGameBGM = Main.class.getResource("BGM/EndGameBGM.mp3").toString();
+        ShopBGM = Main.class.getResource("BGM/ShopBGM.mp3").toString();
+        SaveStateBGM = Main.class.getResource("BGM/SaveStateBGM.mp3").toString();
+        LoadStateBGM = Main.class.getResource("BGM/LoadStateBGM.mp3").toString();
+        LoadPluginBGM = Main.class.getResource("BGM/LoadPluginBGM.mp3").toString();
     }
-
+    private void addAudioList(List<String> AudioList, Integer n, String AudioType){
+        for(Integer i = 1; i<=n; i++){
+            AudioList.add(Main.class.getResource("BGM/"+AudioType+i+".mp3").toString());
+        }
+    }
     public static AudioManager getInstance() {
         if (instance == null) {
             instance = new AudioManager();
@@ -41,6 +47,18 @@ public class AudioManager {
     }
     public void startEndGameBGM(){
         playBGM(EndGameBGM);
+    }
+    public void startShopBGM(){
+        playBGM(ShopBGM);
+    }
+    public void startSaveStateBGM(){
+        playBGM(SaveStateBGM);
+    }
+    public void startLoadStateBGM(){
+        playBGM(LoadStateBGM);
+    }
+    public void startLoadPluginBGM(){
+        playBGM(LoadPluginBGM);
     }
     private void playRandomBearAttackBGM() {
         if (BearAttackBGMList == null || BearAttackBGMList.isEmpty()) {

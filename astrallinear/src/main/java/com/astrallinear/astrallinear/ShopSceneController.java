@@ -21,6 +21,14 @@ public class ShopSceneController {
             throw new RuntimeException(e);
         }
     }
+    private static AudioManager audioManager;
+    static {
+        try {
+            audioManager = AudioManager.getInstance();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
     @FXML
     private Button BackButton;
     @FXML
@@ -58,5 +66,10 @@ public class ShopSceneController {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    @FXML
+    public void initialize(){
+        audioManager.startShopBGM();
     }
 }
