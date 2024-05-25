@@ -14,7 +14,7 @@
             <Font name="Segoe UI Black" size="30.0" />
          </font>
       </Button>
-      <Label layoutX="468.0" layoutY="49.0" text="Tugas Besar OOP 2">
+      <Label layoutX="452.0" layoutY="52.0" text="Remidi Kelola Kerajaan">
          <font>
             <Font name="Segoe UI Black" size="40.0" />
          </font>

@@ -26,6 +26,14 @@ public class LoadPluginSceneController {
             throw new RuntimeException(e);
         }
     }
+    private static AudioManager audioManager;
+    static {
+        try {
+            audioManager = AudioManager.getInstance();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
     @FXML
     private Button BackButton;
 
@@ -70,6 +78,7 @@ public class LoadPluginSceneController {
     @FXML
     public void initialize(){
         //ini cuma buat nunjukkin cara masukin valuenya ke dropdown
+        audioManager.startLoadPluginBGM();
         ArrayList<String> dummyList = new ArrayList<>();
         dummyList.add("Cara masukin valuenya");
         dummyList.add("begini");
