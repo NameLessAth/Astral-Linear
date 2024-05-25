@@ -31,6 +31,14 @@ public class LoadStateSceneController {
             throw new RuntimeException(e);
         }
     }
+    private static AudioManager audioManager;
+    static {
+        try {
+            audioManager = AudioManager.getInstance();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
     @FXML
     private Button BackButton;
 
@@ -95,6 +103,6 @@ public class LoadStateSceneController {
     }
     @FXML
     public void initialize(){
-
+        audioManager.startLoadStateBGM();
     }
 }
