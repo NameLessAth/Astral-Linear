@@ -92,6 +92,7 @@ public class LoadStateSceneController {
             else{
                 try{
                     TxtLoad.LoadGame("test/" + FileNameField.getText());
+                    audioManager.startSFX("DropSuccess");
                     Alert nextButtonAlert = new Alert(AlertType.INFORMATION);
                     nextButtonAlert.setTitle("Notifikasi memuat");
                     nextButtonAlert.setHeaderText("State program berhasil dimuat");

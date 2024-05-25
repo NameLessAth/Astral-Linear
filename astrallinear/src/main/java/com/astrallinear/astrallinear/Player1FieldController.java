@@ -112,18 +112,20 @@ public class Player1FieldController implements Initializable{
 
     @FXML
     void OnEnemyFieldButtonClick(ActionEvent e) throws IOException{
-        audioManager.startSFX("ButtonClick");
+
         //tanpa mengubah giliran
         Integer currentPlayer = gameManager.getCurrentPlayer();
         System.out.println(currentPlayer);
         if(currentPlayer == 2){ //jika pemain sekarang adalah pemain 2 yang menekan tombol "Ladang Lawan" di ladang pemain 1
             //Dia sudah mengunjungi ladang lawan, keluarkan pesan error
+            audioManager.startSFX("Error");
             Alert alreadyInOpponentField = new Alert(AlertType.ERROR);
             alreadyInOpponentField.setTitle("Sudah di ladang lawan!");
             alreadyInOpponentField.setHeaderText("Pemain 2, kamu sudah berada di ladang lawan!");
             alreadyInOpponentField.show();
         } else {
             gameManager.setPreviousPressedButton("EnemyField");
+            audioManager.startSFX("ButtonClick");
             if(popupStage != null){
                 popupStage.close();
             }
@@ -402,6 +404,7 @@ public class Player1FieldController implements Initializable{
                 }
                 if (fromDeck) {
                     KartuMakhluk obj = (KartuMakhluk) deck.getActiveCard(sourceColumn);
+                    audioManager.startSFX("DropSuccess");
                     ladang.spawn_at((KartuMakhluk) obj, targetRow, targetColumn);
                     deck.deleteActiveCard(sourceColumn);
                 }
@@ -417,6 +420,7 @@ public class Player1FieldController implements Initializable{
                 if (obj instanceof KartuProduk) {
                     try {
                         ladang.give_food_at((KartuProduk) obj, targetRow, targetColumn);
+                        audioManager.startSFX("DropSuccess");
                         deck.deleteActiveCard(sourceColumn);
                     } catch (Exception e2) { throw e2 ; } // beri makan gagal
                 }

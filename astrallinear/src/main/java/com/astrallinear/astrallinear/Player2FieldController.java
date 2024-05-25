@@ -431,6 +431,7 @@ public class Player2FieldController implements Initializable {
                 if (fromDeck) {
                     System.out.println("FROM DECK");
                     KartuMakhluk obj = (KartuMakhluk) deck.getActiveCard(sourceColumn);
+                    audioManager.startSFX("DropSuccess");
                     ladang.spawn_at((KartuMakhluk) obj, targetRow, targetColumn);
                     deck.deleteActiveCard(sourceColumn);
                 }
@@ -445,6 +446,7 @@ public class Player2FieldController implements Initializable {
                 if (obj instanceof KartuProduk) {
                     try {
                         ladang.give_food_at((KartuProduk) obj, targetRow, targetColumn);
+                        audioManager.startSFX("DropSuccess");
                         deck.deleteActiveCard(sourceColumn);
                     } catch (Exception e2) { throw e2 ; } // beri makan gagal
                 }
@@ -488,18 +490,21 @@ public class Player2FieldController implements Initializable {
 
                     } catch (Exception e2) { 
                         if (e2.getMessage().equals("sel ini di-protect!")) {
+                            audioManager.startSFX("Error");
                             Alert isProtectedAlert = new Alert(AlertType.ERROR);
                             isProtectedAlert.setTitle("Eits! Tidak bisa!");
                             isProtectedAlert.setHeaderText("Kamu tidak bisa serang sel ini karena pemain lawan melindungi dengan item protect!");
                             isProtectedAlert.show();
                         }
                         else if (e2.getMessage().equals("serang sel sendiri")) {
+                            audioManager.startSFX("Error");
                             Alert suicideAlert = new Alert(AlertType.ERROR);
                             suicideAlert.setTitle("Lho.. jangan serang ladang sendiri dong!");
                             suicideAlert.setHeaderText("Silakan ganti ladang terlebih dahulu sebelum menyerang");
                             suicideAlert.show();
                         }
                         else if (e2.getMessage().equals("bukan sel sendiri")) {
+                            audioManager.startSFX("Error");
                             Alert notSelfLadang = new Alert(AlertType.ERROR);
                             notSelfLadang.setTitle("Lho.. Ini bukan ladangmu!");
                             notSelfLadang.setHeaderText("Silakan ganti ladang terlebih dahulu sebelum menggunakan kartu item powerup");

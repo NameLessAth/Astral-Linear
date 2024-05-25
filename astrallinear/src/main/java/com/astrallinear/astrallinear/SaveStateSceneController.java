@@ -70,7 +70,8 @@ public class SaveStateSceneController {
     @FXML
     void SaveState(ActionEvent event){
         audioManager.startSFX("ButtonClick");
-        if(containsSpecialChars(FileNameField.getText())){
+        if(containsSpecialChars(FileNameField.getText()) || FileNameField.getText().equals("") || FileNameField.getText() == null){
+            audioManager.startSFX("Error");
             Alert failSaveAlert = new Alert(AlertType.ERROR);
             failSaveAlert.setTitle("Notifikasi menyimpan");
             failSaveAlert.setHeaderText("Menyimpan dalam penamaan folder ini tidak diterima, simpan gagal");
@@ -79,11 +80,13 @@ public class SaveStateSceneController {
         else{
             try{
                 TxtSave.SaveGameState(GameManager.getInstance(), Toko.getToko(), "test/" + FileNameField.getText());
+                audioManager.startSFX("DropSuccess");
                 Alert nextButtonAlert = new Alert(AlertType.INFORMATION);
                 nextButtonAlert.setTitle("Notifikasi menyimpan");
                 nextButtonAlert.setHeaderText("State program berhasil disimpan");
                 nextButtonAlert.show();
             }catch(Exception e){
+                audioManager.startSFX("Error");
                 Alert nextButtonAlert = new Alert(AlertType.ERROR);
                 nextButtonAlert.setTitle("Notifikasi menyimpan");
                 nextButtonAlert.setHeaderText("Terjadi anomali dalam menyimpan, simpan gagal");
