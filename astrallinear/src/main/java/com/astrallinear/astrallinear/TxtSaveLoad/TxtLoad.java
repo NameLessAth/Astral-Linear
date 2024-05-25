@@ -145,17 +145,17 @@ public class TxtLoad {
                 resLadang.spawn_at(kartuMakhluk, coordinate.getValue(), coordinate.getKey());
                 Integer count1 = Integer.parseInt(word[3]);
                 for(int j = 0; j < count1; j++){
-                    if(word[j+4].toLowerCase().equals("accelerate"));
+                    if(word[j+4].toLowerCase().equals("accelerate"))
                         resLadang.get(coordinate.getValue(), coordinate.getKey()).addItemAktif(new KartuItem("accelerate"));
-                    if(word[j+4].toLowerCase().equals("delay"));
+                    if(word[j+4].toLowerCase().equals("delay"))
                         resLadang.get(coordinate.getValue(), coordinate.getKey()).addItemAktif(new KartuItem("delay"));
-                    if(word[j+4].toLowerCase().equals("destroy"));
+                    if(word[j+4].toLowerCase().equals("destroy"))
                         resLadang.get(coordinate.getValue(), coordinate.getKey()).addItemAktif(new KartuItem("destroy"));
-                    if(word[j+4].toLowerCase().equals("protect"));
+                    if(word[j+4].toLowerCase().equals("protect"))
                         resLadang.get(coordinate.getValue(), coordinate.getKey()).addItemAktif(new KartuItem("protect"));
-                    if(word[j+4].toLowerCase().equals("instant_harvest"));
+                    if(word[j+4].toLowerCase().equals("instant_harvest"))
                         resLadang.get(coordinate.getValue(), coordinate.getKey()).addItemAktif(new KartuItem("instant_harvest"));
-                    if(word[j+4].toLowerCase().equals("bear_trap"));
+                    if(word[j+4].toLowerCase().equals("bear_trap"))
                         resLadang.get(coordinate.getValue(), coordinate.getKey()).addItemAktif(new KartuItem("bear_trap"));
                 }
             }
