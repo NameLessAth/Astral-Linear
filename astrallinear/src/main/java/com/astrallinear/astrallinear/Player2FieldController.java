@@ -437,7 +437,7 @@ public class Player2FieldController implements Initializable {
                 else { // item. todo: implement
 
                     try {
-                        boolean isInstantHarvest = true;
+                        boolean isInstantHarvest = false;
                         if (obj.getNama().equals("accelerate")) {
                             ladang.kartu_accelerate(targetRow, targetColumn);
                         }
