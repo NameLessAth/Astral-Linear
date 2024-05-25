@@ -16,14 +16,14 @@ public class AudioManager {
     private Random random;
 
     private AudioManager() {
-        // random = new Random();
-        // NormalBGMList = new ArrayList<>();
-        // BearAttackBGMList = new ArrayList<>();
-        // NormalBGMList.add(Main.class.getResource("BGM/NormalBGM1.mp3").toString());
-        // NormalBGMList.add(Main.class.getResource("BGM/NormalBGM2.mp3").toString());
-        // BearAttackBGMList.add(Main.class.getResource("BGM/BearAttackBGM1.mp3").toString());
-        // BearAttackBGMList.add(Main.class.getResource("BGM/BearAttackBGM2.mp3").toString());
-        // EndGameBGM = Main.class.getResource("BGM/EndGameBGM.mp3").toString();
+        random = new Random();
+        NormalBGMList = new ArrayList<>();
+        BearAttackBGMList = new ArrayList<>();
+        NormalBGMList.add(Main.class.getResource("BGM/NormalBGM1.mp3").toString());
+        NormalBGMList.add(Main.class.getResource("BGM/NormalBGM2.mp3").toString());
+        BearAttackBGMList.add(Main.class.getResource("BGM/BearAttackBGM1.mp3").toString());
+        BearAttackBGMList.add(Main.class.getResource("BGM/BearAttackBGM2.mp3").toString());
+        EndGameBGM = Main.class.getResource("BGM/EndGameBGM.mp3").toString();
     }
     public static AudioManager getInstance() {
         if (instance == null) {
@@ -33,13 +33,13 @@ public class AudioManager {
     }
 
     public void startNormalBGM() {
-        // playRandomNormalBGM();
+        playRandomNormalBGM();
     }
     public void startBearAttackBGM() {
-        // playRandomBearAttackBGM();
+        playRandomBearAttackBGM();
     }
     public void startEndGameBGM(){
-        // playBGM(EndGameBGM);
+        playBGM(EndGameBGM);
     }
     public void startShopBGM(){
         playBGM(ShopBGM);
@@ -58,19 +58,19 @@ public class AudioManager {
         playSFX(path);
     }
     private void playRandomBearAttackBGM() {
-        // if (BearAttackBGMList == null || BearAttackBGMList.isEmpty()) {
-        //     throw new IllegalStateException("Kosong");
-        // }
-        // int index = random.nextInt(BearAttackBGMList.size());
-        // playBGM(BearAttackBGMList.get(index));
+        if (BearAttackBGMList == null || BearAttackBGMList.isEmpty()) {
+            throw new IllegalStateException("Kosong");
+        }
+        int index = random.nextInt(BearAttackBGMList.size());
+        playBGM(BearAttackBGMList.get(index));
     }
 
     private void playRandomNormalBGM() {
-        // if (NormalBGMList == null || NormalBGMList.isEmpty()) {
-        //     throw new IllegalStateException("Kosong");
-        // }
-        // int index = random.nextInt(NormalBGMList.size());
-        // playBGM(NormalBGMList.get(index));
+        if (NormalBGMList == null || NormalBGMList.isEmpty()) {
+            throw new IllegalStateException("Kosong");
+        }
+        int index = random.nextInt(NormalBGMList.size());
+        playBGM(NormalBGMList.get(index));
     }
 
     private void playBGM(String musicFilePath) {
