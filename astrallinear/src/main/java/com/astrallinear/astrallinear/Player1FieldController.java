@@ -200,16 +200,18 @@ public class Player1FieldController implements Initializable{
     @FXML
     void OnNextButtonClick(ActionEvent e) throws Exception {
         //ganti giliran ke pemain selanjutnya jika pemain sekarang sama dengan nama controller ini
-        audioManager.startSFX("ButtonClick");
+
         Integer currentPlayer = gameManager.getCurrentPlayer();
         gameManager.getLadangPemain1().age_all_plants();
         
         if(currentPlayer == 2){
+            audioManager.startSFX("Error");
             Alert nextButtonAlert = new Alert(AlertType.ERROR);
             nextButtonAlert.setTitle("Next Button Error");
             nextButtonAlert.setHeaderText("Pemain 2, kamu masih di ladang lawan! Kembali ke ladangmu terlebih dahulu untuk lanjut ke turn berikutnya!");
             nextButtonAlert.show();
         } else {
+            audioManager.startSFX("ButtonClick");
             gameManager.setPreviousPressedButton("Next");
             if(popupStage != null){
                 popupStage.close();
