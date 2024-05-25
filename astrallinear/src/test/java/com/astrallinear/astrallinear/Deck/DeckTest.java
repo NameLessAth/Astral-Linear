@@ -51,13 +51,13 @@ public class DeckTest {
     public void testTakeShuffle() throws Exception{
         Deck deck = new Deck();
         assertTrue(deck.countEmptySlot() == 6);
-        deck.takeShuffle();
+        deck.acceptShuffle(deck.takeShuffle());
         assertTrue(deck.countEmptySlot() == 2);
-        deck.takeShuffle();
+        deck.acceptShuffle(deck.takeShuffle());
         assertTrue(deck.countEmptySlot() == 0);
         deck.deleteActiveCard(1);
         assertTrue(deck.countEmptySlot() == 1);
-        deck.takeShuffle();
+        deck.acceptShuffle(deck.takeShuffle());
         assertTrue(deck.countEmptySlot() == 0);
     }
 
@@ -65,14 +65,14 @@ public class DeckTest {
     public void testGetRemainingInactiveDeck() throws Exception{
         Deck deck = new Deck();
         assertTrue(deck.getRemainingInactiveDeck() == 40);
-        deck.takeShuffle();
+        deck.acceptShuffle(deck.takeShuffle());
         assertTrue(deck.getRemainingInactiveDeck() == 36);
         for(int i = 0; i < 9; i++){
             deck.deleteActiveCard(0);
             deck.deleteActiveCard(1);
             deck.deleteActiveCard(2);
             deck.deleteActiveCard(3);
-            deck.takeShuffle();
+            deck.acceptShuffle(deck.takeShuffle());
         }
         assertTrue(deck.getRemainingInactiveDeck() == 0);
     }
