@@ -44,6 +44,7 @@ public class ShopSceneController {
     @FXML
     void BackToGame(ActionEvent e) throws IOException {
         //kembali ke ladang pemaiin yang sekarang bermain
+        audioManager.startSFX("ButtonClick");
         root = FXMLLoader.load(getClass().getResource("View/player"+gameManager.getCurrentPlayer()+"field.fxml"));
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -52,6 +53,7 @@ public class ShopSceneController {
     }
     @FXML
     void OnBeliButtonClick(ActionEvent e) throws IOException{
+        audioManager.startSFX("ButtonClick");
         root = FXMLLoader.load(getClass().getResource("View/MainBeli.fxml"));
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -61,6 +63,7 @@ public class ShopSceneController {
 
     @FXML
     void OnJualButtonClick(ActionEvent e) throws IOException{
+        audioManager.startSFX("ButtonClick");
         root = FXMLLoader.load(getClass().getResource("View/MainJual.fxml"));
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);

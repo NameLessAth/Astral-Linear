@@ -9,6 +9,14 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 public class DrawSceneController {
+    private static AudioManager audioManager;
+    static {
+        try {
+            audioManager = AudioManager.getInstance();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
     private static GameManager gameManager;
     static {
         try {
@@ -28,6 +36,7 @@ public class DrawSceneController {
 
     @FXML
     void OnEndGameButton(ActionEvent event) {
+        audioManager.startSFX("ButtonClick");
         Stage gameStage = gameManager.getGameStage();
         gameStage.close();
     }

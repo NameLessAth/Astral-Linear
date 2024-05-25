@@ -22,6 +22,14 @@ import com.astrallinear.astrallinear.Kartu.KartuProduk;
 import com.astrallinear.astrallinear.Pemain.Pemain;
 
 public class MainJualController {
+    private static AudioManager audioManager;
+    static {
+        try {
+            audioManager = AudioManager.getInstance();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
     @FXML
     private ScrollPane scrollPane;
 
@@ -89,6 +97,7 @@ public class MainJualController {
 
     @FXML
     void BackToShop(ActionEvent e) throws IOException {
+        audioManager.startSFX("ButtonClick");
         root = FXMLLoader.load(getClass().getResource("View/shop.fxml"));
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);

@@ -9,7 +9,7 @@ import java.util.Random;
 public class AudioManager {
 
     private static AudioManager instance;
-    private MediaPlayer mediaPlayer;
+    private MediaPlayer BGMPlayer,SFXPlayer;
     private List<String> NormalBGMList;
     private List<String> BearAttackBGMList;
     private String EndGameBGM,ShopBGM,SaveStateBGM,LoadStateBGM,LoadPluginBGM;
@@ -60,6 +60,10 @@ public class AudioManager {
     public void startLoadPluginBGM(){
         playBGM(LoadPluginBGM);
     }
+    public void startSFX(String SFXPath){
+        String path = Main.class.getResource("SFX/"+SFXPath+"SFX.mp3").toString();
+        playSFX(path);
+    }
     private void playRandomBearAttackBGM() {
         if (BearAttackBGMList == null || BearAttackBGMList.isEmpty()) {
             throw new IllegalStateException("Kosong");
@@ -77,18 +81,30 @@ public class AudioManager {
     }
 
     private void playBGM(String musicFilePath) {
-        if (mediaPlayer != null) {
-            mediaPlayer.stop();
+        if (BGMPlayer != null) {
+            BGMPlayer.stop();
         }
+        System.out.println(musicFilePath);
         Media media = new Media(musicFilePath);
-        mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE); // Loop the music
-        mediaPlayer.play();
+        BGMPlayer = new MediaPlayer(media);
+        BGMPlayer.setCycleCount(MediaPlayer.INDEFINITE); // Loop the music
+        BGMPlayer.play();
     }
 
     public void stopBGM() {
-        if (mediaPlayer != null) {
-            mediaPlayer.stop();
+        if (BGMPlayer != null) {
+            BGMPlayer.stop();
         }
+    }
+
+    private void playSFX(String SFXFilePath) {
+        if (SFXPlayer != null) {
+            SFXPlayer.stop();
+        }
+        System.out.println(SFXFilePath);
+        Media media = new Media(SFXFilePath);
+        SFXPlayer = new MediaPlayer(media);
+        SFXPlayer.setCycleCount(1); // Loop the music
+        SFXPlayer.play();
     }
 }

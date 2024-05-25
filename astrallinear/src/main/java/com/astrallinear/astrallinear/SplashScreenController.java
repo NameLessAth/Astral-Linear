@@ -17,8 +17,17 @@ public class SplashScreenController {
     private Scene scene;
     private Stage stage;
     private Parent root;
+    private static AudioManager audioManager;
+    static {
+        try {
+            audioManager = AudioManager.getInstance();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
     @FXML
     protected void OnPlayButtonClick(ActionEvent e) throws IOException {
+        audioManager.startSFX("ButtonClick");
         root = FXMLLoader.load(getClass().getResource("View/player1field.fxml"));
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
