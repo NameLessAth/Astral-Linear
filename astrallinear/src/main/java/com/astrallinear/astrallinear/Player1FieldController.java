@@ -518,14 +518,14 @@ public class Player1FieldController implements Initializable{
 
     void OnPanenClick(MouseEvent event) throws IOException {
         System.out.println("OnPanenClick");
-        //block window game utama
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("View/blocker.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        Stage gameStage = gameManager.getGameStage();
-        gameStage.setTitle("Tubes 2 OOP");
-        gameStage.setScene(scene);
-        gameStage.setResizable(false);
-        gameStage.show();
+//        //block window game utama
+//        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("View/blocker.fxml"));
+//        Scene scene = new Scene(fxmlLoader.load());
+//        Stage gameStage = gameManager.getGameStage();
+//        gameStage.setTitle("Tubes 2 OOP");
+//        gameStage.setScene(scene);
+//        gameStage.setResizable(false);
+//        gameStage.show();
         ImageView source = (ImageView) event.getSource();
         //cari koordinat source
         Integer sourceRow = GridPane.getRowIndex(source);
