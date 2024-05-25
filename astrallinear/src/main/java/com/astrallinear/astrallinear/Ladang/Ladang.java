@@ -81,9 +81,9 @@ public class Ladang {
     public boolean is_filled(Integer row, Integer col) {
         return isFilled[row][col];
     }
-    // public boolean is_protected(Integer row, Integer col) {
-    //     return isProtected[row][col];
-    // }
+    public boolean is_protected(Integer row, Integer col) throws Exception {
+        return isFilled[row][col] && get(row, col).getItemAktif().containsKey("protect");
+    }
     // public boolean is_trapped(Integer row, Integer col) {
     //     return isTrapped[row][col];
     // }
@@ -126,7 +126,7 @@ public class Ladang {
         if (!isFilled[row][col]) throw new EmptyCellException(row, col);
         
         GameManager gm = GameManager.getInstance();
-        // if (is_protected(row, col)) throw new Exception("sel ini di-protect!");
+        if (is_protected(row, col)) throw new Exception("sel ini di-protect!");
         if (gm.getCurrentPlayerInstance().getLadang() == this) throw new Exception("serang sel sendiri");
         pop(row, col);   
     }
@@ -163,7 +163,7 @@ public class Ladang {
         if (!isFilled[row][col]) throw new EmptyCellException(row, col);
                 
         GameManager gm = GameManager.getInstance();
-        // if (is_protected(row, col)) throw new Exception("sel ini di-protect!");
+        if (is_protected(row, col)) throw new Exception("sel ini di-protect!");
         if (gm.getCurrentPlayerInstance().getLadang() == this) throw new Exception("serang sel sendiri");
 
         MakhlukMatrix[row][col].delay();

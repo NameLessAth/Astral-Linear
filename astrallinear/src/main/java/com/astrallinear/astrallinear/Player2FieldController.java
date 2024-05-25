@@ -430,11 +430,24 @@ public class Player2FieldController implements Initializable {
                 else { // item. todo: implement
 
                     try {
+                        boolean isInstantHarvest = true;
                         if (obj.getNama().equals("accelerate")) {
                             ladang.kartu_accelerate(targetRow, targetColumn);
                         }
                         if (obj.getNama().equals("instant_harvest")) {
-                            ladang.kartu_instant_harvest(targetRow, targetColumn);
+                            
+                            KartuProduk produk = ladang.kartu_instant_harvest(targetRow, targetColumn);
+                            Image img = new Image(Main.class.getResource(PLACEHOLDER_IMAGE_URL).toString());
+                            target.setImage(img);
+                            
+                            deck.deleteActiveCard(sourceColumn);
+                            deck.addKartu(produk);
+                            isInstantHarvest = true;
+                            event.setDropCompleted(true);
+                            event.consume();
+                            initialize();
+                            return;
+
                         }
                         if (obj.getNama().equals("bear_trap")) {
                             ladang.kartu_trap(targetRow, targetColumn);
@@ -450,7 +463,7 @@ public class Player2FieldController implements Initializable {
                         if (obj.getNama().equals("protect")) {
                             ladang.kartu_protect(targetRow, targetColumn);
                         }
-                        deck.deleteActiveCard(sourceColumn);
+                        if (!isInstantHarvest)deck.deleteActiveCard(sourceColumn);
 
                     } catch (Exception e2) { 
                         if (e2.getMessage().equals("sel ini di-protect!")) {
@@ -735,7 +748,6 @@ public class Player2FieldController implements Initializable {
             if (f.get(this) instanceof Button) daftar_button.add((Button)f.get(this));
         }
   
-
         if (gameManager.state == 2) {
             
             if (BearAttack.isAttacking() && gameManager.getCurrentTurn() > 4) {

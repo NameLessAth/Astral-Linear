@@ -407,24 +407,23 @@ public class Player1FieldController implements Initializable{
 
 
                     try {
+                        Boolean isInstantHarvest = false;
                         if (obj.getNama().equals("accelerate")) {
                             ladang.kartu_accelerate(targetRow, targetColumn);
                         }
                         if (obj.getNama().equals("instant_harvest")) {
-                            if (deck.countEmptySlot() == 0) {
-                                Alert deckIsFullAlert = new Alert(AlertType.ERROR);
-                                deckIsFullAlert.setTitle("Tidak ada tempat kosong!");
-                                deckIsFullAlert.setHeaderText("Deck aktif Anda masih penuh! Silakan kosongkan minimal satu slot agar bisa panen!");
-                                deckIsFullAlert.showAndWait();
-                                return;
-                            }
-                            else {
-                                KartuProduk produk = ladang.kartu_instant_harvest(targetRow, targetColumn);
-                                deck.addKartu(produk);
-                                Image img = new Image(Main.class.getResource(PLACEHOLDER_IMAGE_URL).toString());
-                                target.setImage(img);
-                                initialize();
-                            }
+                            KartuProduk produk = ladang.kartu_instant_harvest(targetRow, targetColumn);
+                            Image img = new Image(Main.class.getResource(PLACEHOLDER_IMAGE_URL).toString());
+                            target.setImage(img);
+                            
+                            deck.deleteActiveCard(sourceColumn);
+                            deck.addKartu(produk);
+                            isInstantHarvest = true;
+                            event.setDropCompleted(true);
+                            event.consume();
+                            initialize();
+                            return;
+
                         }
                         if (obj.getNama().equals("bear_trap")) {
                             ladang.kartu_trap(targetRow, targetColumn);
@@ -440,7 +439,7 @@ public class Player1FieldController implements Initializable{
                         if (obj.getNama().equals("protect")) {
                             ladang.kartu_protect(targetRow, targetColumn);
                         }
-                        deck.deleteActiveCard(sourceColumn);
+                        if (!isInstantHarvest)deck.deleteActiveCard(sourceColumn);
 
                     } catch (Exception e2) { 
                         if (e2.getMessage().equals("sel ini di-protect!")) {
@@ -630,11 +629,11 @@ public class Player1FieldController implements Initializable{
     @FXML
     public void initialize() throws Exception {
         //setup monitor serangan beruang
-        for (var node : BearAttackMonitor.getChildren()) {
-            if (node instanceof ImageView) {
-                ((ImageView) node).setImage(new Image(Main.class.getResource(SAFE_GRID_IMAGE_URL).toString()));
-            }
-        }
+        // for (var node : BearAttackMonitor.getChildren()) {
+        //     if (node instanceof ImageView) {
+        //         ((ImageView) node).setImage(new Image(Main.class.getResource(SAFE_GRID_IMAGE_URL).toString()));
+        //     }
+        // }
         // shuffle kartu
         if (gameManager.state == 0) {
             gameManager.state = 2;
@@ -715,9 +714,9 @@ public class Player1FieldController implements Initializable{
         for (Field f : fields) {
             if (f.get(this) instanceof Button) daftar_button.add((Button)f.get(this));
         }
+
+        // if (gameManager.state == 2) gameManager.state = 1;
         
-        System.out.println(BearAttackTimer);
-        System.out.println("State: " + gameManager.state);
         if (gameManager.state == 2) {
             
             if (BearAttack.isAttacking() && gameManager.getCurrentTurn() > 4) {
@@ -728,8 +727,6 @@ public class Player1FieldController implements Initializable{
                 BeruangAlert.setHeaderText("KAMU SEDANG DISERANG OLEH BERUANG!!!");
                 BeruangAlert.showAndWait();
 
-                System.out.println("uwoooghh");
-                BearAttackTimer.setVisible(true);
                 BearAttackTimer.setVisible(true);
                 TimerProcRun tpr = new TimerProcRun();
                 tpr.start();
@@ -776,7 +773,7 @@ public class Player1FieldController implements Initializable{
             }
         }
     }
-
+    
     public Label getBearTimer() {
         return this.BearAttackTimer;
     }
