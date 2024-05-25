@@ -1,0 +1,8 @@
+0
+36
+4
+A01 biji_jagung
+B01 kuda
+C01 instant_harvest
+D01 biji_stroberi
+0
