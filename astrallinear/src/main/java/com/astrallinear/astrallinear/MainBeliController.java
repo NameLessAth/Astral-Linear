@@ -19,6 +19,14 @@ import com.astrallinear.astrallinear.Kartu.KartuProduk;
 import com.astrallinear.astrallinear.Toko.Toko;
 
 public class MainBeliController {
+    private static AudioManager audioManager;
+    static {
+        try {
+            audioManager = AudioManager.getInstance();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
     @FXML
     private ScrollPane scrollPane;
 
@@ -86,6 +94,7 @@ public class MainBeliController {
 
     @FXML
     void BackToShop(ActionEvent e) throws IOException {
+        audioManager.startSFX("ButtonClick");
         root = FXMLLoader.load(getClass().getResource("View/shop.fxml"));
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);

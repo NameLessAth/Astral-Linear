@@ -18,7 +18,14 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 public class JualWidgetController {
-
+    private static AudioManager audioManager;
+    static {
+        try {
+            audioManager = AudioManager.getInstance();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
     @FXML
     private Button SellButton;
 
@@ -33,6 +40,7 @@ public class JualWidgetController {
 
     @FXML
     void OnSellButtonClicked(ActionEvent event) throws Exception {
+        audioManager.startSFX("DropSuccess");
         GameManager gameManager = GameManager.getInstance();
         Pemain pemain = gameManager.getCurrentPlayerInstance();
         Integer indeksKartu = Integer.parseInt(this.getSellItemNameLabel().getText());

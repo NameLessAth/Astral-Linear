@@ -59,6 +59,7 @@ public class LoadPluginSceneController {
     @FXML
     void BackToGame(ActionEvent e) throws IOException {
         //kembali ke ladang pemaiin yang sekarang bermain
+        audioManager.startSFX("ButtonClick");
         root = FXMLLoader.load(getClass().getResource("View/player"+gameManager.getCurrentPlayer()+"field.fxml"));
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -67,11 +68,13 @@ public class LoadPluginSceneController {
     }
     @FXML
     void Refresh(ActionEvent event) {
+        audioManager.startSFX("ButtonClick");
         System.out.println("Refresh"+PluginSelectionDropdown.getValue());
     }
     @FXML
     void LoadPlugin(ActionEvent event) {
         //tau dah dikerjain apa gak ini aowokawoko
+        audioManager.startSFX("ButtonClick");
         System.out.println("Load Plugin"+PluginSelectionDropdown.getValue());
     }
 

@@ -112,6 +112,7 @@ public class Player1FieldController implements Initializable{
 
     @FXML
     void OnEnemyFieldButtonClick(ActionEvent e) throws IOException{
+        audioManager.startSFX("ButtonClick");
         //tanpa mengubah giliran
         Integer currentPlayer = gameManager.getCurrentPlayer();
         System.out.println(currentPlayer);
@@ -137,6 +138,7 @@ public class Player1FieldController implements Initializable{
     @FXML
     void OnLoadPluginButtonClick(ActionEvent e) throws IOException {
         System.out.println("Load Plugin");
+        audioManager.startSFX("ButtonClick");
         gameManager.setPreviousPressedButton("LoadPlugin");
         if(popupStage != null){
             popupStage.close();
@@ -152,6 +154,7 @@ public class Player1FieldController implements Initializable{
     @FXML
     void OnLoadStateButtonClick(ActionEvent e) throws IOException{
         System.out.println("Load State");
+        audioManager.startSFX("ButtonClick");
         gameManager.setPreviousPressedButton("LoadState");
         if(popupStage != null){
             popupStage.close();
@@ -167,16 +170,19 @@ public class Player1FieldController implements Initializable{
     @FXML
     void OnMyFieldButtonClick(ActionEvent e) throws IOException{
         //tanpa mengubah giliran
+
         Integer currentPlayer = gameManager.getCurrentPlayer();
         System.out.println(currentPlayer);
         if(currentPlayer == 1){
             //Jika sekarang giliran pemain 1 (sudah berada di ladang sendiri) tampilkan error ini
+            audioManager.startSFX("Error");
             Alert alreadyInMyField = new Alert(AlertType.ERROR);
             alreadyInMyField.setTitle("Sudah di ladang sendiri");
             alreadyInMyField.setHeaderText("Pemain 1, kamu sudah berada di ladangmu sendiri!");
             alreadyInMyField.show();
         } else {
             gameManager.setPreviousPressedButton("MyField");
+            audioManager.startSFX("ButtonClick");
             if(popupStage != null){
                 popupStage.close();
             }
@@ -192,6 +198,7 @@ public class Player1FieldController implements Initializable{
     @FXML
     void OnNextButtonClick(ActionEvent e) throws Exception {
         //ganti giliran ke pemain selanjutnya jika pemain sekarang sama dengan nama controller ini
+        audioManager.startSFX("ButtonClick");
         Integer currentPlayer = gameManager.getCurrentPlayer();
         gameManager.getLadangPemain1().age_all_plants();
         
@@ -218,6 +225,7 @@ public class Player1FieldController implements Initializable{
 
     @FXML
     void OnSaveStateButtonClick(ActionEvent e) throws IOException {
+        audioManager.startSFX("ButtonClick");
         System.out.println("Save State");
         gameManager.setPreviousPressedButton("SaveState");
         if(popupStage != null){
@@ -232,6 +240,7 @@ public class Player1FieldController implements Initializable{
     }
     @FXML
     void OnShopButtonClick(ActionEvent e) throws IOException {
+        audioManager.startSFX("ButtonClick");
         System.out.println("Shop");
         gameManager.setPreviousPressedButton("Shop");
         if(popupStage != null){
@@ -246,7 +255,7 @@ public class Player1FieldController implements Initializable{
     }
     @FXML
     void handleDragDetectIMG(MouseEvent event) {
-
+        audioManager.startSFX("DragStart");
         ImageView IMGSource = (ImageView) event.getSource();
         Integer r = GridPane.getRowIndex(IMGSource);
         Integer c = GridPane.getColumnIndex(IMGSource);
@@ -451,18 +460,21 @@ public class Player1FieldController implements Initializable{
 
                     } catch (Exception e2) { 
                         if (e2.getMessage().equals("sel ini di-protect!")) {
+                            audioManager.startSFX("Error");
                             Alert isProtectedAlert = new Alert(AlertType.ERROR);
                             isProtectedAlert.setTitle("Eits! Tidak bisa!");
                             isProtectedAlert.setHeaderText("Kamu tidak bisa serang sel ini karena pemain lawan melindungi dengan item protect!");
                             isProtectedAlert.show();
                         }
                         else if (e2.getMessage().equals("serang sel sendiri")) {
+                            audioManager.startSFX("Error");
                             Alert suicideAlert = new Alert(AlertType.ERROR);
                             suicideAlert.setTitle("Lho.. jangan serang ladang sendiri dong!");
                             suicideAlert.setHeaderText("Silakan ganti ladang terlebih dahulu sebelum menyerang");
                             suicideAlert.show();
                         }
                         else if (e2.getMessage().equals("bukan sel sendiri")) {
+                            audioManager.startSFX("Error");
                             Alert notSelfLadang = new Alert(AlertType.ERROR);
                             notSelfLadang.setTitle("Lho.. Ini bukan ladangmu!");
                             notSelfLadang.setHeaderText("Silakan ganti ladang terlebih dahulu sebelum menggunakan kartu item powerup");
@@ -518,7 +530,8 @@ public class Player1FieldController implements Initializable{
     }
 
     void OnPanenClick(MouseEvent event) throws IOException {
-        System.out.println("OnPanenClick");
+
+        audioManager.startSFX("ButtonClick");
 //        //block window game utama
 //        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("View/blocker.fxml"));
 //        Scene scene = new Scene(fxmlLoader.load());
@@ -550,6 +563,7 @@ public class Player1FieldController implements Initializable{
                 emptyCell.setHeaderText("Pemain 1, petak ini kosong!");
                 emptyCell.show();
             } else {
+                audioManager.startSFX("ButtonClick");
                 System.out.println("Pop-up panen");
                 FXMLLoader PanenPopUpLoader = new FXMLLoader(Main.class.getResource("View/panen.fxml"));
                 PanenPopUpScene = new Scene(PanenPopUpLoader.load());
@@ -575,7 +589,7 @@ public class Player1FieldController implements Initializable{
     @FXML
     void OnCardDetailClick(MouseEvent event) throws Exception {
         // System.out.println("OnCardDetailClick");
-
+        audioManager.startSFX("ButtonClick");
         // info
         ImageView source = (ImageView) event.getSource();
         //cari koordinat source

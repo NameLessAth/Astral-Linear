@@ -19,6 +19,14 @@ import java.io.IOException;
 
 public class CardDetailController {
     //tolong baca text yang muncul di carddetail.fxml terlebih dahulu buat display
+    private static AudioManager audioManager;
+    static {
+        try {
+            audioManager = AudioManager.getInstance();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
     @FXML
     private Button BackButton;
 
@@ -42,7 +50,7 @@ public class CardDetailController {
     }
     @FXML
     void OnBackButtonClick(ActionEvent event) throws IOException {
-
+        audioManager.startSFX("ButtonClick");
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.close();
         //unblock window game utama

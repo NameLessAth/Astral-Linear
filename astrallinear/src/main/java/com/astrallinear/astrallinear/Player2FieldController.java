@@ -124,15 +124,18 @@ public class Player2FieldController implements Initializable {
     @FXML
     void OnEnemyFieldButtonClick(ActionEvent e) throws IOException{
         //tanpa mengubah giliran
+
         Integer currentPlayer = gameManager.getCurrentPlayer();
         if(currentPlayer == 1){ //jika pemain sekarang adalah pemain 1 yang menekan tombol "Ladang Lawan" di ladang pemain 1
             //Dia sudah mengunjungi ladang lawan, keluarkan pesan error
+            audioManager.startSFX("Error");
             Alert alreadyInMyField = new Alert(AlertType.ERROR);
             alreadyInMyField.setTitle("Sudah di ladang lawan!");
             alreadyInMyField.setHeaderText("Pemain 1, kamu sudah berada di ladang lawan!");
             alreadyInMyField.show();
         } else {
             gameManager.setPreviousPressedButton("EnemyField");
+            audioManager.startSFX("ButtonClick");
             if(popupStage != null){
                 popupStage.close();
             }
@@ -147,6 +150,7 @@ public class Player2FieldController implements Initializable {
     @FXML
     void OnLoadPluginButtonClick(ActionEvent e) throws IOException {
         System.out.println("Load Plugin");
+        audioManager.startSFX("ButtonClick");
         gameManager.setPreviousPressedButton("LoadPlugin");
         if(popupStage != null){
             popupStage.close();
@@ -162,6 +166,7 @@ public class Player2FieldController implements Initializable {
     @FXML
     void OnLoadStateButtonClick(ActionEvent e) throws IOException{
         System.out.println("Load State");
+        audioManager.startSFX("ButtonClick");
         gameManager.setPreviousPressedButton("LoadState");
         if(popupStage != null){
             popupStage.close();
@@ -177,15 +182,18 @@ public class Player2FieldController implements Initializable {
     @FXML
     void OnMyFieldButtonClick(ActionEvent e) throws IOException{
         //tanpa mengubah giliran
+
         Integer currentPlayer = gameManager.getCurrentPlayer();
         System.out.println(currentPlayer);
         if(currentPlayer == 2){
             //Jika sekarang giliran pemain 2 (sudah berada di ladang sendiri) tampilkan error ini
+            audioManager.startSFX("Error");
             Alert alreadyInMyField = new Alert(AlertType.ERROR);
             alreadyInMyField.setTitle("Sudah di ladang sendiri");
             alreadyInMyField.setHeaderText("Pemain 2, kamu sudah berada di ladangmu sendiri!");
             alreadyInMyField.show();
         } else {
+            audioManager.startSFX("ButtonClick");
             gameManager.setPreviousPressedButton("MyField");
             if(popupStage != null){
                 popupStage.close();
@@ -201,15 +209,18 @@ public class Player2FieldController implements Initializable {
 
     @FXML
     void OnNextButtonClick(ActionEvent e) throws Exception {
+
         Integer currentPlayer = gameManager.getCurrentPlayer();
         gameManager.getLadangPemain2().age_all_plants();
         System.out.println(currentPlayer);
         if(currentPlayer == 1){
+            audioManager.startSFX("Error");
             Alert nextButtonAlert = new Alert(AlertType.ERROR);
             nextButtonAlert.setTitle("Next Button Error");
             nextButtonAlert.setHeaderText("Pemain 1, kamu masih di ladang lawan! Kembali ke ladangmu terlebih dahulu untuk lanjut ke turn berikutnya!");
             nextButtonAlert.show();
         } else {
+            audioManager.startSFX("ButtonClick");
             if(gameManager.getCurrentTurn() < gameManager.getMaxTurn()) {
                 gameManager.setPreviousPressedButton("Next");
                 if (popupStage != null) {
@@ -231,6 +242,7 @@ public class Player2FieldController implements Initializable {
 
     @FXML
     void OnSaveStateButtonClick(ActionEvent e) throws IOException {
+        audioManager.startSFX("ButtonClick");
         System.out.println("Save State");
         gameManager.setPreviousPressedButton("SaveState");
         if(popupStage != null){
@@ -245,6 +257,7 @@ public class Player2FieldController implements Initializable {
     }
     @FXML
     void OnShopButtonClick(ActionEvent e) throws IOException {
+        audioManager.startSFX("ButtonClick");
         System.out.println("Shop");
         gameManager.setPreviousPressedButton("Shop");
         if(popupStage != null){
@@ -259,7 +272,7 @@ public class Player2FieldController implements Initializable {
     }
     @FXML
     void handleDragDetectIMG(MouseEvent event) {
-
+        audioManager.startSFX("DragStart");
         ImageView IMGSource = (ImageView) event.getSource();
         Integer r = GridPane.getRowIndex(IMGSource);
         Integer c = GridPane.getColumnIndex(IMGSource);
@@ -545,6 +558,7 @@ public class Player2FieldController implements Initializable {
 
     void OnPanenClick(MouseEvent event) throws IOException{
         //block window game utama
+
         System.out.println("OnPanenClick");
         // FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("View/blocker.fxml"));
         // Scene scene = new Scene(fxmlLoader.load());
@@ -571,11 +585,13 @@ public class Player2FieldController implements Initializable {
             incorrectPlayer.show();
         } else {
             if(isPlaceholderImage(source)){ //jika petak kosong, keluarkan error
+                audioManager.startSFX("Error");
                 Alert emptyCell = new Alert(AlertType.ERROR);
                 emptyCell.setTitle("Petak kosong");
                 emptyCell.setHeaderText("Pemain 2, petak ini kosong!");
                 emptyCell.show();
             } else {
+                audioManager.startSFX("ButtonClick");
                 System.out.println("Pop-up panen");
                 FXMLLoader PanenPopUpLoader = new FXMLLoader(Main.class.getResource("View/panen.fxml"));
                 PanenPopUpScene = new Scene(PanenPopUpLoader.load());
@@ -602,7 +618,7 @@ public class Player2FieldController implements Initializable {
     void OnCardDetailClick(MouseEvent event) throws Exception {
     
         // info
-
+        audioManager.startSFX("ButtonClick");
         ImageView source = (ImageView) event.getSource();
         //cari koordinat source
         Integer sourceRow = GridPane.getRowIndex(source);
