@@ -11,12 +11,14 @@ public class InactiveDeck {
     private ArrayList<String> hewanAcak;
     private ArrayList<String> tanamanAcak;
     private ArrayList<String> itemAcak;
+    private ArrayList<String> produkAcak;
 
     public InactiveDeck() throws Exception{
         cardLeft = 40;
         hewanAcak = new ArrayList<>();
         tanamanAcak = new ArrayList<>();
         itemAcak = new ArrayList<>();
+        produkAcak = new ArrayList<>();
         hewanAcak.add("sapi");
         hewanAcak.add("domba");
         hewanAcak.add("kuda");
@@ -36,6 +38,9 @@ public class InactiveDeck {
         itemAcak.add("destroy");
         itemAcak.add("protect");
         itemAcak.add("bear_trap");
+        produkAcak.add("telur");
+        produkAcak.add("susu");
+        produkAcak.add("jagung");
 
     }
 
@@ -73,7 +78,7 @@ public class InactiveDeck {
         res.add(new KartuItem(itemAcak.get(random.nextInt(6))));
         if(nTaken == 3) return res;
         
-        res.add(new KartuTanaman(tanamanAcak.get(random.nextInt(3))));
+        res.add(new KartuProduk(produkAcak.get(random.nextInt(3))));
         return res;
     }
 

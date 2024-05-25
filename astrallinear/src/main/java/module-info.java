@@ -5,4 +5,5 @@ module com.astrallinear.astrallinear {
     requires com.fasterxml.jackson.databind;
     opens com.astrallinear.astrallinear to javafx.fxml;
     exports com.astrallinear.astrallinear;
+    exports com.astrallinear.astrallinear.Plugin;
 }

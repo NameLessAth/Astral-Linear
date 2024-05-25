@@ -17,7 +17,14 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class ShuffleController {
-
+    private static AudioManager audioManager;
+    static {
+        try {
+            audioManager = AudioManager.getInstance();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
     @FXML
     private Button BackToGameButton;
 
@@ -48,7 +55,7 @@ public class ShuffleController {
         //     System.out.println(k.getNama());
         //     if (shuffledCardsCopy.isEmpty()) break;
         // }
-        
+        audioManager.startSFX("ButtonClick");
         gameManager.getCurrentPlayerInstance().getDeck().acceptShuffle(shuffledCards);
         System.out.println( gameManager.getCurrentPlayerInstance().getDeck().countEmptySlot());
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -57,6 +64,7 @@ public class ShuffleController {
 
     @FXML
     void OnShuffleButton(ActionEvent event) throws Exception {
+        audioManager.startSFX("ButtonClick");
         //method buat shuffle
         Pemain pemain = gameManager.getCurrentPlayerInstance();
         Deck deck = pemain.getDeck();

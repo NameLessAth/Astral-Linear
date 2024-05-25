@@ -62,6 +62,7 @@ public class LoadStateSceneController {
     @FXML
     void BackToGame(ActionEvent e) throws IOException {
         //kembali ke ladang pemaiin yang sekarang bermain
+        audioManager.startSFX("ButtonClick");
         root = FXMLLoader.load(getClass().getResource("View/player"+gameManager.getCurrentPlayer()+"field.fxml"));
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -72,7 +73,9 @@ public class LoadStateSceneController {
     @FXML
     void LoadState(ActionEvent event) {
         //nanti algoritma buat savenya taroh di sini
-        if(containsSpecialChars(FileNameField.getText())){
+
+        if(containsSpecialChars(FileNameField.getText()) || FileNameField.getText().equals("") || FileNameField.getText() == null){
+            audioManager.startSFX("Error");
             Alert failSaveAlert = new Alert(AlertType.ERROR);
             failSaveAlert.setTitle("Notifikasi memuat");
             failSaveAlert.setHeaderText("Memuat dalam penamaan folder ini tidak diterima, muat gagal");
@@ -81,6 +84,7 @@ public class LoadStateSceneController {
         else{
             File directory = new File("test/" + FileNameField.getText());
             if (!directory.exists()){
+                audioManager.startSFX("Error");
                 Alert nextButtonAlert = new Alert(AlertType.ERROR);
                     nextButtonAlert.setTitle("Notifikasi memuat");
                     nextButtonAlert.setHeaderText("Folder dengan nama tersebut tidak ada, muat gagal");
@@ -98,6 +102,7 @@ public class LoadStateSceneController {
                     nextButtonAlert.setHeaderText("State program berhasil dimuat");
                     nextButtonAlert.show();
                 }catch(Exception e){
+                    audioManager.startSFX("Error");
                     Alert nextButtonAlert = new Alert(AlertType.ERROR);
                     nextButtonAlert.setTitle("Notifikasi memuat");
                     nextButtonAlert.setHeaderText("Terjadi anomali dalam memuat, muat gagal");

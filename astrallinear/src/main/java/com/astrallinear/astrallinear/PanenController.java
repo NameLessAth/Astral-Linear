@@ -24,6 +24,14 @@ import com.astrallinear.astrallinear.Pemain.Pemain;
 
 public class PanenController {
     //Tolong baca teks yang ada di scene panen.fxml dulu buat cara displaynya
+    private static AudioManager audioManager;
+    static {
+        try {
+            audioManager = AudioManager.getInstance();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
     @FXML
     private Button BackButton;
 
@@ -53,7 +61,7 @@ public class PanenController {
     @FXML
     void OnBackButtonClick(ActionEvent event) throws IOException {
         //unblock window game utama
-
+        audioManager.startSFX("ButtonClick");
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.close();
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("View/player"+gameManager.getCurrentPlayer()+"field.fxml"));
@@ -67,6 +75,7 @@ public class PanenController {
 
     @FXML
     void OnPanenButtonClick(ActionEvent event) throws Exception {
+        audioManager.startSFX("DropSuccess");
         GameManager gameManager = GameManager.getInstance();
 
         Pemain pemain = gameManager.getCurrentPlayerInstance();

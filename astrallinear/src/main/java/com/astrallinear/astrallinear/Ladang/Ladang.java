@@ -1,6 +1,7 @@
 package com.astrallinear.astrallinear.Ladang;
 import java.util.*;
 
+import com.astrallinear.astrallinear.AudioManager;
 import com.astrallinear.astrallinear.Kartu.KartuMakhluk;
 import com.astrallinear.astrallinear.Kartu.KartuProduk;
 import com.astrallinear.astrallinear.Kartu.KartuTanaman;
@@ -10,7 +11,14 @@ import com.astrallinear.astrallinear.Kartu.KartuItem;
 
 
 public class Ladang {
-
+    private static AudioManager audioManager;
+    static {
+        try {
+            audioManager = AudioManager.getInstance();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
     private static int height = 4;
     private static int width = 5;
     private List<KartuTanaman> daftarKartuTanaman;
@@ -60,7 +68,7 @@ public class Ladang {
     }
 
     public void move(Integer src_row, Integer src_col, Integer dst_row, Integer dst_col) throws FilledCellException,EmptyCellException {
-
+        audioManager.startSFX("DropSuccess");
         if (isFilled[dst_row][dst_col]) {
             throw new FilledCellException(dst_row, dst_col);
         }
@@ -101,6 +109,7 @@ public class Ladang {
     public void give_food_at(KartuProduk product, Integer row, Integer col) throws Exception {
         if (!isFilled[row][col]) throw new EmptyCellException(row, col);
         if (MakhlukMatrix[row][col] instanceof KartuHewan) {
+            audioManager.startSFX("DropSuccess");
             ((KartuHewan) MakhlukMatrix[row][col]).beriMakan(product);
         }
         else {
@@ -128,7 +137,8 @@ public class Ladang {
         GameManager gm = GameManager.getInstance();
         if (is_protected(row, col)) throw new Exception("sel ini di-protect!");
         if (gm.getCurrentPlayerInstance().getLadang() == this) throw new Exception("serang sel sendiri");
-        pop(row, col);   
+        pop(row, col);
+        audioManager.startSFX("DropSuccess");
     }
     public void kartu_trap(Integer row, Integer col) throws Exception {
         // if (isTrapped[row][col]) throw new AlreadyTrappedCellException(row, col);
@@ -138,6 +148,7 @@ public class Ladang {
         if (gm.getCurrentPlayerInstance().getLadang() != this) throw new Exception("bukan sel sendiri");
         
         // isTrapped[row][col] = true;
+        audioManager.startSFX("DropSuccess");
         get(row, col).addItemAktif(new KartuItem("bear_trap"));
     }
     public void kartu_protect(Integer row, Integer col) throws Exception {
@@ -148,6 +159,7 @@ public class Ladang {
         if (gm.getCurrentPlayerInstance().getLadang() != this) throw new Exception("bukan sel sendiri");
 
         // isProtected[row][col] = true;
+        audioManager.startSFX("DropSuccess");
         get(row, col).addItemAktif(new KartuItem("protect"));
     }
     public void kartu_accelerate(Integer row, Integer col) throws Exception {
@@ -158,6 +170,7 @@ public class Ladang {
 
         MakhlukMatrix[row][col].accelerate();
         get(row, col).addItemAktif(new KartuItem("accelerate"));
+        audioManager.startSFX("DropSuccess");
     }
     public void kartu_delay(Integer row, Integer col) throws Exception {
         if (!isFilled[row][col]) throw new EmptyCellException(row, col);
@@ -168,13 +181,14 @@ public class Ladang {
 
         MakhlukMatrix[row][col].delay();
         get(row, col).addItemAktif(new KartuItem("delay"));
+        audioManager.startSFX("DropSuccess");
     }
     public KartuProduk kartu_instant_harvest(Integer row, Integer col) throws Exception{
         if (!isFilled[row][col]) throw new EmptyCellException(row, col);
 
         GameManager gm = GameManager.getInstance();
         if (gm.getCurrentPlayerInstance().getLadang() != this) throw new Exception("bukan sel sendiri");
-
+        audioManager.startSFX("DropSuccess");
         return pop(row, col).instant_harvest_panen();
     }
 }

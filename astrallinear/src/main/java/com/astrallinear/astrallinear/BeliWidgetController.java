@@ -18,7 +18,14 @@ import com.astrallinear.astrallinear.Toko.Toko;
 
 import javafx.event.ActionEvent;
 public class BeliWidgetController {
-
+    private static AudioManager audioManager;
+    static {
+        try {
+            audioManager = AudioManager.getInstance();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
     @FXML
     private Button BuyButton;
 
@@ -42,18 +49,21 @@ public class BeliWidgetController {
     }
     @FXML
     void OnBuyButtonClicked(ActionEvent event) throws Exception{
+
         GameManager gameManager = GameManager.getInstance();
         Pemain currentPlayer = gameManager.getCurrentPlayerInstance();
         KartuProduk kartuProduk = new KartuProduk(this.getBuyItemNameLabel().
         getText());
 
         if(currentPlayer.getGulden() < kartuProduk.getHarga()){
+            audioManager.startSFX("Error");
             Alert miskinAlert = new Alert(AlertType.ERROR);
             miskinAlert.setTitle("Notifikasi pembelian");
             miskinAlert.setHeaderText("Aa kasian aa..\nduit anda tidak mencukupi, pembelian gagal");
             miskinAlert.show();
         }
         else if(currentPlayer.getDeck().countEmptySlot() == 0){
+            audioManager.startSFX("Error");
             Alert fullDeckAlert = new Alert(AlertType.ERROR);
             fullDeckAlert.setTitle("Notifikasi pembelian");
             fullDeckAlert.setHeaderText("Deck anda sudah penuh, pembelian gagal");
@@ -61,6 +71,7 @@ public class BeliWidgetController {
         }
         else{
             Alert nextButtonAlert = new Alert(AlertType.INFORMATION);
+            audioManager.startSFX("DropSuccess");
             nextButtonAlert.setTitle("Notifikasi pembelian");
             nextButtonAlert.setHeaderText("Pembelian berhasil");
             currentPlayer.reduceGulden(kartuProduk.getHarga());
