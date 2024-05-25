@@ -1,9 +1,9 @@
 package com.astrallinear.astrallinear;
 
 import com.astrallinear.astrallinear.GameManager.GameManager;
-import com.astrallinear.astrallinear.SaveLoad.Load;
-import com.astrallinear.astrallinear.SaveLoad.Save;
+import com.astrallinear.astrallinear.Plugin.SaveLoadPlugin;
 import com.astrallinear.astrallinear.Toko.Toko;
+import com.astrallinear.astrallinear.TxtSaveLoad.TxtLoad;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -88,7 +88,7 @@ public class LoadStateSceneController {
             }
             else{
                 try{
-                    Load.LoadGame("test/" + FileNameField.getText());
+                    TxtLoad.LoadGame("test/" + FileNameField.getText());
                     Alert nextButtonAlert = new Alert(AlertType.INFORMATION);
                     nextButtonAlert.setTitle("Notifikasi memuat");
                     nextButtonAlert.setHeaderText("State program berhasil dimuat");

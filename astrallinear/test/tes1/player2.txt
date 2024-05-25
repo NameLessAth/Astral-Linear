@@ -1,8 +1,6 @@
 0
 40
-4
+2
 A01 hiu_darat
 B01 beruang
-C01 hiu_darat
-D01 beruang
 0

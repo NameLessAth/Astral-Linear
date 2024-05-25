@@ -1,0 +1,8 @@
+0
+40
+2
+A01 sapi
+B01 ayam
+2
+D02 sapi 0 4 accelerate accelerate accelerate protect
+E04 beruang 0 0

@@ -17,8 +17,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 import com.astrallinear.astrallinear.GameManager.GameManager;
-import com.astrallinear.astrallinear.SaveLoad.Save;
+import com.astrallinear.astrallinear.TxtSaveLoad.TxtSave;
 import com.astrallinear.astrallinear.Toko.Toko;
+import com.astrallinear.astrallinear.TxtSaveLoad.TxtSave;
 
 public class SaveStateSceneController {
     private static GameManager gameManager;
@@ -78,7 +79,7 @@ public class SaveStateSceneController {
         }
         else{
             try{
-                Save.SaveGameState(GameManager.getInstance(), Toko.getToko(), "test/" + FileNameField.getText());
+                TxtSave.SaveGameState(GameManager.getInstance(), Toko.getToko(), "test/" + FileNameField.getText());
                 Alert nextButtonAlert = new Alert(AlertType.INFORMATION);
                 nextButtonAlert.setTitle("Notifikasi menyimpan");
                 nextButtonAlert.setHeaderText("State program berhasil disimpan");

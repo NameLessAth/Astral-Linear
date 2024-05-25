@@ -1,2 +1,4 @@
-1
-0
+2
+2
+susu 2
+sirip_hiu 2

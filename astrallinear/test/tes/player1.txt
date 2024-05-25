@@ -1,8 +1,12 @@
 0
-36
+40
 4
-A01 biji_stroberi
+A01 sapi
 B01 ayam
-C01 bear_trap
-D01 biji_labu
-0
+C01 sapi
+D01 ayam
+4
+B02 sapi 0 4 accelerate accelerate accelerate protect
+D02 sapi 0 24 instant_harvest instant_harvest instant_harvest instant_harvest delay delay delay delay bear_trap bear_trap bear_trap bear_trap accelerate accelerate accelerate accelerate destroy destroy destroy destroy protect protect protect protect
+D03 beruang 0 0
+E04 beruang 0 0

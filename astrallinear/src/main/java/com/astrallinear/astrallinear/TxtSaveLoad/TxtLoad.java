@@ -1,4 +1,4 @@
-package com.astrallinear.astrallinear.SaveLoad;
+package com.astrallinear.astrallinear.TxtSaveLoad;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -17,7 +17,7 @@ import com.astrallinear.astrallinear.Toko.Toko;
 
 import javafx.util.Pair;
 
-public class Load {
+public class TxtLoad {
 
     private static Integer currentTurn;
     private static Toko toko;
@@ -61,7 +61,7 @@ public class Load {
             String line;
 
             line = br.readLine().strip();
-            Load.currentTurn = Integer.valueOf(line);
+            TxtLoad.currentTurn = Integer.valueOf(line);
             
             line = br.readLine().strip();
             Integer tokoCount = Integer.valueOf(line);

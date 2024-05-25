@@ -8,6 +8,8 @@ import com.astrallinear.astrallinear.Kartu.KartuItem;
 import com.astrallinear.astrallinear.Kartu.KartuProduk;
 import com.astrallinear.astrallinear.Pemain.Pemain;
 import com.astrallinear.astrallinear.Toko.Toko;
+import com.astrallinear.astrallinear.TxtSaveLoad.TxtLoad;
+import com.astrallinear.astrallinear.TxtSaveLoad.TxtSave;
 
 public class SaveLoadTest {
     @Test //test
@@ -27,7 +29,7 @@ public class SaveLoadTest {
         // pemain.getLadang().kartu_accelerate(1, 1);
 
         // System.err.println(pemain.getDeck().getRemainingInactiveDeck());
-        Save.SavePlayerState(pemain, "test/tes", "pemain3");
+        TxtSave.SavePlayerState(pemain, "test/tes", "pemain3");
     }
 
     @Test //test2
@@ -55,7 +57,7 @@ public class SaveLoadTest {
         toko.sellProduct(new KartuProduk("sirip_hiu"));
         toko.sellProduct(new KartuProduk("susu"));
 
-        Save.SaveGameState(gameManager, toko, "test/tes");
+        TxtSave.SaveGameState(gameManager, toko, "test/tes");
     }
 
     @Test //test3
@@ -84,8 +86,8 @@ public class SaveLoadTest {
         toko.sellProduct(new KartuProduk("sirip_hiu"));
         toko.sellProduct(new KartuProduk("susu"));
 
-        Save.SaveGameState(gameManager, toko, "test/tes");
-        Load.LoadGame("test/tes");
-        Save.SaveGameState(gameManager, toko, "test/tes1");
+        TxtSave.SaveGameState(gameManager, toko, "test/tes");
+        TxtLoad.LoadGame("test/tes");
+        TxtSave.SaveGameState(gameManager, toko, "test/tes1");
     }
 }

@@ -1,4 +1,4 @@
-package com.astrallinear.astrallinear.SaveLoad;
+package com.astrallinear.astrallinear.TxtSaveLoad;
 
 import java.io.FileWriter;
 import java.io.File;
@@ -11,9 +11,11 @@ import com.astrallinear.astrallinear.Kartu.KartuHewan;
 import com.astrallinear.astrallinear.Kartu.KartuTanaman;
 import com.astrallinear.astrallinear.Ladang.Ladang;
 import com.astrallinear.astrallinear.Pemain.Pemain;
+import com.astrallinear.astrallinear.Plugin.SaveLoadPlugin;
 import com.astrallinear.astrallinear.Toko.Toko;
 
-public class Save {
+public class TxtSave {
+
     public static void SaveGameState(GameManager gmg, Toko shop, String filepath) throws Exception{
         File directory = new File(filepath);
         if (!directory.exists()) directory.mkdirs();
@@ -26,8 +28,8 @@ public class Save {
         bufferWrite.write(String.format("%d", shop.getIsiToko().size()) + '\n');
 
         // write player
-        Save.SavePlayerState(gmg.getPlayer(0), filepath, "player1");
-        Save.SavePlayerState(gmg.getPlayer(1), filepath, "player2");
+        TxtSave.SavePlayerState(gmg.getPlayer(0), filepath, "player1");
+        TxtSave.SavePlayerState(gmg.getPlayer(1), filepath, "player2");
 
         // write tiap item di toko
         List<String> listItems = new ArrayList<>(shop.getIsiToko().keySet());

@@ -1,0 +1,12 @@
+0
+40
+6
+A01 sapi
+B01 sapi
+C01 sapi
+D01 sapi
+E01 sapi
+F01 sapi
+2
+B02 sapi 0 0
+B03 beruang 0 0
