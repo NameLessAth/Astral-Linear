@@ -10,8 +10,12 @@ public class PluginState {
     private static SaveLoadPlugin usedPlugin = new TxtSaveLoader();
     private static List<SaveLoadPlugin> plugins = new ArrayList<SaveLoadPlugin>(Arrays.asList(usedPlugin));
 
-    public void setUsedPlugin(SaveLoadPlugin plugin) {
+    public static void setUsedPlugin(SaveLoadPlugin plugin) {
         PluginState.usedPlugin = plugin;
+    }
+    
+    public static void setAvailablePlugins(List<SaveLoadPlugin> plugins) {
+        PluginState.plugins = plugins;
     }
     
     public void addPlugin(SaveLoadPlugin plugin) {

@@ -1,6 +1,10 @@
 package com.astrallinear.astrallinear;
 
 import com.astrallinear.astrallinear.GameManager.GameManager;
+import com.astrallinear.astrallinear.Plugin.PluginLoader;
+import com.astrallinear.astrallinear.Plugin.PluginState;
+import com.astrallinear.astrallinear.Plugin.SaveLoadPlugin;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -68,11 +72,18 @@ public class LoadPluginSceneController {
     @FXML
     void Refresh(ActionEvent event) {
         System.out.println("Refresh"+PluginSelectionDropdown.getValue());
+        PluginLoader pl = new PluginLoader();
+        List<SaveLoadPlugin> pluginsList = pl.loadPlugins("plugins/");
+        PluginState.setAvailablePlugins(pluginsList);
+        initialize();
     }
     @FXML
     void LoadPlugin(ActionEvent event) {
-        //tau dah dikerjain apa gak ini aowokawoko
-        System.out.println("Load Plugin"+PluginSelectionDropdown.getValue());
+        for (SaveLoadPlugin plugin : PluginState.getAvailalePlugins()) {
+            if (PluginSelectionDropdown.getValue().equals(plugin.getExtName())) {
+                PluginState.setUsedPlugin(plugin);
+            }
+        }
     }
 
     @FXML
@@ -80,10 +91,11 @@ public class LoadPluginSceneController {
         //ini cuma buat nunjukkin cara masukin valuenya ke dropdown
         audioManager.startLoadPluginBGM();
         ArrayList<String> dummyList = new ArrayList<>();
-        dummyList.add("Cara masukin valuenya");
-        dummyList.add("begini");
-        dummyList.add("ikutin aja");
+        for (SaveLoadPlugin plugin : PluginState.getAvailalePlugins()) {
+            dummyList.add(plugin.getExtName());
+        }
         PluginSelectionDropdown.getItems().setAll(dummyList);
-        PluginNameLabel.setText("ini nama plugin yang udah diload");
+
+        PluginNameLabel.setText(PluginState.getUsedPlugin().getExtName());
     }
 }

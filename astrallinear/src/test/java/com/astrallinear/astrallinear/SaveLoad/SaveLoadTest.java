@@ -87,7 +87,7 @@ public class SaveLoadTest {
         toko.sellProduct(new KartuProduk("susu"));
 
         TxtSave.SaveGameState(gameManager, toko, "test/tes");
-        TxtLoad.LoadGame("test/tes");
+        TxtLoad.LoadGame(gameManager, toko, "test/tes");
         TxtSave.SaveGameState(gameManager, toko, "test/tes1");
     }
 }
